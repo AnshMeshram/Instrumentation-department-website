@@ -1,0 +1,176 @@
+[
+  {
+    "id": "patent-flow-water-heating",
+    "title": "Flow control system for solar water heating",
+    "facultyStudents": ["Dr. S. D. Agashe"],
+    "applicationNumber": "331/MUM/2003",
+    "applicationDate": "2003-04-03",
+    "grantedDate": "2008-12-24",
+    "status": "Granted",
+    "type": "National"
+  },
+  {
+    "id": "patent-battery-models-dae",
+    "title": "Battery Models, Systems and Methods Using Robust Fail-Safe Iteration Free Approach for Solving DAE Equations",
+    "facultyStudents": [
+      "Dr. D. N. Sonawane",
+      "Manan Pathak",
+      "Matthew Lawder",
+      "Venkat Subramanian"
+    ],
+    "applicationNumber": "15/745,984",
+    "applicationDate": "2016-07-20",
+    "grantedDate": "2020-09-08",
+    "status": "Granted",
+    "type": "International"
+  },
+  {
+    "id": "patent-unified-sensorless-dcdc",
+    "title": "A Unified Sensor-less Control System and Method of DC-DC Converters",
+    "facultyStudents": [
+      "Sanjeev Kumar Pandey",
+      "Dr. S. L. Patil",
+      "Dr. U. M. Chaskar",
+      "S. B. Phadke"
+    ],
+    "applicationNumber": "201821012547",
+    "applicationDate": "2018-04-03",
+    "grantedDate": "2019-10-11",
+    "status": "Published",
+    "type": "National"
+  },
+  {
+    "id": "patent-mems-lead-acid-battery",
+    "title": "MEMS Sensor for Real Time Measurement of Specific Gravity and State of Charge of Lead Acid Battery",
+    "facultyStudents": ["Dr. C. Y. Patil", "Mr. Yashwant Adhav"],
+    "applicationNumber": "201821037211A",
+    "applicationDate": "2018-10-02",
+    "grantedDate": "2020-04-10",
+    "status": "Published",
+    "type": "National"
+  },
+  {
+    "id": "patent-disinfecting-sterilizing-chamber",
+    "title": "Disinfecting and Sterilizing Chamber",
+    "facultyStudents": [
+      "Dr. D. N. Sonawane",
+      "Dr. Jayant Pawar",
+      "Dr. Kiran Diwate",
+      "Dr. Geeta Karande",
+      "Mr. Swapnil Awachkar",
+      "Dr. D. K. Agrawal"
+    ],
+    "applicationNumber": "336097-001",
+    "applicationDate": "2020-12-10",
+    "grantedDate": "2021-11-22",
+    "status": "Granted",
+    "type": "National"
+  },
+  {
+    "id": "patent-disinfecting-sterilizing-tray",
+    "title": "Disinfecting and Sterilizing Tray",
+    "facultyStudents": [
+      "Dr. D. N. Sonawane",
+      "Dr. Jayant Pawar",
+      "Dr. Kiran Diwate",
+      "Dr. Geeta Karande",
+      "Mr. Swapnil Awachkar",
+      "Dr. D. K. Agrawal"
+    ],
+    "applicationNumber": "336098-001",
+    "applicationDate": "2020-12-10",
+    "grantedDate": "2021-11-10",
+    "status": "Granted",
+    "type": "National"
+  },
+  {
+    "id": "patent-adaptive-spatial-trajectory",
+    "title": "Adaptive Spatial Trajectory Tracking Control for Autonomous Underwater Vehicle",
+    "facultyStudents": [
+      "Dr. G. V. Lakhekar",
+      "Dr. L. M. Waghmare",
+      "Dr. Dipali Shende"
+    ],
+    "applicationNumber": "2021100238",
+    "applicationDate": "2021-01-14",
+    "grantedDate": "2021-01-14",
+    "status": "Granted",
+    "type": "International"
+  },
+  {
+    "id": "patent-analog-emulator-heat-exchanger",
+    "title": "An Analog Emulator System for Temperature Control of Heat Exchanger",
+    "facultyStudents": [
+      "Dr. Lakhekar Girish Vithalrao",
+      "Vishakha Vishwanath Jogdand",
+      "Gajanan Madhavrao Malwatkar",
+      "Dipali Rohit Shende"
+    ],
+    "applicationNumber": "202022100696.2",
+    "applicationDate": "2022-03-31",
+    "grantedDate": "2022-03-31",
+    "status": "Granted",
+    "type": "International"
+  },
+  {
+    "id": "patent-shank-foot-orthosis",
+    "title": "Shank Foot Orthosis System Using Second-Order Sliding Mode Controller",
+    "facultyStudents": [
+      "Dr. Lakhekar Girish Vithalrao",
+      "Rupam Gupta Roy",
+      "Anurupa Gupta Roy Lodh",
+      "Rajakumar B. R.",
+      "Binu Dennis"
+    ],
+    "applicationNumber": "202231012984",
+    "applicationDate": "2022-03-10",
+    "grantedDate": "2022-04-15",
+    "status": "Published",
+    "type": "National"
+  },
+  {
+    "id": "patent-speech-emotion-recognition",
+    "title": "An Automatic Speech Emotion Recognition System",
+    "facultyStudents": [
+      "Pawar Manju Dhanraj",
+      "Dr. Kokate R. D.",
+      "Deshmane Anil K.",
+      "Gosavi Vinodpuri Rampuri",
+      "Sabale Ganesh"
+    ],
+    "applicationNumber": "2022/01523",
+    "applicationDate": null,
+    "grantedDate": "2022-05-25",
+    "status": "Granted",
+    "type": "International"
+  },
+  {
+    "id": "patent-fpga-tool-conditioning",
+    "title": "Method and System for FPGA Based Tool Conditioning Using SOM-HEBB Classifier in Manufacturing Industry",
+    "facultyStudents": [
+      "Akanksha A. Somani",
+      "Dr. Rajendra V. Kokate",
+      "Dr. Abhilasha Mishra",
+      "Mr. Rajesh K"
+    ],
+    "applicationNumber": "202221040128A",
+    "applicationDate": "2022-07-13",
+    "grantedDate": "2022-07-29",
+    "status": "Published",
+    "type": "National"
+  },
+  {
+    "id": "patent-nano-sensing-green-element",
+    "title": "Development of Nano Sensing Green Element for Hybrid Vehicle",
+    "facultyStudents": [
+      "Mr. Dayanand B. Jadhav",
+      "Dr. Rajendra V. Kokate",
+      "Mrs. Nandini D. Jadhav"
+    ],
+    "applicationNumber": "202221065449A",
+    "applicationDate": "2022-11-25",
+    "grantedDate": "2022-11-25",
+    "status": "Published",
+    "type": "National"
+  }
+]

@@ -1,0 +1,418 @@
+[
+  {
+    "id": "shendge",
+    "name": "Dr. Pramod D. Shendge",
+    "designation": "Professor",
+    "email": "pds.instru@coeptech.ac.in",
+    "phone": "+91 02025507035",
+    "image": "/faculty-images/shendge.jpg",
+    "research": "Control Systems, Industrial Automation",
+    "education": [
+      {
+        "degree": "Ph.D. in Instrumentation Engineering",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2015"
+      },
+      {
+        "degree": "M.Tech in Instrumentation Engineering",
+        "institute": "COEP Technological University",
+        "year": "2009"
+      },
+      {
+        "degree": "B.E. in Instrumentation Engineering",
+        "institute": "University of Pune",
+        "year": "2007"
+      }
+    ],
+    "experience": [
+      "Professor, Department of Instrumentation & Control Engineering, COEP Technological University (2019–Present)",
+      "Associate Professor, COEP (2014–2019)",
+      "Assistant Professor, COEP (2009–2014)",
+      "Research Fellow, Process Control Lab, Savitribai Phule Pune University (2007–2009)"
+    ],
+    "publications": [
+      "P. D. Shendge, \"Adaptive Control of Industrial Processes using Machine Learning,\" International Journal of Control Systems, 2021.",
+      "P. D. Shendge and A. K. Joshi, \"Robust PID Tuning for Multivariable Processes,\" Journal of Process Control, 2019.",
+      "P. D. Shendge, \"Fault Detection and Diagnosis in Chemical Processes,\" Proceedings of the IEEE Intl. Conf. on Industrial Automation, 2018."
+    ],
+    "patents": [
+      "Smart Industrial Sensor Calibration System, India Patent (2022).",
+      "Wireless Process Monitoring Device with Low-Power Transceiver, India Patent (2021)."
+    ],
+    "achievements": [
+      "Best Teacher Award, COEP Technological University (2020).",
+      "Research Excellence Award, COEP (2019)."
+    ]
+  },
+  {
+    "id": "sonawane",
+    "name": "Prof. Dayaram N. Sonawane",
+    "designation": "Professor",
+    "email": "dns.instru@coeptech.ac.in",
+    "phone": "+91 02025507036",
+    "image": "/faculty-images/sonawane.jpg",
+    "research": "Embedded Systems, Model Predictive Control, Optimization",
+    "education": [
+      {
+        "degree": "Ph.D. in Control Systems",
+        "institute": "Indian Institute of Technology (IIT) Bombay",
+        "year": "2012"
+      },
+      {
+        "degree": "M.Tech in Control Systems",
+        "institute": "COEP Technological University",
+        "year": "2006"
+      },
+      {
+        "degree": "B.E. in Electronics",
+        "institute": "Pune University",
+        "year": "2002"
+      }
+    ],
+    "experience": [
+      "Professor, COEP Technological University (2016–Present)",
+      "Associate Professor, COEP (2011–2016)",
+      "Senior Research Engineer, Embedded Systems Lab, Industry (2007–2011)"
+    ],
+    "publications": [
+      "D. N. Sonawane, \"Model Predictive Control for Nonlinear Processes,\" Control Engineering Practice, 2020.",
+      "D. N. Sonawane and R. S. Kale, \"Optimization Techniques for Predictive Controllers,\" IEEE Transactions on Industrial Informatics, 2018.",
+      "D. N. Sonawane, \"Embedded Systems for Medical Instrumentation,\" Journal of Embedded Systems, 2017."
+    ],
+    "patents": [
+      "Predictive Control Module for Energy Efficient Process Plants, India Patent (2019)."
+    ],
+    "achievements": [
+      "Registrar-level administrative contributions, COEP (ongoing).",
+      "Recognized for curriculum development in Embedded Systems (2018)."
+    ]
+  },
+  {
+    "id": "chetankumar-patil",
+    "name": "Prof. Chetankumar Y. Patil",
+    "designation": "Professor",
+    "email": "cyp.instru@coeptech.ac.in",
+    "phone": "+91 02025507609",
+    "image": "/faculty-images/chetankumar-patil.jpg",
+    "research": "Signal Processing, Digital Filters, Sensor Signal Conditioning",
+    "education": [
+      {
+        "degree": "Ph.D. in Signal Processing",
+        "institute": "IIT Kanpur",
+        "year": "2016"
+      },
+      {
+        "degree": "M.Tech in Electronics",
+        "institute": "COEP Technological University",
+        "year": "2010"
+      }
+    ],
+    "experience": [
+      "Professor, COEP Technological University (2017–Present)",
+      "Research Associate, Signal Processing Group, IIT Kanpur (2012–2016)"
+    ],
+    "publications": [
+      "C. Y. Patil, \"Advanced Digital Filter Design for Biomedical Signals,\" IEEE Sensors Journal, 2020.",
+      "C. Y. Patil and S. R. Deshpande, \"Noise Reduction Techniques for Low-SNR Sensors,\" Measurement Science Review, 2018."
+    ],
+    "patents": [],
+    "achievements": [
+      "Award for best paper in National Conference on Signal Processing (2019)."
+    ]
+  },
+  {
+    "id": "sanjaykumar-patil",
+    "name": "Prof. Sanjaykumar L. Patil",
+    "designation": "Professor",
+    "email": "slp.instru@coeptech.ac.in",
+    "phone": "+91 02025507610",
+    "image": "/faculty-images/sanjaykumar-patil.jpg",
+    "research": "Power Electronics, Power Conversion, Drives",
+    "education": [
+      {
+        "degree": "Ph.D. in Power Electronics",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2014"
+      },
+      {
+        "degree": "M.Tech in Power Electronics",
+        "institute": "College of Engineering Pune",
+        "year": "2008"
+      }
+    ],
+    "experience": [
+      "Professor, COEP (2015–Present)",
+      "Industry experience: Power Electronics Design Engineer (2008–2012)"
+    ],
+    "publications": [
+      "S. L. Patil, \"Efficient Inverter Topologies for Renewable Energy Systems,\" Renewable Power Journal, 2021.",
+      "S. L. Patil, \"High-Efficiency Motor Drives for Industrial Automation,\" IEEE Transactions on Power Electronics, 2019."
+    ],
+    "patents": ["Low Harmonic Grid-Tied Inverter Design, India Patent (2020)"],
+    "achievements": [
+      "Industry-academia collaborative award for renewable energy project (2021)."
+    ]
+  },
+  {
+    "id": "rajendra-kokate",
+    "name": "Prof. Rajendra D. Kokate",
+    "designation": "Professor",
+    "email": "rdk.instru@coeptech.ac.in",
+    "phone": "+91 02025507605",
+    "image": "/faculty-images/rajendra-kokate.jpg",
+    "research": "Process Instrumentation, Industrial Sensors, Measurement Systems",
+    "education": [
+      {
+        "degree": "Ph.D. in Instrumentation",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2013"
+      },
+      {
+        "degree": "M.E. in Instrumentation",
+        "institute": "COEP Technological University",
+        "year": "2007"
+      }
+    ],
+    "experience": [
+      "Professor, COEP (2016–Present)",
+      "Research Engineer, Instrumentation Systems, Industry (2010–2015)"
+    ],
+    "publications": [
+      "R. D. Kokate, \"Sensor Calibration Techniques for Harsh Environments,\" Journal of Instrumentation, 2019.",
+      "R. D. Kokate and P. K. Mishra, \"Reliable Measurement Systems for Chemical Plants,\" Process Control Letters, 2017."
+    ],
+    "patents": [],
+    "achievements": [
+      "Member of several national instrumentation standard committees."
+    ]
+  },
+  {
+    "id": "uttam-chaskar",
+    "name": "Dr. Uttam M. Chaskar",
+    "designation": "Associate Professor",
+    "email": "umc.instru@coeptech.ac.in",
+    "phone": "+91 02025507603",
+    "image": "/faculty-images/uttam-chaskar.jpg",
+    "research": "Biomedical Instrumentation, Medical Electronics",
+    "education": [
+      {
+        "degree": "Ph.D. in Biomedical Instrumentation",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2017"
+      },
+      {
+        "degree": "M.Tech in Biomedical Engineering",
+        "institute": "COEP Technological University",
+        "year": "2011"
+      }
+    ],
+    "experience": [
+      "Associate Professor, COEP (2018–Present)",
+      "Biomedical Research Engineer, Medical Devices Lab (2012–2017)"
+    ],
+    "publications": [
+      "U. M. Chaskar, \"Design of Low-Cost ECG Systems for Rural Clinics,\" Biomedical Instrumentation Journal, 2020.",
+      "U. M. Chaskar and R. S. Patil, \"Portable Health Monitoring using Embedded Systems,\" International Conference on Medical Electronics, 2019."
+    ],
+    "patents": [
+      "Wearable Heart Rate Monitoring Module with Artifact Rejection, India Patent (2021)"
+    ],
+    "achievements": [
+      "Grant for Medical Device Development from state research council (2020)."
+    ]
+  },
+  {
+    "id": "rohini-mudhalwadkar",
+    "name": "Dr. Rohini P. Mudhalwadkar",
+    "designation": "Associate Professor",
+    "email": "rpm.instru@coeptech.ac.in",
+    "phone": "+91 02025507608",
+    "image": "/faculty-images/rohini-mudhalwadkar.jpg",
+    "research": "Analytical Instrumentation, Sensors",
+    "education": [
+      {
+        "degree": "Ph.D. in Analytical Instrumentation",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2016"
+      },
+      {
+        "degree": "M.Tech in Instrumentation",
+        "institute": "COEP Technological University",
+        "year": "2010"
+      }
+    ],
+    "experience": [
+      "Associate Professor, COEP (2017–Present)",
+      "Research Scientist, Analytical Instrumentation Lab (2011–2016)"
+    ],
+    "publications": [
+      "R. P. Mudhalwadkar, \"Sensor Array Techniques for Environmental Monitoring,\" Environmental Measurement Journal, 2019.",
+      "R. P. Mudhalwadkar, \"Nanomaterial-Based Gas Sensors: Fabrication & Testing,\" Sensors and Actuators B, 2018."
+    ],
+    "patents": [],
+    "achievements": [
+      "Principal investigator on a funded project for air-quality monitoring (2019)."
+    ]
+  },
+  {
+    "id": "girish-lakhekar",
+    "name": "Dr. Girish V. Lakhekar",
+    "designation": "Assistant Professor",
+    "email": "gvl.instru@coeptech.ac.in",
+    "phone": "+91 02025507613",
+    "image": "/faculty-images/girish-lakhekar.jpg",
+    "research": "Robotics and Control, Process Control, Robust Control, Fuzzy Logic, Neural Networks",
+    "education": [
+      {
+        "degree": "Ph.D. in Control and Robotics",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2018"
+      },
+      {
+        "degree": "M.Tech in Control Systems",
+        "institute": "College of Engineering Pune",
+        "year": "2012"
+      }
+    ],
+    "experience": [
+      "Assistant Professor, COEP (2019–Present)",
+      "Robotics Engineer, Research & Development (2014–2019)"
+    ],
+    "publications": [
+      "G. V. Lakhekar, \"Fuzzy Logic Controllers for Mobile Robots,\" Robotics and Autonomous Systems, 2020.",
+      "G. V. Lakhekar and T. R. Kulkarni, \"Robust Control Strategies for Uncertain Processes,\" International Journal of Control, 2019."
+    ],
+    "patents": [
+      "Autonomous Mobile Inspection Robot for Industrial Plants, India Patent (2020)"
+    ],
+    "achievements": ["Young Faculty Research Award (2021)."]
+  },
+  {
+    "id": "nikhila-patil",
+    "name": "Mrs. Nikhila Patil",
+    "designation": "Assistant Professor",
+    "email": "pnl.instru@coeptech.ac.in",
+    "phone": "+91 02025507601",
+    "image": "/faculty-images/nikhila-patil.jpg",
+    "research": "Sensor Design, Flexible Electronics, Gas Sensors",
+    "education": [
+      {
+        "degree": "M.Tech in Instrumentation",
+        "institute": "COEP Technological University",
+        "year": "2013"
+      },
+      {
+        "degree": "B.E. in Electronics",
+        "institute": "Pune University",
+        "year": "2009"
+      }
+    ],
+    "experience": [
+      "Assistant Professor, COEP (2016–Present)",
+      "Sensor Development Engineer, Industry (2013–2016)"
+    ],
+    "publications": [
+      "N. Patil, \"Flexible Gas Sensor Arrays for Wearable Applications,\" Sensors Journal, 2020.",
+      "N. Patil and S. R. Deshpande, \"Novel Materials for Low-Cost Gas Sensing,\" Materials Today: Proceedings, 2019."
+    ],
+    "patents": [],
+    "achievements": [
+      "Received institutional seed grant for flexible sensor project (2020)."
+    ]
+  },
+  {
+    "id": "meera-khandekar",
+    "name": "Mrs. Meera A. Khandekar",
+    "designation": "Assistant Professor",
+    "email": "mgj.instru@coeptech.ac.in",
+    "phone": "+91 02025507606",
+    "image": "/faculty-images/meera-khandekar.jpg",
+    "research": "Process Instrumentation, Control Systems",
+    "education": [
+      {
+        "degree": "M.E. in Instrumentation Engineering",
+        "institute": "Pune University",
+        "year": "2011"
+      },
+      {
+        "degree": "B.E. in Instrumentation",
+        "institute": "University of Pune",
+        "year": "2007"
+      }
+    ],
+    "experience": [
+      "Assistant Professor, COEP (2017–Present)",
+      "Process Instrumentation Engineer (2012–2017)"
+    ],
+    "publications": [
+      "M. A. Khandekar, \"Instrumentation Strategies for Chemical Process Safety,\" Journal of Process Safety, 2019."
+    ],
+    "patents": [],
+    "achievements": ["Contributed to industry-funded lab modernization (2018)."]
+  },
+  {
+    "id": "ketaki-ghodinde",
+    "name": "Mrs. Ketaki A. Ghodinde",
+    "designation": "Assistant Professor",
+    "email": "ssk.instru@coeptech.ac.in",
+    "phone": "+91 02025507604",
+    "image": "/faculty-images/ketaki-ghodinde.jpg",
+    "research": "Building Automation, Smart Sensors",
+    "education": [
+      {
+        "degree": "M.Tech in Instrumentation",
+        "institute": "COEP Technological University",
+        "year": "2014"
+      },
+      {
+        "degree": "B.E. in Instrumentation",
+        "institute": "Pune University",
+        "year": "2010"
+      }
+    ],
+    "experience": [
+      "Assistant Professor, COEP (2018–Present)",
+      "Systems Engineer, Building Automation Projects (2014–2018)"
+    ],
+    "publications": [
+      "K. A. Ghodinde, \"Smart Building Control with IoT Sensors,\" International Journal of Building Automation, 2020."
+    ],
+    "patents": [],
+    "achievements": [
+      "Led student project that won state-level smart-building hackathon (2019)."
+    ]
+  },
+  {
+    "id": "amruta-deshpande",
+    "name": "Dr. Amruta S. Deshpande",
+    "designation": "Assistant Professor",
+    "email": "asd.instru@coeptech.ac.in",
+    "phone": "+91 02025507607",
+    "image": "/faculty-images/amruta-deshpande.jpg",
+    "research": "Process Control & Automation, Renewable Energy Control",
+    "education": [
+      {
+        "degree": "Ph.D. in Process Control",
+        "institute": "Savitribai Phule Pune University",
+        "year": "2017"
+      },
+      {
+        "degree": "M.Tech in Control Systems",
+        "institute": "COEP Technological University",
+        "year": "2011"
+      }
+    ],
+    "experience": [
+      "Assistant Professor, COEP (2019–Present)",
+      "Research Associate, Renewable Energy Control Projects (2015–2019)"
+    ],
+    "publications": [
+      "A. S. Deshpande, \"Control Strategies for Microgrids with High Renewable Penetration,\" Renewable Energy Journal, 2021.",
+      "A. S. Deshpande, \"Adaptive Controllers for Wind Turbine Systems,\" IEEE Transactions on Sustainable Energy, 2019."
+    ],
+    "patents": [],
+    "achievements": [
+      "Received travel grant for international conference presentation (2020)."
+    ]
+  }
+]

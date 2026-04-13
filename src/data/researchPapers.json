@@ -1,0 +1,101 @@
+[
+  {
+    "id": "research-paper-numerical-optimization-mpc",
+    "title": "Numerical optimization in reconfigurable hardware to extend the use of model predictive control for real time applications",
+    "investigators": ["Mrs. Vaishali Patne", "Dr. D. N. Sonawane"],
+    "sanctionedDate": "2019-12-30",
+    "grantAmount": "28.14 Lakhs",
+    "status": "Completed",
+    "sponsoringAuthority": "DST, Women Scientist Scheme",
+    "sanctionLetter": "F. No: SR/WOS-A/ET-120/2018 (Date: 30/12/2019)",
+    "duration": "3 Years",
+    "year": "2019-2020",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-vehicle-dynamic-plant-model",
+    "title": "Development of Vehicle Dynamic Plant Model and Embedded Co-Simulation with ARM Platform",
+    "investigators": ["Dr. D. N. Sonawane"],
+    "sanctionedDate": "2020-11-25",
+    "grantAmount": "7.50 Lakhs",
+    "status": "Completed",
+    "sponsoringAuthority": "CARS, VRDE (DRDO), A'Nagar",
+    "sanctionLetter": "VRDE/21CR000",
+    "duration": "08 Months",
+    "year": "2020-2021",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-dynamic-nonlinear-controller-lmv",
+    "title": "Design and Development of Dynamic Non-Linear Closed Loop Controller for LMV",
+    "investigators": ["Dr. D. N. Sonawane"],
+    "sanctionedDate": "2022-04-11",
+    "grantAmount": "9.15 Lakhs",
+    "status": "Completed",
+    "sponsoringAuthority": "CARS, VRDE (DRDO), A'Nagar",
+    "sanctionLetter": "VRDE/23CR0001/UGS/VRD-72/PG-1 (Date: 09/05/2022)",
+    "duration": "06 Months",
+    "year": "2021-2022",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-virtual-lab-phase-3",
+    "title": "Virtual Lab Project, Phase-III",
+    "investigators": [
+      "Dr. S. D. Agashe",
+      "Dr. D. N. Sonawane",
+      "Mrs. M. A. Khandekar"
+    ],
+    "sanctionedDate": "2022-12-23",
+    "grantAmount": "273.31 Lakhs",
+    "status": "Ongoing",
+    "sponsoringAuthority": "NMEICT, Ministry of Education",
+    "sanctionLetter": "IITD/VLAB/Dec.",
+    "duration": "04 Years (up to March 2026)",
+    "year": "2022-2023",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-bms-algorithm-dev",
+    "title": "BMS Algorithm Development: SOC, SOH and SOP",
+    "investigators": ["Dr. S. L. Patil", "Dr. A. S. Deshpande"],
+    "sanctionedDate": "2023-03-17",
+    "grantAmount": "21,90,320 INR",
+    "status": "Ongoing",
+    "sponsoringAuthority": "HELLA India Automotive Private Limited",
+    "sanctionLetter": "",
+    "duration": "1.5 Years",
+    "year": "2022-2023",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-intelligent-charging-liion",
+    "title": "Estimation of intelligent charging profiles for Li-Ion batteries",
+    "investigators": ["Dr. D. N. Sonawane"],
+    "sanctionedDate": "2023-03-17",
+    "grantAmount": "18.70 Lakhs",
+    "status": "Ongoing",
+    "sponsoringAuthority": "HELLA India Automotive Private Limited",
+    "sanctionLetter": "",
+    "duration": "1.5 Years",
+    "year": "2022-2023",
+    "remarks": ""
+  },
+  {
+    "id": "research-paper-low-flow-control-valve",
+    "title": "Low Flow Control with Proportional Valve",
+    "investigators": [
+      "Dr. D. N. Sonawane",
+      "Dr. A. S. Deshpande",
+      "Mrs. K. A. Ghodinde"
+    ],
+    "sanctionedDate": "2023-07-05",
+    "grantAmount": "11.03 Lakhs",
+    "status": "Ongoing",
+    "sponsoringAuthority": "Kohler Power India Private Limited",
+    "sanctionLetter": "",
+    "duration": "08 Months (up to February 2024)",
+    "year": "2023-2024",
+    "remarks": ""
+  }
+]

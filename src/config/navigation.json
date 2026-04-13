@@ -1,0 +1,57 @@
+[
+  {
+    "id": "about-department",
+    "title": "About the Department",
+    "shortTitle": "About",
+    "items": [
+      { "label": "About", "path": "/about" },
+      { "label": "Faculty", "path": "/faculty" },
+      { "label": "Laboratories", "path": "/laboratories" },
+      { "label": "Publications", "path": "/publications" },
+      { "label": "Patents", "path": "/patents" }
+    ]
+  },
+  {
+    "id": "academics",
+    "title": "Academics",
+    "shortTitle": "Academics",
+    "items": [
+      { "label": "Curriculum", "path": "/curriculum" },
+      { "label": "Time Table", "path": "/time-table" },
+      { "label": "STTPs / FDPs", "path": "/sttps-fdps" }
+    ]
+  },
+  {
+    "id": "students-career",
+    "title": "Students & Career",
+    "shortTitle": "Students",
+    "items": [
+      {
+        "label": "Internships and Placements",
+        "path": "/internships-and-placements"
+      },
+      {
+        "label": "Consultancy and Training",
+        "path": "/consultancy-and-training"
+      }
+    ]
+  },
+  {
+    "id": "administration-governance",
+    "title": "Administration & Governance",
+    "shortTitle": "Administration",
+    "items": [
+      {
+        "label": "BOS Committee and Minutes of Meeting",
+        "path": "/bos-committee-minutes"
+      },
+      { "label": "Department Committees", "path": "/department-committees" }
+    ]
+  },
+  {
+    "id": "notices-updates",
+    "title": "Notices & Updates",
+    "shortTitle": "Notices",
+    "items": [{ "label": "Circulars / Reports", "path": "/circulars-reports" }]
+  }
+]
