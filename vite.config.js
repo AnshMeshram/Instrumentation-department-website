@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-export default defineConfig({
-  base: "/Instrumentation-department-website/",
+export default defineConfig(({ command }) => ({
+  base: command === "serve" ? "/" : "/Instrumentation-department-website/",
   plugins: [react(), tailwindcss()],
-});
+}));

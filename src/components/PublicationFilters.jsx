@@ -8,8 +8,6 @@ import {
   SelectValue,
 } from "./ui/select";
 
-const kindOptions = ["All", "Journal", "Conference"];
-
 function SelectField({ label, value, options, onChange }) {
   return (
     <label className="flex flex-col gap-1">
@@ -37,14 +35,18 @@ export default function PublicationFilters({
   search,
   selectedFaculty,
   selectedYear,
-  selectedKind,
+  selectedAuthor,
+  selectedCategory,
   yearOptions,
   facultyOptions,
+  authorOptions,
+  categoryOptions,
   activeFiltersCount,
   onSearchChange,
   onFacultyChange,
   onYearChange,
-  onKindChange,
+  onAuthorChange,
+  onCategoryChange,
   onResetFilters,
 }) {
   return (
@@ -92,16 +94,23 @@ export default function PublicationFilters({
         />
 
         <SelectField
-          label="Type"
-          value={selectedKind}
-          options={kindOptions}
-          onChange={onKindChange}
+          label="Author"
+          value={selectedAuthor}
+          options={["All", ...authorOptions]}
+          onChange={onAuthorChange}
+        />
+
+        <SelectField
+          label="Category"
+          value={selectedCategory}
+          options={["All", ...categoryOptions]}
+          onChange={onCategoryChange}
         />
       </div>
 
       <div className="mt-4 flex justify-end">
         <Button type="button" onClick={onResetFilters} variant="soft" size="lg">
-          Reload Filters
+          Reset Filters
         </Button>
       </div>
     </section>

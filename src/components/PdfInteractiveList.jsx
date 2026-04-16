@@ -30,7 +30,7 @@ function DetailGrid({ text }) {
         <p className="text-xs text-slate-400">{lines.length} lines</p>
       </div>
 
-      <div className="max-h-[28rem] overflow-auto pr-1">
+      <div className="max-h-112 overflow-auto pr-1">
         <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {lines.map((line, index) => (
             <div
