@@ -102,9 +102,9 @@ export default function PublicationTable({
     <>
       <div className="space-y-4">
         <div className="overflow-hidden rounded-2xl border border-[#e5e7eb] bg-white shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-sm text-slate-700">
-              <thead className="bg-white text-xs uppercase tracking-[0.08em] text-slate-600">
+          <div className="w-full overflow-x-auto">
+            <table className="min-w-[700px] w-full text-left text-xs sm:text-sm text-slate-700">
+              <thead className="bg-white text-[10px] sm:text-xs uppercase tracking-[0.08em] text-slate-600">
                 <tr>
                   <th scope="col" className="px-4 py-3.5 font-semibold">
                     No.
