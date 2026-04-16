@@ -52,7 +52,10 @@ export default function AppRoutes() {
           />
         }
       />
-      <Route path="/sttps-fdps" element={<FDPs />} />
+      <Route
+        path="/sttps-fdps"
+        element={<FDPs />}
+      />
       <Route
         path="/internships-and-placements"
         element={
