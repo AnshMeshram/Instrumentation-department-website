@@ -14,7 +14,7 @@ const SelectTrigger = React.forwardRef(function SelectTrigger(
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex h-11 w-full items-center justify-between rounded-xl border border-[#e5e7eb] bg-white px-3 text-sm text-slate-700 transition placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#6b93c9] disabled:cursor-not-allowed disabled:opacity-50",
+        "flex h-11 w-full items-center justify-between rounded-2xl border border-[var(--color-border)] bg-white px-4 text-sm text-[var(--color-text)] transition placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -36,7 +36,7 @@ const SelectContent = React.forwardRef(function SelectContent(
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
-          "relative z-50 max-h-64 min-w-32 overflow-hidden rounded-xl border border-[#e5e7eb] bg-white text-slate-700 shadow-lg",
+          "relative z-50 max-h-64 min-w-32 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white text-[var(--color-text)] shadow-[var(--shadow-soft)]",
           position === "popper" && "translate-y-1",
           className,
         )}
@@ -65,7 +65,7 @@ const SelectItem = React.forwardRef(function SelectItem(
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        "relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2 text-sm font-medium outline-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-[#edf4fd] data-highlighted:text-[#0f2f66]",
+        "relative flex w-full cursor-default select-none items-center rounded-xl py-2 pl-8 pr-3 text-sm font-medium outline-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-[var(--color-primary-soft)] data-highlighted:text-[var(--color-primary-strong)]",
         className,
       )}
       {...props}

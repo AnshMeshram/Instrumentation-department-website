@@ -104,14 +104,18 @@ function splitLines(text) {
 }
 
 function normalizeYearLabel(rawValue) {
-  const match = String(rawValue || "").match(
-    /(20\d{2})\s*[-–]\s*(20\d{2}|\d{2})/,
-  );
+  const normalized = String(rawValue || "")
+    .replace(/[–—−â]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const match = normalized.match(/^((?:20\d{2}))\s*-\s*((?:20\d{2})|\d{2})$/);
   if (!match) return "";
 
   const start = match[1];
   const endRaw = match[2];
   const end = endRaw.length === 2 ? `${start.slice(0, 2)}${endRaw}` : endRaw;
+  if (Number(end) !== Number(start) + 1) return "";
   return `${start}-${end}`;
 }
 
@@ -177,13 +181,6 @@ function looksLikeAuthorContinuation(line) {
   if (line.includes(",")) return true;
   if (/\b(?:Prof\.|Dr\.|Mr\.|Ms\.|Mrs\.)\b/i.test(line)) return true;
   if (/\b[A-Z]\.(?:\s+[A-Z]\.){0,4}\b/.test(line)) return true;
-  if (
-    line.length <= 25 &&
-    line.split(/\s+/).length <= 2 &&
-    /^[A-Z][A-Za-z.-]+(?:\s+[A-Z][A-Za-z.-]+)?$/.test(line)
-  ) {
-    return true;
-  }
 
   return false;
 }
@@ -247,6 +244,27 @@ function isTitleLikeLine(line) {
   return true;
 }
 
+function cleanExtractedTitle(title, authors) {
+  let cleanedTitle = String(title || "").trim();
+  const authorCandidates = String(authors || "")
+    .split(",")
+    .map((author) => author.trim())
+    .filter(Boolean)
+    .sort((first, second) => second.length - first.length);
+
+  for (const author of authorCandidates) {
+    if (
+      cleanedTitle.startsWith(`${author} `) &&
+      cleanedTitle.length > author.length + 12
+    ) {
+      cleanedTitle = cleanedTitle.slice(author.length).trim();
+      break;
+    }
+  }
+
+  return cleanedTitle;
+}
+
 function parseBlock(block, fallbackFaculty, fallbackYear) {
   const lines = block.lines.filter((line) => !isBoilerplateLine(line));
   if (!lines.length) return null;
@@ -293,6 +311,7 @@ function parseBlock(block, fallbackFaculty, fallbackYear) {
     `Publication details unavailable in source text (Entry ${block.id})`;
   const normalizedAuthors =
     authors || "Authors not clearly identified in source text";
+  const cleanedTitle = cleanExtractedTitle(title, normalizedAuthors);
   const venue = venueLines
     .filter((line) => !isYearLine(line))
     .join(" ")
@@ -312,11 +331,11 @@ function parseBlock(block, fallbackFaculty, fallbackYear) {
     faculty,
     sessionYear,
     category: detectCategory(normalizedText),
-    title,
+    title: cleanedTitle,
     authors: normalizedAuthors,
     venue,
     publishedOn,
-    publicationUrl: extractPublicationUrl(normalizedText, title),
+    publicationUrl: extractPublicationUrl(normalizedText, cleanedTitle),
     rawText: normalizedText,
     sourcePage: block.pageId,
   };
@@ -350,17 +369,12 @@ export function buildPublicationCatalog(pages) {
       currentFaculty = textFaculty;
     }
 
-    const pageYear = extractSessionYear(lines);
-    if (pageYear !== "Unknown Year") {
-      currentYear = pageYear;
-    }
-
     for (const line of lines) {
       if (isBoilerplateLine(line)) {
         continue;
       }
 
-      if (/^\d+\.\s*/.test(line)) {
+      if (/^\d{1,2}\.\s+/.test(line)) {
         finalizeCurrentBlock();
         currentBlock = {
           id: page.id,
@@ -386,10 +400,21 @@ export function buildPublicationCatalog(pages) {
 
   finalizeCurrentBlock();
 
-  return records.map((record, index) => ({
-    ...record,
-    serialNumber: index + 1,
-  }));
+  return records
+    .filter((record) => {
+      const isPlaceholderTitle = /Publication details unavailable/i.test(
+        record.title,
+      );
+      const isPlaceholderAuthor = /Authors not clearly identified/i.test(
+        record.authors,
+      );
+
+      return !(isPlaceholderTitle && isPlaceholderAuthor);
+    })
+    .map((record, index) => ({
+      ...record,
+      serialNumber: index + 1,
+    }));
 }
 
 export function getPublicationOptions(publications) {

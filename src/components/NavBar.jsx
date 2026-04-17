@@ -71,14 +71,14 @@ export default function NavBar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#0f2f66]/15 bg-white shadow-[0_6px_16px_rgba(15,47,102,0.06)]">
-      <div className="border-b border-white/10 bg-[#0f2f66] text-white">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white shadow-[0_8px_24px_rgba(13,40,69,0.08)]">
+      <div className="border-b border-white/10 bg-[var(--color-primary)] text-white">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
           <Link
             to="/about"
             className="flex min-w-0 items-center gap-3 rounded-lg pr-2 transition hover:bg-white/8"
           >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-white/25 bg-white p-0.5 shadow-sm">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white p-0.5 shadow-sm">
               <img
                 src="/college-logo/college_logo.jpg"
                 alt="COEP Technological University logo"
@@ -87,10 +87,10 @@ export default function NavBar() {
               />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-base leading-tight font-bold font-[Times_New_Roman,Times,serif] sm:text-[1.35rem]">
+              <p className="truncate text-base leading-tight font-bold font-[var(--font-serif)] sm:text-[1.35rem]">
                 COEP Technological University
               </p>
-              <p className="truncate text-xs text-blue-100/95 sm:text-[0.95rem]">
+              <p className="truncate text-xs text-white/80 sm:text-[0.95rem]">
                 Department of Instrumentation and Control Engineering
               </p>
             </div>
@@ -102,7 +102,7 @@ export default function NavBar() {
         </div>
       </div>
 
-      <div className="border-y border-[#e5e7eb] bg-white">
+      <div className="border-y border-[var(--color-border)] bg-[var(--color-surface-soft)]">
         <div className="mx-auto w-full max-w-7xl px-4 py-2.5 lg:px-6">
           <nav
             aria-label="Breadcrumb"
@@ -114,13 +114,9 @@ export default function NavBar() {
                 className="inline-flex items-center gap-1.5"
               >
                 {index > 0 ? (
-                  <ChevronRight
-                    size={13}
-                    className="text-slate-500"
-                    aria-hidden="true"
-                  />
+                  <ChevronRight size={13} className="text-slate-400" aria-hidden="true" />
                 ) : null}
-                <span className="rounded-sm border-b border-dotted border-slate-400 px-0.5 text-slate-700 transition-colors hover:text-[#0f2f66]">
+                <span className="rounded-sm border-b border-dotted border-[var(--color-border-strong)] px-0.5 text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-primary)]">
                   {crumb}
                 </span>
               </span>
@@ -129,7 +125,7 @@ export default function NavBar() {
         </div>
       </div>
 
-      <div className="border-b border-slate-200 bg-white/95">
+      <div className="border-b border-[var(--color-border)] bg-white/95">
         <div className="mx-auto hidden w-full max-w-7xl px-4 lg:block lg:px-6">
           <div
             className="relative"
@@ -166,8 +162,8 @@ export default function NavBar() {
                         "group relative inline-flex items-center gap-1.5 pb-2 text-base font-semibold text-slate-900 transition-colors duration-150",
                         "focus:outline-none focus-visible:text-[#0f2f66]",
                         isOpen || isGroupActive
-                          ? "text-[#0f2f66]"
-                          : "hover:text-[#0f2f66]",
+                          ? "text-[var(--color-primary-strong)]"
+                          : "hover:text-[var(--color-primary)]",
                       )}
                       aria-expanded={isOpen}
                       aria-haspopup="menu"
@@ -185,7 +181,7 @@ export default function NavBar() {
                       />
                       <span
                         className={clsx(
-                          "pointer-events-none absolute inset-x-0 -bottom-px h-0.5 bg-slate-900 transition-opacity duration-150",
+                          "pointer-events-none absolute inset-x-0 -bottom-px h-0.5 bg-[var(--color-accent)] transition-opacity duration-150",
                           isOpen || isGroupActive
                             ? "opacity-100"
                             : "opacity-0 group-hover:opacity-100",
@@ -201,7 +197,7 @@ export default function NavBar() {
                           : "pointer-events-none -translate-y-1 opacity-0",
                       )}
                     >
-                      <div className="overflow-hidden rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-[0_16px_32px_rgba(15,47,102,0.15)]">
+                      <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white p-2 shadow-[0_18px_38px_rgba(13,40,69,0.14)]">
                         <div className="space-y-1">
                           {group.items.map((item) => {
                             const isActiveItem =
@@ -217,8 +213,8 @@ export default function NavBar() {
                                 className={clsx(
                                   "block rounded-lg px-3 py-2.5 text-base font-medium transition-colors duration-150",
                                   isActiveItem
-                                    ? "bg-[#eaf2ff] text-[#0f2f66]"
-                                    : "text-[#183b68] hover:bg-[#f3f4f6] hover:text-[#0f2f66]",
+                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary-strong)]"
+                                    : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]",
                                 )}
                               >
                                 {item.label}

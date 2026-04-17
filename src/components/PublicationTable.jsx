@@ -14,8 +14,23 @@ const categoryStyles = {
   Conference: "applied",
   "Book/Chapter": "default",
   Patent: "type",
-  Other: "secondary",
+  Other: "default",
 };
+
+function buildPaginationRange(currentPage, totalPages) {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const start = Math.max(1, currentPage - 2);
+  const end = Math.min(totalPages, start + 4);
+  const normalizedStart = Math.max(1, end - 4);
+
+  return Array.from(
+    { length: end - normalizedStart + 1 },
+    (_, index) => normalizedStart + index,
+  );
+}
 
 function DetailItem({ label, value }) {
   return (
@@ -136,7 +151,7 @@ export default function PublicationTable({
 
                   return (
                     <tr
-                      key={publication.id}
+                      key={`${publication.id}-${publication.serialNumber}`}
                       className="align-top transition hover:bg-[#f9fafb]"
                     >
                       <td className="px-4 py-4 text-slate-800">

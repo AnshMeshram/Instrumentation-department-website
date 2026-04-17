@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+:root {
+  --font-sans: "Plus Jakarta Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --color-bg: #f5f8fc;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fbff;
+  --color-border: #d8e3ef;
+  --color-border-strong: #bfd1e4;
+  --color-text: #16324f;
+  --color-text-soft: #5d7085;
+  --color-heading: #0d2845;
+  --color-primary: #1b4b7a;
+  --color-primary-strong: #143a60;
+  --color-primary-soft: #eaf3fb;
+  --color-accent: #d39b2c;
+  --shadow-soft: 0 14px 35px rgba(13, 40, 69, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -12,11 +30,18 @@ body,
 
 body {
   margin: 0;
-  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #ffffff;
-  color: #0f172a;
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(circle at top left, rgba(214, 230, 244, 0.45), transparent 24%),
+    linear-gradient(180deg, #f7f9fc 0%, var(--color-bg) 100%);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(27, 75, 122, 0.18);
+  color: var(--color-heading);
 }
 
 a {
@@ -27,6 +52,13 @@ a {
 img {
   max-width: 100%;
   display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-heading);
 }
 
 @media print {
