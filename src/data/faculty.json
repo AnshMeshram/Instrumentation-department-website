@@ -2,10 +2,10 @@
   {
     "id": "shendge",
     "name": "Dr. Pramod D. Shendge",
-    "designation": "Professor",
+    "designation": "Associate Professor",
     "email": "pds.instru@coeptech.ac.in",
     "phone": "+91 02025507035",
-    "image": "/faculty-images/shendge.jpg",
+    "image": "/faculty_images/shendge.jpg",
     "research": "Control Systems, Industrial Automation",
     "education": [
       {
@@ -47,10 +47,10 @@
   {
     "id": "sonawane",
     "name": "Prof. Dayaram N. Sonawane",
-    "designation": "Professor",
+    "designation": "Associate Professor",
     "email": "dns.instru@coeptech.ac.in",
     "phone": "+91 02025507036",
-    "image": "/faculty-images/sonawane.jpg",
+    "image": "/faculty_images/sonawane.jpg",
     "research": "Embedded Systems, Model Predictive Control, Optimization",
     "education": [
       {
@@ -90,10 +90,10 @@
   {
     "id": "chetankumar-patil",
     "name": "Prof. Chetankumar Y. Patil",
-    "designation": "Professor",
+    "designation": "Associate Professor",
     "email": "cyp.instru@coeptech.ac.in",
     "phone": "+91 02025507609",
-    "image": "/faculty-images/chetankumar-patil.jpg",
+    "image": "/faculty_images/chetankumar-patil.jpg",
     "research": "Signal Processing, Digital Filters, Sensor Signal Conditioning",
     "education": [
       {
@@ -123,10 +123,10 @@
   {
     "id": "sanjaykumar-patil",
     "name": "Prof. Sanjaykumar L. Patil",
-    "designation": "Professor",
+    "designation": "Associate Professor",
     "email": "slp.instru@coeptech.ac.in",
     "phone": "+91 02025507610",
-    "image": "/faculty-images/sanjaykumar-patil.jpg",
+    "image": "/faculty_images/sanjaykumar-patil.jpg",
     "research": "Power Electronics, Power Conversion, Drives",
     "education": [
       {
@@ -156,10 +156,10 @@
   {
     "id": "rajendra-kokate",
     "name": "Prof. Rajendra D. Kokate",
-    "designation": "Professor",
+    "designation": "Associate Professor",
     "email": "rdk.instru@coeptech.ac.in",
     "phone": "+91 02025507605",
-    "image": "/faculty-images/rajendra-kokate.jpg",
+    "image": "/faculty_images/rajendra-kokate.jpg",
     "research": "Process Instrumentation, Industrial Sensors, Measurement Systems",
     "education": [
       {
@@ -192,7 +192,7 @@
     "designation": "Associate Professor",
     "email": "umc.instru@coeptech.ac.in",
     "phone": "+91 02025507603",
-    "image": "/faculty-images/uttam-chaskar.jpg",
+    "image": "/faculty_images/uttam-chaskar.jpg",
     "research": "Biomedical Instrumentation, Medical Electronics",
     "education": [
       {
@@ -227,7 +227,7 @@
     "designation": "Associate Professor",
     "email": "rpm.instru@coeptech.ac.in",
     "phone": "+91 02025507608",
-    "image": "/faculty-images/rohini-mudhalwadkar.jpg",
+    "image": "/faculty_images/rohini-mudhalwadkar.jpg",
     "research": "Analytical Instrumentation, Sensors",
     "education": [
       {
@@ -260,7 +260,7 @@
     "designation": "Assistant Professor",
     "email": "gvl.instru@coeptech.ac.in",
     "phone": "+91 02025507613",
-    "image": "/faculty-images/girish-lakhekar.jpg",
+    "image": "/faculty_images/girish-lakhekar.jpg",
     "research": "Robotics and Control, Process Control, Robust Control, Fuzzy Logic, Neural Networks",
     "education": [
       {
@@ -293,7 +293,7 @@
     "designation": "Assistant Professor",
     "email": "pnl.instru@coeptech.ac.in",
     "phone": "+91 02025507601",
-    "image": "/faculty-images/nikhila-patil.jpg",
+    "image": "/faculty_images/nikhila-patil.jpg",
     "research": "Sensor Design, Flexible Electronics, Gas Sensors",
     "education": [
       {
@@ -326,7 +326,7 @@
     "designation": "Assistant Professor",
     "email": "mgj.instru@coeptech.ac.in",
     "phone": "+91 02025507606",
-    "image": "/faculty-images/meera-khandekar.jpg",
+    "image": "/faculty_images/meera-khandekar.jpg",
     "research": "Process Instrumentation, Control Systems",
     "education": [
       {
@@ -356,7 +356,7 @@
     "designation": "Assistant Professor",
     "email": "ssk.instru@coeptech.ac.in",
     "phone": "+91 02025507604",
-    "image": "/faculty-images/ketaki-ghodinde.jpg",
+    "image": "/faculty_images/ketaki-ghodinde.jpg",
     "research": "Building Automation, Smart Sensors",
     "education": [
       {
@@ -388,7 +388,7 @@
     "designation": "Assistant Professor",
     "email": "asd.instru@coeptech.ac.in",
     "phone": "+91 02025507607",
-    "image": "/faculty-images/amruta-deshpande.jpg",
+    "image": "/faculty_images/amruta-deshpande.jpg",
     "research": "Process Control & Automation, Renewable Energy Control",
     "education": [
       {

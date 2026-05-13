@@ -102,25 +102,35 @@ export default function NavBar() {
         </div>
       </div>
 
-      <div className="border-y border-[var(--color-border)] bg-[var(--color-surface-soft)]">
+      <div className="bg-white shadow-inner border-b border-[var(--color-border)]">
         <div className="mx-auto w-full max-w-7xl px-4 py-2.5 lg:px-6">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex min-w-0 flex-wrap items-center gap-1 pb-1 text-xs text-slate-700 sm:text-sm"
-          >
-            {breadcrumbTrail.map((crumb, index) => (
-              <span
-                key={`${crumb}-${index}`}
-                className="inline-flex items-center gap-1.5"
-              >
-                {index > 0 ? (
-                  <ChevronRight size={13} className="text-slate-400" aria-hidden="true" />
-                ) : null}
-                <span className="rounded-sm border-b border-dotted border-[var(--color-border-strong)] px-0.5 text-[var(--color-text-soft)] transition-colors hover:text-[var(--color-primary)]">
-                  {crumb}
-                </span>
-              </span>
-            ))}
+          <nav aria-label="Breadcrumb" className="overflow-x-auto no-scrollbar">
+            <ol className="flex items-center gap-2 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.1em] text-[var(--color-text-soft)]">
+              {breadcrumbTrail.map((crumb, index) => {
+                const isLast = index === breadcrumbTrail.length - 1;
+                return (
+                  <li key={`${crumb}-${index}`} className="flex items-center gap-2">
+                    {index > 0 && (
+                      <ChevronRight
+                        size={10}
+                        className="text-[var(--color-border-strong)] opacity-50"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span
+                      className={clsx(
+                        "transition-colors",
+                        isLast
+                          ? "text-[var(--color-accent)] font-black"
+                          : "hover:text-[var(--color-primary)] cursor-default opacity-60"
+                      )}
+                    >
+                      {crumb}
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
           </nav>
         </div>
       </div>
@@ -159,11 +169,11 @@ export default function NavBar() {
                         )
                       }
                       className={clsx(
-                        "group relative inline-flex items-center gap-1.5 pb-2 text-base font-semibold text-slate-900 transition-colors duration-150",
-                        "focus:outline-none focus-visible:text-[#0f2f66]",
+                        "group relative inline-flex items-center gap-1.5 pb-2 text-base font-semibold text-[var(--color-text)] transition-colors duration-150",
+                        "focus:outline-none focus-visible:text-[var(--color-primary)]",
                         isOpen || isGroupActive
-                          ? "text-[var(--color-primary-strong)]"
-                          : "hover:text-[var(--color-primary)]",
+                          ? "text-[var(--color-primary)]"
+                          : "hover:text-[var(--color-accent)]",
                       )}
                       aria-expanded={isOpen}
                       aria-haspopup="menu"
@@ -213,7 +223,7 @@ export default function NavBar() {
                                 className={clsx(
                                   "block rounded-lg px-3 py-2.5 text-base font-medium transition-colors duration-150",
                                   isActiveItem
-                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary-strong)]"
+                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-bold"
                                     : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]",
                                 )}
                               >

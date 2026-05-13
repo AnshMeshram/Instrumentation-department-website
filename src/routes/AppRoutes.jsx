@@ -8,6 +8,7 @@ import PlaceholderPage from "../pages/PlaceholderPage";
 import Consultancy from "../pages/Consultancy";
 import ResearchPapers from "../pages/ResearchPapers";
 import Publications from "../pages/Publications";
+import VirtualLab from "../pages/VirtualLab";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ export default function AppRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/faculty" element={<Faculty />} />
       <Route path="/faculty/:id" element={<FacultyProfile />} />
+      <Route path="/virtual-lab" element={<VirtualLab />} />
 
       <Route
         path="/laboratories"

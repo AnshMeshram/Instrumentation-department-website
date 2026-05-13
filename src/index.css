@@ -1,21 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap');
 @import "tailwindcss";
 
-:root {
-  --font-sans: "Plus Jakarta Sans", "Segoe UI", Roboto, Arial, sans-serif;
-  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --color-bg: #f5f8fc;
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-surface-soft: #f8fbff;
-  --color-border: #d8e3ef;
-  --color-border-strong: #bfd1e4;
-  --color-text: #16324f;
-  --color-text-soft: #5d7085;
-  --color-heading: #0d2845;
-  --color-primary: #1b4b7a;
-  --color-primary-strong: #143a60;
-  --color-primary-soft: #eaf3fb;
-  --color-accent: #d39b2c;
-  --shadow-soft: 0 14px 35px rgba(13, 40, 69, 0.08);
+  --color-surface-soft: #f4f4f4;
+  
+  --color-border: #e5e5e5;
+  --color-border-strong: #d4d4d4;
+  
+  --color-text: #171717;
+  --color-text-soft: #525252;
+  
+  /* Carbon & Emerald Palette */
+  --color-heading: #0a0a0a;
+  --color-primary: #0a0a0a; /* Deep Carbon */
+  --color-primary-strong: #000000;
+  --color-primary-soft: #f5f5f5;
+  
+  --color-accent: #10b981; /* Emerald */
+  --color-highlight: #f59e0b; /* Amber/Gold */
+  
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f4f4f4;
+  
+  --color-border: #e5e5e5;
+  --color-border-strong: #d4d4d4;
+  
+  --color-text: #171717;
+  --color-text-soft: #525252;
+  
+  /* Carbon & Emerald Palette */
+  --color-heading: #0a0a0a;
+  --color-primary: #0a0a0a; 
+  --color-primary-strong: #000000;
+  --color-primary-soft: #f5f5f5;
+  
+  --color-accent: #10b981;
+  --color-highlight: #f59e0b;
+  
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -31,22 +66,21 @@ body,
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background:
-    radial-gradient(circle at top left, rgba(214, 230, 244, 0.45), transparent 24%),
-    linear-gradient(180deg, #f7f9fc 0%, var(--color-bg) 100%);
+  background: var(--color-bg);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(27, 75, 122, 0.18);
-  color: var(--color-heading);
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-accent);
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  transition: all 0.2s ease-in-out;
 }
 
 img {
@@ -58,8 +92,19 @@ h1,
 h2,
 h3,
 h4 {
+  color: inherit; /* Inherit color from parent container by default */
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+/* Default heading color for light backgrounds */
+body h1, body h2, body h3, body h4 {
   color: var(--color-heading);
 }
+
+/* Explicitly allow utility overrides */
+.text-white { color: #ffffff !important; }
+.text-accent { color: var(--color-accent) !important; }
 
 @media print {
   header,

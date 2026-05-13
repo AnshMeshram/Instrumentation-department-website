@@ -58,19 +58,19 @@ function summarizeCatalog(catalog) {
 
 function InsightCard({ title, value, tone = "default", helper }) {
   const tones = {
-    default: "border-[#d9e3f0] bg-white text-slate-900",
-    journal: "border-sky-100 bg-sky-50 text-sky-900",
-    conference: "border-amber-100 bg-amber-50 text-amber-900",
-    faculty: "border-[#dbe7f7] bg-[#f3f7fd] text-[#0f2f66]",
+    default: "border-[var(--color-border)] bg-white text-[var(--color-text)]",
+    journal: "border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 text-[var(--color-heading)]",
+    conference: "border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 text-[var(--color-heading)]",
+    faculty: "border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-heading)]",
   };
 
   return (
-    <div className={cn("rounded-2xl border px-4 py-4 shadow-sm", tones[tone])}>
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+    <div className={cn("rounded-2xl border px-4 py-5 shadow-sm transition-all duration-300 hover:shadow-md", tones[tone])}>
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
         {title}
       </p>
-      <p className="mt-3 text-3xl font-semibold tracking-tight">{value}</p>
-      {helper ? <p className="mt-1 text-sm text-slate-600">{helper}</p> : null}
+      <p className="mt-3 text-3xl font-black font-[var(--font-serif)] tracking-tight">{value}</p>
+      {helper ? <p className="mt-1 text-[10px] font-medium text-[var(--color-text-soft)] opacity-80">{helper}</p> : null}
     </div>
   );
 }
@@ -86,47 +86,39 @@ function MobilePublicationCard({ publication }) {
           : "default";
 
   return (
-    <Card className="overflow-hidden border-[#dde6f3] bg-white/95 shadow-sm">
-      <CardContent className="space-y-4 p-5">
+    <Card className="overflow-hidden border-none bg-white shadow-sm hover:shadow-md transition-shadow">
+      <CardContent className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <Badge variant={badgeVariant}>{publication.category}</Badge>
-            <h3 className="mt-3 text-lg font-semibold leading-7 text-[#0f2f66]">
+            <Badge variant={badgeVariant} className="px-3 py-1">{publication.category}</Badge>
+            <h3 className="mt-4 text-lg font-black leading-tight text-[var(--color-heading)] font-[var(--font-serif)]">
               {publication.title}
             </h3>
           </div>
-          <Badge variant="type">{publication.sessionYear}</Badge>
+          <Badge variant="type" className="bg-[var(--color-surface-soft)] text-[var(--color-text-soft)]">{publication.sessionYear}</Badge>
         </div>
 
-        <dl className="grid gap-3 text-sm text-slate-700">
+        <div className="space-y-4 border-t border-[var(--color-border)] pt-4">
           <div>
-            <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)] mb-1">
               Authors
-            </dt>
-            <dd className="mt-1 leading-6">{publication.authors}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-              Faculty
-            </dt>
-            <dd className="mt-1 leading-6">{publication.faculty}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-              Venue
-            </dt>
-            <dd className="mt-1 leading-6">
-              {publication.venue || "Derived from publication PDF metadata"}
-            </dd>
-          </div>
-        </dl>
-
-        <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-              Published
             </p>
-            <p className="mt-1 text-sm text-slate-700">
+            <p className="text-sm font-medium leading-relaxed text-[var(--color-text-soft)]">{publication.authors}</p>
+          </div>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)] mb-1">
+              Faculty Contribution
+            </p>
+            <p className="text-sm font-bold text-[var(--color-heading)]">{publication.faculty}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4">
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-text-soft)]">
+              Published on
+            </p>
+            <p className="text-sm font-bold text-[var(--color-heading)]">
               {publication.publishedOn || publication.sessionYear}
             </p>
           </div>
@@ -135,10 +127,10 @@ function MobilePublicationCard({ publication }) {
             href={publication.publicationUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#d5e3f5] bg-[#eef5ff] px-4 py-2 text-sm font-semibold text-[#0f2f66] transition hover:bg-[#e4effd]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-xs font-bold text-white transition-all hover:bg-[var(--color-primary-strong)] hover:shadow-lg"
           >
-            Open
-            <ArrowUpRight size={16} />
+            Open Resource
+            <ArrowUpRight size={14} />
           </a>
         </div>
       </CardContent>
@@ -257,71 +249,68 @@ export default function Publications() {
   const latestAcademicYear = options.yearOptions[0] || "N/A";
 
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-[28px] border border-[#d7e2ef] bg-[#fbfcfe] shadow-[0_14px_30px_rgba(15,47,102,0.06)]">
-        <div className="grid gap-8 px-6 py-8 lg:grid-cols-[1.35fr,0.85fr] lg:px-8">
+    <div className="space-y-12 pb-12">
+      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+        
+        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
           <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="type">Research & Publications</Badge>
-              <Badge variant="default">Static analysis from publication PDF</Badge>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Research Catalog</Badge>
+              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Extracted Repository</Badge>
             </div>
 
-            <h1 className="mt-5 max-w-4xl border-l-4 border-[#0f2f66] pl-4 font-['Georgia','Times_New_Roman',serif] text-4xl font-semibold tracking-tight text-[#0f2f66] md:text-5xl">
-              Publications
+            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+              Academic <br />Publications
             </h1>
 
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
-              A curated departmental publication record built from PDF
-              extraction, organized with searchable metadata, publication type
-              summaries, and faculty contribution insights in a cleaner academic
-              interface.
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+              A curated repository of departmental research, organized with 
+              searchable metadata, multi-year contribution insights, and 
+              faculty productivity analytics.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-600">
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe6f4] bg-white px-4 py-2">
-                <LibraryBig size={16} className="text-[#0f2f66]" />
-                {summary.total} indexed records
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe6f4] bg-white px-4 py-2">
-                <Microscope size={16} className="text-[#0f2f66]" />
-                {summary.facultyCount} faculty contributors
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe6f4] bg-white px-4 py-2">
-                <FileSearch size={16} className="text-[#0f2f66]" />
-                {summary.sourcePages} extracted source pages
-              </span>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <LibraryBig size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} indexed records</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <Microscope size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.facultyCount} faculty contributors</span>
+              </div>
             </div>
           </div>
 
-          <Card className="border-[#d8e4f2] bg-white shadow-sm">
-            <CardContent className="p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
-                Publication Snapshot
+          <Card className="border-none bg-[var(--color-surface-soft)] shadow-inner">
+            <CardContent className="p-8">
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                Performance Metrics
               </p>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InsightCard
                   title="Total Records"
                   value={summary.total}
-                  helper="Parsed from publication PDF"
+                  helper="Cumulative Repository"
                 />
                 <InsightCard
                   title="Journal Articles"
                   value={summary.journals}
                   tone="journal"
-                  helper="Peer-reviewed and journal metadata"
+                  helper="Peer-reviewed Output"
                 />
                 <InsightCard
-                  title="Conference Papers"
+                  title="Conference"
                   value={summary.conferences}
                   tone="conference"
-                  helper="Conference proceedings and papers"
+                  helper="Global Proceedings"
                 />
                 <InsightCard
-                  title="Latest Academic Year"
+                  title="Coverage"
                   value={latestAcademicYear}
                   tone="faculty"
-                  helper={`${summary.yearCount} academic years covered`}
+                  helper={`${summary.yearCount} Years of Data`}
                 />
               </div>
             </CardContent>
@@ -329,52 +318,52 @@ export default function Publications() {
         </div>
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[1.15fr,0.85fr]">
-        <Card className="border-[#dfe8f4] bg-white/95">
-          <CardContent className="p-6">
+      <section className="grid gap-8 xl:grid-cols-[1.1fr,0.9fr]">
+        <Card className="border-none bg-white shadow-sm overflow-hidden">
+          <CardContent className="p-8">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
-                  Contribution Overview
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                  Data Distribution
                 </p>
-                <h2 className="mt-2 font-['Georgia','Times_New_Roman',serif] text-2xl font-semibold text-[#0f2f66]">
-                  Category distribution
+                <h2 className="mt-3 font-[var(--font-serif)] text-2xl font-black text-[var(--color-heading)]">
+                  Category breakdown
                 </h2>
               </div>
-              <Badge variant="default">{summary.yearCount} years indexed</Badge>
+              <Badge variant="default" className="bg-[var(--color-primary-soft)] text-[var(--color-primary)] border-none">{summary.yearCount} Years indexed</Badge>
             </div>
 
-            <div className="mt-5 space-y-4">
+            <div className="mt-10 space-y-6">
               {[
                 {
                   label: "Journal Articles",
                   value: summary.journals,
-                  color: "bg-sky-500",
+                  color: "bg-[var(--color-accent)]",
                 },
                 {
                   label: "Conference Papers",
                   value: summary.conferences,
-                  color: "bg-amber-500",
+                  color: "bg-[var(--color-primary)]",
                 },
                 {
                   label: "Books / Chapters",
                   value: summary.books,
-                  color: "bg-slate-600",
+                  color: "bg-[var(--color-highlight)]",
                 },
                 {
                   label: "Other Records",
                   value: summary.other + summary.patents,
-                  color: "bg-[#0f2f66]",
+                  color: "bg-[var(--color-text-soft)]",
                 },
               ].map((item) => (
-                <div key={item.label} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium text-slate-700">{item.label}</span>
-                    <span className="font-semibold text-[#0f2f66]">{item.value}</span>
+                <div key={item.label} className="space-y-3">
+                  <div className="flex items-center justify-between text-sm font-bold">
+                    <span className="text-[var(--color-text)]">{item.label}</span>
+                    <span className="text-[var(--color-primary)]">{item.value}</span>
                   </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-surface-soft)]">
                     <div
-                      className={cn("h-full rounded-full", item.color)}
+                      className={cn("h-full rounded-full transition-all duration-1000", item.color)}
                       style={{
                         width: `${summary.total ? (item.value / summary.total) * 100 : 0}%`,
                       }}
@@ -386,36 +375,37 @@ export default function Publications() {
           </CardContent>
         </Card>
 
-        <Card className="border-[#dfe8f4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)]">
-          <CardContent className="p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
-              Faculty Spotlight
+        <Card className="border-none bg-black text-white shadow-2xl overflow-hidden relative group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)]/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150" />
+          <CardContent className="p-8 relative">
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              Productivity Leaderboard
             </p>
-            <h2 className="mt-2 font-['Georgia','Times_New_Roman',serif] text-2xl font-semibold text-[#0f2f66]">
-              Most represented contributors
+            <h2 className="mt-3 font-[var(--font-serif)] text-2xl font-black text-white">
+              Primary contributors
             </h2>
 
-            <div className="mt-5 space-y-3">
+            <div className="mt-8 space-y-3">
               {summary.topFaculties.map((faculty, index) => (
                 <div
                   key={faculty.faculty}
-                  className="flex items-center justify-between rounded-2xl border border-[#e5edf6] bg-white px-4 py-3"
+                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4 transition-all hover:bg-white/10 hover:-translate-x-1"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#edf4fd] text-sm font-semibold text-[#0f2f66]">
+                  <div className="flex items-center gap-4">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--color-accent)]/20 text-sm font-black text-[var(--color-accent)]">
                       {index + 1}
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-sm font-bold text-white">
                         {faculty.faculty}
                       </p>
-                      <p className="text-xs text-slate-500">
-                        Publication records in extracted catalog
+                      <p className="text-[10px] font-medium text-white/50 uppercase tracking-widest">
+                        Extracted catalog entry
                       </p>
                     </div>
                   </div>
 
-                  <Badge variant="type">{faculty.count}</Badge>
+                  <Badge className="bg-[var(--color-accent)] text-black font-black border-none">{faculty.count}</Badge>
                 </div>
               ))}
             </div>
@@ -423,46 +413,45 @@ export default function Publications() {
         </Card>
       </section>
 
-      <PublicationFilters
-        search={search}
-        selectedFaculty={selectedFaculty}
-        selectedYear={selectedYear}
-        selectedAuthor={selectedAuthor}
-        selectedCategory={selectedCategory}
-        yearOptions={options.yearOptions}
-        facultyOptions={options.facultyOptions}
-        authorOptions={options.authorOptions}
-        categoryOptions={options.categoryOptions}
-        activeFiltersCount={activeFiltersCount}
-        onSearchChange={setSearch}
-        onFacultyChange={setSelectedFaculty}
-        onYearChange={setSelectedYear}
-        onAuthorChange={setSelectedAuthor}
-        onCategoryChange={setSelectedCategory}
-        onResetFilters={handleResetFilters}
-      />
+      <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-2">
+        <PublicationFilters
+          search={search}
+          selectedFaculty={selectedFaculty}
+          selectedYear={selectedYear}
+          selectedAuthor={selectedAuthor}
+          selectedCategory={selectedCategory}
+          yearOptions={options.yearOptions}
+          facultyOptions={options.facultyOptions}
+          authorOptions={options.authorOptions}
+          categoryOptions={options.categoryOptions}
+          activeFiltersCount={activeFiltersCount}
+          onSearchChange={setSearch}
+          onFacultyChange={setSelectedFaculty}
+          onYearChange={setSelectedYear}
+          onAuthorChange={setSelectedAuthor}
+          onCategoryChange={setSelectedCategory}
+          onResetFilters={handleResetFilters}
+        />
+      </div>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-[#e1e9f5] bg-white px-5 py-4 shadow-sm md:flex-row md:items-center md:justify-between">
+      <section className="flex flex-col gap-4 rounded-2xl border border-[var(--color-border)] bg-white px-8 py-6 shadow-sm md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-sm font-semibold text-[#0f2f66]">
-            Showing {filteredPublications.length} publication
-            {filteredPublications.length === 1 ? "" : "s"}
+          <p className="text-base font-bold text-[var(--color-heading)]">
+            Displaying {filteredPublications.length} research records
           </p>
-          <p className="mt-1 text-sm text-slate-500">
-            Filtered from {summary.total} total records extracted from the
-            departmental publication PDF.
+          <p className="mt-1 text-xs font-medium text-[var(--color-text-soft)]">
+            Refined results from {summary.total} total extracted entries.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Badge variant="published">Journals {summary.journals}</Badge>
-          <Badge variant="applied">Conferences {summary.conferences}</Badge>
-          <Badge variant="default">Books {summary.books}</Badge>
-          <Badge variant="type">Faculty {summary.facultyCount}</Badge>
+          <Badge className="bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-none">Journals: {summary.journals}</Badge>
+          <Badge className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-none">Conferences: {summary.conferences}</Badge>
+          <Badge className="bg-[var(--color-highlight)]/10 text-[var(--color-highlight)] border-none">Books: {summary.books}</Badge>
         </div>
       </section>
 
-      <div className="hidden lg:block">
+      <div className="hidden lg:block overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-sm">
         <PublicationTable
           publications={paginatedPublications}
           startIndex={(page - 1) * PAGE_SIZE}
@@ -476,7 +465,7 @@ export default function Publications() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:hidden">
+      <div className="grid grid-cols-1 gap-6 lg:hidden">
         {paginatedPublications.length ? (
           paginatedPublications.map((publication) => (
             <MobilePublicationCard
@@ -485,46 +474,44 @@ export default function Publications() {
             />
           ))
         ) : (
-          <Card className="border-[#e5e7eb] bg-white">
-            <CardContent className="p-8 text-center">
-              <h2 className="text-lg font-semibold text-[#0f2f66]">
+          <Card className="border-dashed border-2 border-[var(--color-border)] bg-[var(--color-surface-soft)]">
+            <CardContent className="p-12 text-center">
+              <h2 className="text-xl font-bold text-[var(--color-heading)]">
                 No publications found
               </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                Try changing the filters or clearing the search text.
+              <p className="mt-2 text-sm text-[var(--color-text-soft)] font-medium">
+                Try adjusting your filters or search terms.
               </p>
             </CardContent>
           </Card>
         )}
 
         {filteredPublications.length ? (
-          <Card className="border-[#e1e9f5] bg-white">
-            <CardContent className="flex items-center justify-between gap-3 p-4">
-              <button
-                type="button"
-                onClick={() => setPage((current) => Math.max(1, current - 1))}
-                disabled={page === 1}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Previous
-              </button>
+          <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setPage((current) => Math.max(1, current - 1))}
+              disabled={page === 1}
+              className="flex-1 rounded-xl border border-[var(--color-border)] px-4 py-3 text-sm font-bold text-[var(--color-heading)] transition hover:bg-[var(--color-surface-soft)] disabled:opacity-30"
+            >
+              Previous
+            </button>
 
-              <p className="text-sm text-slate-600">
-                Page {page} of {totalPages}
-              </p>
+            <span className="text-sm font-bold text-[var(--color-text-soft)]">
+              {page} / {totalPages}
+            </span>
 
-              <button
-                type="button"
-                onClick={() =>
-                  setPage((current) => Math.min(totalPages, current + 1))
-                }
-                disabled={page === totalPages}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Next
-              </button>
-            </CardContent>
-          </Card>
+            <button
+              type="button"
+              onClick={() =>
+                setPage((current) => Math.min(totalPages, current + 1))
+              }
+              disabled={page === totalPages}
+              className="flex-1 rounded-xl border border-[var(--color-border)] px-4 py-3 text-sm font-bold text-[var(--color-heading)] transition hover:bg-[var(--color-surface-soft)] disabled:opacity-30"
+            >
+              Next
+            </button>
+          </div>
         ) : null}
       </div>
     </div>

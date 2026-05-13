@@ -3,6 +3,8 @@ import ResearchPaperCard from "../components/ResearchPaperCard";
 import ResearchPaperFilters from "../components/ResearchPaperFilters";
 import ResearchPaperTable from "../components/ResearchPaperTable";
 import researchPapersData from "../data/researchPapers.json";
+import { Badge } from "../components/ui/badge";
+import { Activity, BookMarked, Globe, Layers } from "lucide-react";
 
 function getDateValue(paper) {
   return paper.sanctionedDate || "";
@@ -93,39 +95,72 @@ export default function ResearchPapers() {
   }, [search, selectedStatus, selectedYear, selectedSponsor]);
 
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-2xl border border-[#d6e2f1] bg-linear-to-r from-[#f4f8fe] via-white to-[#f6faff] p-6 shadow-sm">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+    <div className="space-y-12 pb-12">
+      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+        
+        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
-              Research & Innovation
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#0f2f66] md:text-4xl">
-              Research Papers
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Research Initiative</Badge>
+              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Sponsored Projects</Badge>
+            </div>
+
+            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+              Research <br />Papers & Projects
             </h1>
-            <p className="mt-2 text-sm text-slate-600 md:text-base">
-              Sponsored projects and publication-oriented research work
+
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+              A curated catalog of sponsored research projects and academic publications 
+              advancing the boundaries of instrumentation and control engineering.
             </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <BookMarked size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} indexed papers</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <Globe size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{sponsorOptions.length} global sponsors</span>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <div className="rounded-lg border border-[#d2dff0] bg-white px-3 py-2 text-center">
-              <p className="text-xs text-slate-500">Total</p>
-              <p className="text-lg font-semibold text-slate-900">
-                {summary.total}
-              </p>
+          <div className="grid grid-cols-1 gap-4">
+            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-8 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+               <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+                    Total Volume
+                  </p>
+                  <p className="mt-4 text-5xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                    {summary.total}
+                  </p>
+                </div>
+                <div className="h-14 w-14 rounded-2xl bg-[var(--color-accent)]/10 flex items-center justify-center text-[var(--color-accent)]">
+                   <Layers size={28} />
+                </div>
+              </div>
             </div>
-            <div className="rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-center">
-              <p className="text-xs text-sky-700">Ongoing</p>
-              <p className="text-lg font-semibold text-sky-800">
-                {summary.ongoing}
-              </p>
-            </div>
-            <div className="rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-center">
-              <p className="text-xs text-emerald-700">Completed</p>
-              <p className="text-lg font-semibold text-emerald-800">
-                {summary.completed}
-              </p>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-[2rem] border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)]">
+                  Ongoing
+                </p>
+                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                  {summary.ongoing}
+                </p>
+              </div>
+              <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
+                  Completed
+                </p>
+                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                  {summary.completed}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -147,31 +182,30 @@ export default function ResearchPapers() {
       />
 
       <div className="flex items-center justify-between px-1">
-        <p className="text-sm text-slate-600" aria-live="polite">
-          Showing {filteredPapers.length} research paper
-          {filteredPapers.length === 1 ? "" : "s"}
+        <p className="text-sm font-bold text-[var(--color-heading)]" aria-live="polite">
+          Showing {filteredPapers.length} research projects
         </p>
-        <p className="hidden text-xs font-medium uppercase tracking-wide text-slate-500 lg:block">
-          Desktop table view
+        <p className="hidden text-xs font-black uppercase tracking-widest text-[var(--color-text-soft)] lg:block">
+          Institution Catalog View
         </p>
       </div>
 
       {filteredPapers.length === 0 ? (
-        <section className="rounded-xl border border-[#e5e7eb] bg-white p-8 text-center shadow-sm">
-          <h2 className="text-lg font-semibold text-[#0f2f66]">
+        <section className="rounded-[2.5rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-12 text-center">
+          <h2 className="text-xl font-bold text-[var(--color-heading)]">
             No research papers found
           </h2>
-          <p className="mt-2 text-sm text-slate-600">
-            Try changing the search keywords or filters.
+          <p className="mt-2 text-sm text-[var(--color-text-soft)] font-medium">
+            Try adjusting your search filters.
           </p>
         </section>
       ) : (
         <>
-          <div className="hidden lg:block">
+          <div className="hidden lg:block overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-sm">
             <ResearchPaperTable papers={filteredPapers} />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 lg:hidden">
+          <div className="grid grid-cols-1 gap-6 lg:hidden">
             {filteredPapers.map((paper) => (
               <ResearchPaperCard key={paper.id} paper={paper} />
             ))}

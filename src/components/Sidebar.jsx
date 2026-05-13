@@ -41,30 +41,30 @@ export default function Sidebar({ mobile = false, onNavigate }) {
   return (
     <nav
       aria-label="Department navigation"
-      className="overflow-hidden rounded-2xl border border-[#d7e2f0] bg-white/95 shadow-[0_8px_24px_rgba(15,47,102,0.08)]"
+      className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)]"
     >
-      <div className="border-b border-[#e5e7eb] bg-white px-4 py-3">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#284b7a]">
+      <div className="border-b border-[var(--color-border)] bg-[var(--color-surface-soft)] px-5 py-4">
+        <p className="text-[11px] font-bold uppercase tracking-widest text-[var(--color-accent)]">
           Department Sections
         </p>
       </div>
 
-      <div className="space-y-2 p-3">
+      <div className="space-y-3 p-4 bg-white">
         {NAV_GROUPS.map((group) => {
           const isOpen = mobile ? openGroupId === group.id : true;
 
           return (
             <section
               key={group.id}
-              className="rounded-xl border border-[#e1e8f3] bg-white"
+              className="rounded-xl border border-[var(--color-border)] bg-white overflow-hidden"
             >
               <h2>
                 <button
                   type="button"
                   className={clsx(
-                    "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-[0.08em]",
-                    "bg-[#f3f4f6] text-[#24456f]",
-                    mobile && "hover:bg-[#edf3fc]",
+                    "flex w-full items-center justify-between px-4 py-3 text-left text-xs font-bold uppercase tracking-widest transition-colors",
+                    "bg-[var(--color-surface-soft)] text-[var(--color-heading)]",
+                    mobile && "hover:bg-[var(--color-border)]",
                   )}
                   onClick={() => toggleGroup(group.id)}
                   aria-expanded={isOpen}
@@ -77,7 +77,7 @@ export default function Sidebar({ mobile = false, onNavigate }) {
                     <ChevronDown
                       size={14}
                       className={clsx(
-                        "transition-transform",
+                        "transition-transform text-[var(--color-text-soft)]",
                         isOpen && "rotate-180",
                       )}
                       aria-hidden="true"
@@ -88,7 +88,7 @@ export default function Sidebar({ mobile = false, onNavigate }) {
 
               <div
                 id={`${group.id}-links`}
-                className={clsx("space-y-1.5 px-2 pb-2", !isOpen && "hidden")}
+                className={clsx("space-y-1 p-2", !isOpen && "hidden")}
                 role="group"
                 aria-label={group.title}
               >
@@ -102,10 +102,10 @@ export default function Sidebar({ mobile = false, onNavigate }) {
                         isActive || isRouteActive(location.pathname, item.path);
 
                       return clsx(
-                        "block rounded-lg border px-3 py-2 text-sm transition-colors",
+                        "block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                         active
-                          ? "border-[#bfd2ec] bg-[#edf4ff] font-semibold text-[#0f2f66]"
-                          : "border-transparent text-slate-700 hover:border-[#e5e7eb] hover:bg-[#f9fafb]",
+                          ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-semibold"
+                          : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]",
                       );
                     }}
                   >

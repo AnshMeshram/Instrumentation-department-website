@@ -96,39 +96,73 @@ export default function Consultancy() {
   }, [search, selectedLeader, selectedYear, selectedStatus]);
 
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-2xl border border-[#d6e2f1] bg-linear-to-r from-[#f4f8fe] via-white to-[#f6faff] p-6 shadow-sm">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+    <div className="space-y-12 pb-12">
+      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+        
+        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
-              Research & Innovation
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#0f2f66] md:text-4xl">
-              Consultancy
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Industry Engagement</Badge>
+              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Consultancy & Training</Badge>
+            </div>
+
+            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+              Consultancy <br />& Services
             </h1>
-            <p className="mt-2 text-sm text-slate-600 md:text-base">
-              Consultancy (from Industry) projects listed exactly from the PDF
+
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+              A comprehensive record of industrial consultancy and training projects 
+              reflecting our expertise in real-world instrumentation and automation 
+              problem solving.
             </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <BriefcaseBusiness size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} projects</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <Building2 size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{leaderOptions.length} lead investigators</span>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <div className="rounded-lg border border-[#d2dff0] bg-white px-3 py-2 text-center">
-              <p className="text-xs text-slate-500">Total</p>
-              <p className="text-lg font-semibold text-slate-900">
-                {summary.total}
-              </p>
+          <div className="grid grid-cols-1 gap-4">
+            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-8 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+                    Active Portfolio
+                  </p>
+                  <p className="mt-4 text-5xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                    {summary.total}
+                  </p>
+                </div>
+                <div className="h-14 w-14 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)]">
+                   <Activity size={28} />
+                </div>
+              </div>
             </div>
-            <div className="rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-center">
-              <p className="text-xs text-emerald-700">Completed</p>
-              <p className="text-lg font-semibold text-emerald-800">
-                {summary.completed}
-              </p>
-            </div>
-            <div className="rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-center">
-              <p className="text-xs text-sky-700">Ongoing</p>
-              <p className="text-lg font-semibold text-sky-800">
-                {summary.ongoing}
-              </p>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-[2rem] border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                  Completed
+                </p>
+                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                  {summary.completed}
+                </p>
+              </div>
+              <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
+                  Ongoing
+                </p>
+                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                  {summary.ongoing}
+                </p>
+              </div>
             </div>
           </div>
         </div>

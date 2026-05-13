@@ -94,78 +94,75 @@ export default function Patents() {
   }, [search, selectedStatus, selectedYear, selectedType]);
 
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-[30px] border border-[var(--color-border)] bg-[linear-gradient(135deg,#f9fbfd_0%,#ffffff_46%,#edf3f8_100%)] shadow-[var(--shadow-soft)]">
-        <div className="grid gap-8 px-6 py-8 lg:grid-cols-[1.15fr,0.85fr] lg:px-8 lg:py-10">
+    <div className="space-y-12 pb-12">
+      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+        
+        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
           <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-primary)]">
-                <Shield size={14} />
-                Research & Innovation
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#e6d3a8] bg-[#fff9ec] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#8a6415]">
-                IP Portfolio
-              </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Intellectual Property</Badge>
+              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">IP Portfolio</Badge>
             </div>
 
-            <h1 className="mt-5 max-w-4xl font-[var(--font-serif)] text-4xl font-semibold leading-tight tracking-tight text-[var(--color-heading)] md:text-5xl">
-              Patents and intellectual property outcomes
+            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+              Patents and <br />Innovation
             </h1>
 
-            <p className="mt-4 max-w-3xl text-base leading-8 text-[var(--color-text-soft)]">
-              Explore granted, published, and applied patents that reflect the
-              department&apos;s work in instrumentation, control, embedded
-              systems, automation, and applied engineering innovation.
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+              A record of granted, published, and filed patents reflecting the
+              department&apos;s commitment to pioneering instrumentation and 
+              industrial automation outcomes.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white">
-                <FileStack size={16} />
-                {summary.total} patent records
+            <div className="mt-10 flex flex-wrap gap-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <FileStack size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} records</span>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--color-primary)]">
-                <BadgeCheck size={16} />
-                {yearOptions.length} years indexed
+              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
+                <BadgeCheck size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-bold text-[var(--color-heading)]">{yearOptions.length} years indexed</span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 self-start">
-            <div className="rounded-[24px] border border-[var(--color-border)] bg-white px-4 py-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                Total
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+                Cumulative
               </p>
-              <p className="mt-3 text-3xl font-semibold text-[var(--color-heading)]">
+              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.total}
               </p>
-              <p className="mt-2 text-sm text-slate-500">All patent records</p>
+              <p className="mt-2 text-[10px] font-bold text-[var(--color-accent)] uppercase">Patent Records</p>
             </div>
-            <div className="rounded-[24px] border border-emerald-100 bg-emerald-50 px-4 py-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+            <div className="rounded-[2rem] border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
                 Granted
               </p>
-              <p className="mt-3 text-3xl font-semibold text-emerald-800">
+              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.granted}
               </p>
-              <p className="mt-2 text-sm text-emerald-700/80">Approved patents</p>
+              <p className="mt-2 text-[10px] font-bold text-[var(--color-accent)]/70 uppercase tracking-widest">Global IP</p>
             </div>
-            <div className="rounded-[24px] border border-sky-100 bg-sky-50 px-4 py-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700">
+            <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
                 Published
               </p>
-              <p className="mt-3 text-3xl font-semibold text-sky-800">
+              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.published}
               </p>
-              <p className="mt-2 text-sm text-sky-700/80">Publicly disclosed</p>
+              <p className="mt-2 text-[10px] font-bold text-[var(--color-highlight)]/70 uppercase tracking-widest">Public Discl.</p>
             </div>
-            <div className="rounded-[24px] border border-amber-100 bg-amber-50 px-4 py-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-700">
+            <div className="rounded-[2rem] border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)]">
                 Applied
               </p>
-              <p className="mt-3 text-3xl font-semibold text-amber-800">
+              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.applied}
               </p>
-              <p className="mt-2 text-sm text-amber-700/80">Filed applications</p>
+              <p className="mt-2 text-[10px] font-bold text-[var(--color-primary)]/70 uppercase tracking-widest">Filed IP</p>
             </div>
           </div>
         </div>
