@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { ArrowRight, BadgeCheck, FileStack, Shield } from "lucide-react";
+import { BadgeCheck, FileStack } from "lucide-react";
 import PatentCard from "../components/PatentCard";
 import PatentFilters from "../components/PatentFilters";
 import PatentTable from "../components/PatentTable";
+import { Badge } from "../components/ui/badge";
 import patentsData from "../data/patents.json";
 
 function getDateValue(patent) {

@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { Activity, BriefcaseBusiness, Building2 } from "lucide-react";
+import { Badge } from "../components/ui/badge";
 import ConsultancyCard from "../components/ConsultancyCard";
 import ConsultancyFilters from "../components/ConsultancyFilters";
 import ConsultancyTable from "../components/ConsultancyTable";
