@@ -20,17 +20,17 @@ export default function MobileSidebar() {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/40" />
 
-        <Dialog.Content className="fixed left-0 top-0 z-50 h-full w-84 max-w-[90vw] overflow-y-auto border-r border-slate-200 bg-slate-50 p-4 shadow-xl">
-          <Dialog.Title className="text-sm font-semibold text-slate-800">
+        <Dialog.Content className="fixed left-0 top-0 z-50 h-full w-84 max-w-[90vw] overflow-y-auto border-r border-[var(--color-border)] bg-white p-4 shadow-xl">
+          <Dialog.Title className="text-sm font-semibold text-[var(--color-heading)]">
             Department Navigation
           </Dialog.Title>
-          <Dialog.Description className="mt-1 text-xs text-slate-600">
+          <Dialog.Description className="mt-1 text-xs text-[var(--color-text-soft)]">
             Browse section-wise links for the department website.
           </Dialog.Description>
 
           <Dialog.Close asChild>
             <button
-              className="absolute right-3 top-3 rounded-md p-1 text-slate-600 hover:bg-slate-100"
+              className="absolute right-3 top-3 rounded-md p-1 text-[var(--color-text-soft)] hover:bg-[var(--color-surface-soft)]"
               aria-label="Close menu"
             >
               <X size={18} />

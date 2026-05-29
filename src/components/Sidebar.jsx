@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
@@ -21,17 +21,21 @@ export default function Sidebar({ mobile = false, onNavigate }) {
     return active?.id ?? NAV_GROUPS[0]?.id ?? null;
   });
 
-  useEffect(() => {
-    if (!mobile) return;
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  const [prevMobile, setPrevMobile] = useState(mobile);
 
-    const activeGroup = NAV_GROUPS.find((group) =>
-      group.items.some((item) => isRouteActive(location.pathname, item.path)),
-    );
-
-    if (!activeGroup) return;
-
-    setOpenGroupId(activeGroup.id);
-  }, [location.pathname, mobile]);
+  if (location.pathname !== prevPathname || mobile !== prevMobile) {
+    setPrevPathname(location.pathname);
+    setPrevMobile(mobile);
+    if (mobile) {
+      const activeGroup = NAV_GROUPS.find((group) =>
+        group.items.some((item) => isRouteActive(location.pathname, item.path)),
+      );
+      if (activeGroup) {
+        setOpenGroupId(activeGroup.id);
+      }
+    }
+  }
 
   const toggleGroup = (groupId) => {
     if (!mobile) return;

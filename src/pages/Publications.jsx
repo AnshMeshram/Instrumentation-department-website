@@ -1,7 +1,8 @@
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { ArrowUpRight, FileSearch, LibraryBig, Microscope } from "lucide-react";
 import PublicationFilters from "../components/PublicationFilters";
 import PublicationTable from "../components/PublicationTable";
+import DocumentIntelligencePanel from "../components/DocumentIntelligencePanel";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
 import publicationsData from "../data/publications.json";
@@ -9,6 +10,10 @@ import {
   buildPublicationCatalog,
   getPublicationOptions,
 } from "../lib/publicationCatalog";
+import {
+  buildDocumentIntelligence,
+  summarizeDocuments,
+} from "../lib/documentIntelligence";
 import { cn } from "../lib/utils";
 
 const PAGE_SIZE = 10;
@@ -51,7 +56,8 @@ function summarizeCatalog(catalog) {
     facultyCount: Object.keys(facultyCounts).length,
     sourcePages: new Set(catalog.map((publication) => publication.sourcePage))
       .size,
-    yearCount: new Set(catalog.map((publication) => publication.sessionYear)).size,
+    yearCount: new Set(catalog.map((publication) => publication.sessionYear))
+      .size,
     topFaculties,
   };
 }
@@ -59,18 +65,32 @@ function summarizeCatalog(catalog) {
 function InsightCard({ title, value, tone = "default", helper }) {
   const tones = {
     default: "border-[var(--color-border)] bg-white text-[var(--color-text)]",
-    journal: "border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 text-[var(--color-heading)]",
-    conference: "border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 text-[var(--color-heading)]",
-    faculty: "border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-heading)]",
+    journal:
+      "border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 text-[var(--color-heading)]",
+    conference:
+      "border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 text-[var(--color-heading)]",
+    faculty:
+      "border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-heading)]",
   };
 
   return (
-    <div className={cn("rounded-2xl border px-4 py-5 shadow-sm transition-all duration-300 hover:shadow-md", tones[tone])}>
+    <div
+      className={cn(
+        "rounded-2xl border px-4 py-5 shadow-sm transition-all duration-300 hover:shadow-md",
+        tones[tone],
+      )}
+    >
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
         {title}
       </p>
-      <p className="mt-3 text-3xl font-black font-[var(--font-serif)] tracking-tight">{value}</p>
-      {helper ? <p className="mt-1 text-[10px] font-medium text-[var(--color-text-soft)] opacity-80">{helper}</p> : null}
+      <p className="mt-3 text-3xl font-black font-[var(--font-serif)] tracking-tight">
+        {value}
+      </p>
+      {helper ? (
+        <p className="mt-1 text-[10px] font-medium text-[var(--color-text-soft)] opacity-80">
+          {helper}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -90,12 +110,19 @@ function MobilePublicationCard({ publication }) {
       <CardContent className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <Badge variant={badgeVariant} className="px-3 py-1">{publication.category}</Badge>
+            <Badge variant={badgeVariant} className="px-3 py-1">
+              {publication.category}
+            </Badge>
             <h3 className="mt-4 text-lg font-black leading-tight text-[var(--color-heading)] font-[var(--font-serif)]">
               {publication.title}
             </h3>
           </div>
-          <Badge variant="type" className="bg-[var(--color-surface-soft)] text-[var(--color-text-soft)]">{publication.sessionYear}</Badge>
+          <Badge
+            variant="type"
+            className="bg-[var(--color-surface-soft)] text-[var(--color-text-soft)]"
+          >
+            {publication.sessionYear}
+          </Badge>
         </div>
 
         <div className="space-y-4 border-t border-[var(--color-border)] pt-4">
@@ -103,13 +130,17 @@ function MobilePublicationCard({ publication }) {
             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)] mb-1">
               Authors
             </p>
-            <p className="text-sm font-medium leading-relaxed text-[var(--color-text-soft)]">{publication.authors}</p>
+            <p className="text-sm font-medium leading-relaxed text-[var(--color-text-soft)]">
+              {publication.authors}
+            </p>
           </div>
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)] mb-1">
               Faculty Contribution
             </p>
-            <p className="text-sm font-bold text-[var(--color-heading)]">{publication.faculty}</p>
+            <p className="text-sm font-bold text-[var(--color-heading)]">
+              {publication.faculty}
+            </p>
           </div>
         </div>
 
@@ -142,6 +173,17 @@ export default function Publications() {
   const catalog = useMemo(() => buildPublicationCatalog(publicationsData), []);
   const options = useMemo(() => getPublicationOptions(catalog), [catalog]);
   const summary = useMemo(() => summarizeCatalog(catalog), [catalog]);
+  const intelligenceSummary = useMemo(
+    () =>
+      summarizeDocuments(
+        buildDocumentIntelligence(
+          catalog,
+          (publication) => publication.rawText,
+          (publication) => publication.title,
+        ),
+      ),
+    [catalog],
+  );
 
   const [search, setSearch] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("All");
@@ -182,7 +224,9 @@ export default function Publications() {
           selectedYear === "All" || publication.sessionYear === selectedYear;
         const authorMatch =
           selectedAuthor === "All" ||
-          publication.authors.toLowerCase().includes(selectedAuthor.toLowerCase());
+          publication.authors
+            .toLowerCase()
+            .includes(selectedAuthor.toLowerCase());
         const categoryMatch =
           selectedCategory === "All" ||
           publication.category === selectedCategory;
@@ -221,16 +265,30 @@ export default function Publications() {
     1,
     Math.ceil(filteredPublications.length / PAGE_SIZE),
   );
+  const [prevSearch, setPrevSearch] = useState(deferredSearch);
+  const [prevFaculty, setPrevFaculty] = useState(selectedFaculty);
+  const [prevYear, setPrevYear] = useState(selectedYear);
+  const [prevAuthor, setPrevAuthor] = useState(selectedAuthor);
+  const [prevCategory, setPrevCategory] = useState(selectedCategory);
 
-  useEffect(() => {
+  if (
+    deferredSearch !== prevSearch ||
+    selectedFaculty !== prevFaculty ||
+    selectedYear !== prevYear ||
+    selectedAuthor !== prevAuthor ||
+    selectedCategory !== prevCategory
+  ) {
+    setPrevSearch(deferredSearch);
+    setPrevFaculty(selectedFaculty);
+    setPrevYear(selectedYear);
+    setPrevAuthor(selectedAuthor);
+    setPrevCategory(selectedCategory);
     setPage(1);
-  }, [deferredSearch, selectedAuthor, selectedCategory, selectedFaculty, selectedYear]);
+  }
 
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [page, totalPages]);
+  if (page > totalPages) {
+    setPage(totalPages);
+  }
 
   const paginatedPublications = useMemo(() => {
     const startIndex = (page - 1) * PAGE_SIZE;
@@ -252,32 +310,53 @@ export default function Publications() {
     <div className="space-y-12 pb-12">
       <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-        
+
         <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Research Catalog</Badge>
-              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Extracted Repository</Badge>
+              <Badge
+                variant="type"
+                className="bg-[var(--color-primary)] text-white px-4 py-1.5"
+              >
+                Research Catalog
+              </Badge>
+              <Badge
+                variant="default"
+                className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
+              >
+                Extracted Repository
+              </Badge>
             </div>
 
             <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
-              Academic <br />Publications
+              Academic <br />
+              Publications
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
-              A curated repository of departmental research, organized with 
-              searchable metadata, multi-year contribution insights, and 
-              faculty productivity analytics.
+              A curated repository of departmental research, organized with
+              searchable metadata, multi-year contribution insights, and faculty
+              productivity analytics.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
               <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <LibraryBig size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} indexed records</span>
+                <LibraryBig
+                  size={20}
+                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
+                />
+                <span className="text-sm font-bold text-[var(--color-heading)]">
+                  {summary.total} indexed records
+                </span>
               </div>
               <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <Microscope size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.facultyCount} faculty contributors</span>
+                <Microscope
+                  size={20}
+                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
+                />
+                <span className="text-sm font-bold text-[var(--color-heading)]">
+                  {summary.facultyCount} faculty contributors
+                </span>
               </div>
             </div>
           </div>
@@ -318,6 +397,15 @@ export default function Publications() {
         </div>
       </section>
 
+      <DocumentIntelligencePanel
+        title="Publication intelligence"
+        subtitle="The publication archive now carries inferred metadata, auto-tagging, and full-text retrieval across the raw extracted records."
+        summary={intelligenceSummary}
+        search={search}
+        onSearchChange={setSearch}
+        placeholder="Search titles, authors, venues, years, or extracted raw text..."
+      />
+
       <section className="grid gap-8 xl:grid-cols-[1.1fr,0.9fr]">
         <Card className="border-none bg-white shadow-sm overflow-hidden">
           <CardContent className="p-8">
@@ -330,7 +418,12 @@ export default function Publications() {
                   Category breakdown
                 </h2>
               </div>
-              <Badge variant="default" className="bg-[var(--color-primary-soft)] text-[var(--color-primary)] border-none">{summary.yearCount} Years indexed</Badge>
+              <Badge
+                variant="default"
+                className="bg-[var(--color-primary-soft)] text-[var(--color-primary)] border-none"
+              >
+                {summary.yearCount} Years indexed
+              </Badge>
             </div>
 
             <div className="mt-10 space-y-6">
@@ -358,12 +451,19 @@ export default function Publications() {
               ].map((item) => (
                 <div key={item.label} className="space-y-3">
                   <div className="flex items-center justify-between text-sm font-bold">
-                    <span className="text-[var(--color-text)]">{item.label}</span>
-                    <span className="text-[var(--color-primary)]">{item.value}</span>
+                    <span className="text-[var(--color-text)]">
+                      {item.label}
+                    </span>
+                    <span className="text-[var(--color-primary)]">
+                      {item.value}
+                    </span>
                   </div>
                   <div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-surface-soft)]">
                     <div
-                      className={cn("h-full rounded-full transition-all duration-1000", item.color)}
+                      className={cn(
+                        "h-full rounded-full transition-all duration-1000",
+                        item.color,
+                      )}
                       style={{
                         width: `${summary.total ? (item.value / summary.total) * 100 : 0}%`,
                       }}
@@ -405,7 +505,9 @@ export default function Publications() {
                     </div>
                   </div>
 
-                  <Badge className="bg-[var(--color-accent)] text-black font-black border-none">{faculty.count}</Badge>
+                  <Badge className="bg-[var(--color-accent)] text-black font-black border-none">
+                    {faculty.count}
+                  </Badge>
                 </div>
               ))}
             </div>
@@ -445,9 +547,15 @@ export default function Publications() {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Badge className="bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-none">Journals: {summary.journals}</Badge>
-          <Badge className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-none">Conferences: {summary.conferences}</Badge>
-          <Badge className="bg-[var(--color-highlight)]/10 text-[var(--color-highlight)] border-none">Books: {summary.books}</Badge>
+          <Badge className="bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-none">
+            Journals: {summary.journals}
+          </Badge>
+          <Badge className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-none">
+            Conferences: {summary.conferences}
+          </Badge>
+          <Badge className="bg-[var(--color-highlight)]/10 text-[var(--color-highlight)] border-none">
+            Books: {summary.books}
+          </Badge>
         </div>
       </section>
 
@@ -459,7 +567,9 @@ export default function Publications() {
           page={page}
           totalPages={totalPages}
           pageSize={PAGE_SIZE}
-          onNextPage={() => setPage((current) => Math.min(totalPages, current + 1))}
+          onNextPage={() =>
+            setPage((current) => Math.min(totalPages, current + 1))
+          }
           onPreviousPage={() => setPage((current) => Math.max(1, current - 1))}
           onPageSelect={setPage}
         />

@@ -1,4 +1,3 @@
-import React from "react";
 import PageHeader from "../components/PageHeader";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
@@ -54,8 +53,8 @@ export default function VirtualLab() {
             <CardContent className="p-8">
               <div className="flex items-center gap-3 text-[var(--color-accent)] mb-6">
                 <Cpu size={24} />
-              <h2 className="text-xl font-bold font-[var(--font-serif)] !text-white">System Working</h2>
-            </div>
+                <h2 className="text-xl font-bold font-[var(--font-serif)] text-white">System Working</h2>
+              </div>
               <p className="text-sm leading-relaxed text-white/80 font-medium">
                 The system operates by continuously comparing the <strong>Set Point (SP)</strong> 
                 with the <strong>Process Variable (PV)</strong>. The resulting error signal is 

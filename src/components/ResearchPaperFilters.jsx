@@ -13,7 +13,7 @@ const statusOptions = ["All", "Ongoing", "Completed"];
 function SelectField({ label, value, options, onChange }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+      <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
         {label}
       </span>
 
@@ -49,16 +49,16 @@ export default function ResearchPaperFilters({
 }) {
   return (
     <section
-      className="rounded-2xl border border-[#e5e7eb] bg-white/95 p-4 shadow-sm backdrop-blur-sm md:p-5"
+      className="rounded-[2rem] border border-[var(--color-border)] bg-white/90 p-4 shadow-sm backdrop-blur-md md:p-5"
       aria-label="Research paper search and filters"
     >
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-semibold tracking-wide text-[#0f2f66]">
+        <p className="text-sm font-semibold tracking-wide text-[var(--color-primary)]">
           Search & Filters
         </p>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-[var(--color-text-soft)]">
           Active filters:{" "}
-          <span className="font-semibold text-slate-700">
+          <span className="font-semibold text-[var(--color-text)]">
             {activeFiltersCount}
           </span>
         </p>
@@ -66,7 +66,7 @@ export default function ResearchPaperFilters({
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
         <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
             Search
           </span>
           <Input
@@ -101,7 +101,7 @@ export default function ResearchPaperFilters({
 
       <div className="mt-4 flex justify-end">
         <Button type="button" onClick={onResetFilters} variant="soft" size="lg">
-          Reload Filters
+          Reset Filters
         </Button>
       </div>
     </section>

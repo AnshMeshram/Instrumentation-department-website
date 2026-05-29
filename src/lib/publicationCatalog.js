@@ -151,14 +151,6 @@ function extractFacultyFromText(lines) {
   return "Unknown Faculty";
 }
 
-function extractSessionYear(lines) {
-  for (const line of lines) {
-    const year = normalizeYearLabel(line);
-    if (year) return year;
-  }
-
-  return "Unknown Year";
-}
 
 function isBoilerplateLine(line) {
   return BOILERPLATE_PATTERN.test(line);

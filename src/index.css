@@ -1,110 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  
-  --color-bg: #ffffff;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  --page-max: 1360px;
+  --page-max-wide: 1560px;
+  --page-gutter: clamp(1rem, 3vw, 2.25rem);
+  --section-gap: clamp(1.5rem, 3.6vw, 3rem);
+  --section-gap-tight: clamp(1.1rem, 2.8vw, 2.2rem);
+
+  --color-bg: #f7fbfd;
   --color-surface: #ffffff;
-  --color-surface-soft: #f4f4f4;
-  
-  --color-border: #e5e5e5;
-  --color-border-strong: #d4d4d4;
-  
-  --color-text: #171717;
-  --color-text-soft: #525252;
-  
-  /* Carbon & Emerald Palette */
-  --color-heading: #0a0a0a;
-  --color-primary: #0a0a0a; /* Deep Carbon */
+  --color-surface-soft: #eef4f8;
+
+  --color-border: #d7e0e8;
+  --color-border-strong: #aebdca;
+
+  --color-text: #0f172a;
+  --color-text-soft: #516173;
+
+  /* Black, Blue & Green Palette */
+  --color-heading: #020617;
+  --color-primary: #050816; /* Deep black */
   --color-primary-strong: #000000;
-  --color-primary-soft: #f5f5f5;
-  
-  --color-accent: #10b981; /* Emerald */
-  --color-highlight: #f59e0b; /* Amber/Gold */
-  
+  --color-primary-soft: #eef2f7;
+
+  --color-accent: #0ea5a4; /* Teal green */
+  --color-highlight: #2563eb; /* Institutional blue */
+
   --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-:root {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  
-  --color-bg: #ffffff;
-  --color-surface: #ffffff;
-  --color-surface-soft: #f4f4f4;
-  
-  --color-border: #e5e5e5;
-  --color-border-strong: #d4d4d4;
-  
-  --color-text: #171717;
-  --color-text-soft: #525252;
-  
-  /* Carbon & Emerald Palette */
-  --color-heading: #0a0a0a;
-  --color-primary: #0a0a0a; 
-  --color-primary-strong: #000000;
-  --color-primary-soft: #f5f5f5;
-  
-  --color-accent: #10b981;
-  --color-highlight: #f59e0b;
-  
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(14, 165, 164, 0.12);
+    color: var(--color-accent);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease-in-out;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: inherit; /* Inherit color from parent container by default */
+    font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  /* Default heading color for light backgrounds */
+  body h1,
+  body h2,
+  body h3,
+  body h4 {
+    color: var(--color-heading);
+  }
 }
 
-* {
-  box-sizing: border-box;
+@layer utilities {
+  .page-shell {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .page-shell-wide {
+    width: 100%;
+    max-width: var(--page-max-wide);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .page-stack {
+    display: grid;
+    gap: var(--section-gap);
+  }
+
+  .page-stack-tight {
+    display: grid;
+    gap: var(--section-gap-tight);
+  }
+
+  .full-bleed {
+    width: 100%;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-  background: rgba(16, 185, 129, 0.1);
-  color: var(--color-accent);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.2s ease-in-out;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  color: inherit; /* Inherit color from parent container by default */
-  font-family: var(--font-serif);
-  font-weight: 700;
-}
-
-/* Default heading color for light backgrounds */
-body h1, body h2, body h3, body h4 {
-  color: var(--color-heading);
-}
-
-/* Explicitly allow utility overrides */
-.text-white { color: #ffffff !important; }
-.text-accent { color: var(--color-accent) !important; }
 
 @media print {
   header,

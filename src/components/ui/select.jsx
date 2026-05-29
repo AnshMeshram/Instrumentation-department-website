@@ -14,7 +14,7 @@ const SelectTrigger = React.forwardRef(function SelectTrigger(
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex h-11 w-full items-center justify-between rounded-2xl border border-[var(--color-border)] bg-white px-4 text-sm text-[var(--color-text)] transition placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-border-strong)] disabled:cursor-not-allowed disabled:opacity-50",
+        "flex h-11 w-full items-center justify-between rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/70 px-4 text-sm text-[var(--color-text)] transition focus:outline-none focus:border-[var(--color-accent)] focus:bg-white focus:ring-2 focus:ring-[var(--color-accent)]/15 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -36,8 +36,8 @@ const SelectContent = React.forwardRef(function SelectContent(
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
-          "relative z-50 max-h-64 min-w-32 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white text-[var(--color-text)] shadow-[var(--shadow-soft)]",
-          position === "popper" && "translate-y-1",
+          "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white text-[var(--color-text)] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.25)]",
+          position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
           className,
         )}
         position={position}
@@ -46,7 +46,13 @@ const SelectContent = React.forwardRef(function SelectContent(
         <SelectPrimitive.ScrollUpButton className="flex cursor-default items-center justify-center py-1">
           <ChevronUp className="h-4 w-4" />
         </SelectPrimitive.ScrollUpButton>
-        <SelectPrimitive.Viewport className="p-1.5">
+        <SelectPrimitive.Viewport
+          className={cn(
+            "p-1.5",
+            position === "popper" &&
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+          )}
+        >
           {children}
         </SelectPrimitive.Viewport>
         <SelectPrimitive.ScrollDownButton className="flex cursor-default items-center justify-center py-1">

@@ -73,7 +73,7 @@ export default function NavBar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white shadow-[0_8px_24px_rgba(13,40,69,0.08)]">
       <div className="border-b border-white/10 bg-[var(--color-primary)] text-white">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
+        <div className="page-shell flex items-center justify-between gap-4 py-3">
           <Link
             to="/about"
             className="flex min-w-0 items-center gap-3 rounded-lg pr-2 transition hover:bg-white/8"
@@ -103,13 +103,16 @@ export default function NavBar() {
       </div>
 
       <div className="bg-white shadow-inner border-b border-[var(--color-border)]">
-        <div className="mx-auto w-full max-w-7xl px-4 py-2.5 lg:px-6">
+        <div className="page-shell py-2.5">
           <nav aria-label="Breadcrumb" className="overflow-x-auto no-scrollbar">
             <ol className="flex items-center gap-2 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.1em] text-[var(--color-text-soft)]">
               {breadcrumbTrail.map((crumb, index) => {
                 const isLast = index === breadcrumbTrail.length - 1;
                 return (
-                  <li key={`${crumb}-${index}`} className="flex items-center gap-2">
+                  <li
+                    key={`${crumb}-${index}`}
+                    className="flex items-center gap-2"
+                  >
                     {index > 0 && (
                       <ChevronRight
                         size={10}
@@ -122,7 +125,7 @@ export default function NavBar() {
                         "transition-colors",
                         isLast
                           ? "text-[var(--color-accent)] font-black"
-                          : "hover:text-[var(--color-primary)] cursor-default opacity-60"
+                          : "hover:text-[var(--color-primary)] cursor-default opacity-60",
                       )}
                     >
                       {crumb}
@@ -136,7 +139,7 @@ export default function NavBar() {
       </div>
 
       <div className="border-b border-[var(--color-border)] bg-white/95">
-        <div className="mx-auto hidden w-full max-w-7xl px-4 lg:block lg:px-6">
+        <div className="page-shell hidden lg:block">
           <div
             className="relative"
             onMouseEnter={cancelCloseTimer}

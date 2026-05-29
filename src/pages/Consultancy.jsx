@@ -196,11 +196,11 @@ export default function Consultancy() {
       </div>
 
       {filteredConsultancies.length === 0 ? (
-        <section className="rounded-xl border border-[#e5e7eb] bg-white p-8 text-center shadow-sm">
-          <h2 className="text-lg font-semibold text-[#0f2f66]">
+        <section className="rounded-xl border border-[var(--color-border)] bg-white p-8 text-center shadow-sm">
+          <h2 className="text-lg font-semibold text-[var(--color-primary)]">
             No consultancy records found
           </h2>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-[var(--color-text-soft)]">
             Try changing the search keywords or filters.
           </p>
         </section>

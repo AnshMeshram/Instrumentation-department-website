@@ -4,7 +4,7 @@ export function Card({ className, ...props }) {
   return (
     <div
       className={cn(
-        "rounded-[26px] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-soft)]",
+        "rounded-[28px] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_20px_60px_-24px_rgba(0,0,0,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_80px_-28px_rgba(0,0,0,0.2)]",
         className,
       )}
       {...props}
@@ -13,5 +13,5 @@ export function Card({ className, ...props }) {
 }
 
 export function CardContent({ className, ...props }) {
-  return <div className={cn("p-5", className)} {...props} />;
+  return <div className={cn("p-6 md:p-7", className)} {...props} />;
 }

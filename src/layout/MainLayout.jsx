@@ -12,17 +12,16 @@ export default function MainLayout({ children }) {
 
       <NavBar />
 
-      <main
-        id="main-content"
-        className="mx-auto w-full max-w-7xl flex-1 bg-[var(--color-bg)] px-2 py-4 sm:px-3 sm:py-6 lg:px-4"
-      >
-        <section className="min-h-[60vh]">{children}</section>
+      <main id="main-content" className="flex-1 bg-[var(--color-bg)]">
+        <section className="page-shell min-h-[60vh] py-5 md:py-7 lg:py-9">
+          {children}
+        </section>
       </main>
 
       <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]/95">
-        <div className="mx-auto max-w-7xl px-2 py-8 text-center text-xs text-[var(--color-text-soft)] sm:px-4 sm:text-sm lg:px-6">
+        <div className="page-shell py-8 text-center text-xs text-[var(--color-text-soft)] sm:text-sm">
           <p className="font-bold text-[var(--color-heading)] mb-2">
-            (c) {new Date().getFullYear()} COEP Technological University
+            &copy; {new Date().getFullYear()} COEP Technological University
           </p>
           <p>Department of Instrumentation and Control Engineering</p>
         </div>

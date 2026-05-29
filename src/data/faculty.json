@@ -7,6 +7,11 @@
     "phone": "+91 02025507035",
     "image": "/faculty_images/shendge.jpg",
     "research": "Control Systems, Industrial Automation",
+    "links": {
+      "scholar": "https://scholar.google.com",
+      "linkedin": "https://linkedin.com",
+      "orcid": "https://orcid.org"
+    },
     "education": [
       {
         "degree": "Ph.D. in Instrumentation Engineering",
@@ -85,7 +90,13 @@
     "achievements": [
       "Registrar-level administrative contributions, COEP (ongoing).",
       "Recognized for curriculum development in Embedded Systems (2018)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "chetankumar-patil",
@@ -118,7 +129,13 @@
     "patents": [],
     "achievements": [
       "Award for best paper in National Conference on Signal Processing (2019)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "sanjaykumar-patil",
@@ -148,10 +165,18 @@
       "S. L. Patil, \"Efficient Inverter Topologies for Renewable Energy Systems,\" Renewable Power Journal, 2021.",
       "S. L. Patil, \"High-Efficiency Motor Drives for Industrial Automation,\" IEEE Transactions on Power Electronics, 2019."
     ],
-    "patents": ["Low Harmonic Grid-Tied Inverter Design, India Patent (2020)"],
+    "patents": [
+      "Low Harmonic Grid-Tied Inverter Design, India Patent (2020)"
+    ],
     "achievements": [
       "Industry-academia collaborative award for renewable energy project (2021)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "rajendra-kokate",
@@ -184,7 +209,13 @@
     "patents": [],
     "achievements": [
       "Member of several national instrumentation standard committees."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "uttam-chaskar",
@@ -219,7 +250,13 @@
     ],
     "achievements": [
       "Grant for Medical Device Development from state research council (2020)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "rohini-mudhalwadkar",
@@ -252,7 +289,13 @@
     "patents": [],
     "achievements": [
       "Principal investigator on a funded project for air-quality monitoring (2019)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "girish-lakhekar",
@@ -285,7 +328,15 @@
     "patents": [
       "Autonomous Mobile Inspection Robot for Industrial Plants, India Patent (2020)"
     ],
-    "achievements": ["Young Faculty Research Award (2021)."]
+    "achievements": [
+      "Young Faculty Research Award (2021)."
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "nikhila-patil",
@@ -318,7 +369,13 @@
     "patents": [],
     "achievements": [
       "Received institutional seed grant for flexible sensor project (2020)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "meera-khandekar",
@@ -348,7 +405,15 @@
       "M. A. Khandekar, \"Instrumentation Strategies for Chemical Process Safety,\" Journal of Process Safety, 2019."
     ],
     "patents": [],
-    "achievements": ["Contributed to industry-funded lab modernization (2018)."]
+    "achievements": [
+      "Contributed to industry-funded lab modernization (2018)."
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "ketaki-ghodinde",
@@ -380,7 +445,13 @@
     "patents": [],
     "achievements": [
       "Led student project that won state-level smart-building hackathon (2019)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   },
   {
     "id": "amruta-deshpande",
@@ -413,6 +484,12 @@
     "patents": [],
     "achievements": [
       "Received travel grant for international conference presentation (2020)."
-    ]
+    ],
+    "links": {
+      "scholar": "#",
+      "linkedin": "#",
+      "orcid": "#",
+      "website": "#"
+    }
   }
 ]
