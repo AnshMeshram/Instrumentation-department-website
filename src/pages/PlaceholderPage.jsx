@@ -5,12 +5,12 @@ import { Construction, LayoutDashboard, Clock } from "lucide-react";
 export default function PlaceholderPage({ title, description }) {
   return (
     <div className="space-y-12 pb-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
+      <section className="overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
         
         <div className="px-8 py-12 lg:px-12 lg:py-16 relative">
           <div className="flex flex-wrap items-center gap-3">
-            <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Module Pending</Badge>
+            <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Under Development</Badge>
             <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5 flex items-center gap-2">
                <Clock size={12} />
                Coming Soon
@@ -29,28 +29,28 @@ export default function PlaceholderPage({ title, description }) {
              <div className="flex items-center gap-3 p-4 rounded-2xl bg-[var(--color-surface-soft)] border border-[var(--color-border)]">
                 <div className="h-10 w-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center text-[var(--color-accent)]">
                    <Construction size={20} />
-                </div>
-                <span className="text-sm font-bold text-[var(--color-heading)]">Module Implementation Ongoing</span>
+                 </div>
+                 <span className="text-sm font-bold text-[var(--color-heading)]">Content Updates in Progress</span>
              </div>
              <div className="flex items-center gap-3 p-4 rounded-2xl bg-[var(--color-surface-soft)] border border-[var(--color-border)]">
                 <div className="h-10 w-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)]">
-                   <LayoutDashboard size={20} />
+                   <Clock size={20} />
                 </div>
-                <span className="text-sm font-bold text-[var(--color-heading)]">Portal Synchronization Pending</span>
+                <span className="text-sm font-bold text-[var(--color-heading)]">Portal Update in Progress</span>
              </div>
           </div>
         </div>
       </section>
 
-      <Card className="border-dashed border-2 border-[var(--color-border)] bg-[var(--color-surface-soft)]/30 rounded-[2.5rem]">
+      <Card className="border-dashed border-2 border-[var(--color-border)] bg-[var(--color-surface-soft)]/30 rounded-[var(--radius-container)]">
          <CardContent className="p-16 text-center">
             <div className="mx-auto h-20 w-20 rounded-3xl bg-white shadow-xl flex items-center justify-center text-[var(--color-accent)] mb-8">
                <Construction size={40} />
             </div>
-            <h2 className="text-2xl font-black text-[var(--color-heading)]">Information Repository Synchronization</h2>
+            <h2 className="text-2xl font-black text-[var(--color-heading)]">Content Coming Soon</h2>
             <p className="mt-4 max-w-xl mx-auto text-[var(--color-text-soft)] font-medium">
-               This database module is currently being populated with verified departmental records. 
-               The content will be automatically synchronized upon validation by the administrative board.
+               We are currently updating this section with official department records.
+               For immediate inquiries, please reach out to the department office at head.instrumentation@coeptech.ac.in.
             </p>
          </CardContent>
       </Card>

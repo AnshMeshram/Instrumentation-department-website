@@ -19,10 +19,18 @@ import {
   getFacultyImage,
   getFacultyMetrics,
 } from "../lib/facultyDirectory";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 export default function FacultyProfile() {
   const { id } = useParams();
   const faculty = facultyData.find((f) => f.id === id);
+
+  useDocumentMetadata({
+    title: faculty ? faculty.name : "Faculty Profile",
+    description: faculty
+      ? `${faculty.name} is a ${faculty.designation} in the Instrumentation and Control Engineering Department at COEP Tech. Specialization: ${faculty.areaOfInterest?.join(", ")}.`
+      : "View faculty profile details.",
+  });
 
   if (!faculty) {
     return (
@@ -49,9 +57,9 @@ export default function FacultyProfile() {
   return (
     <div className="space-y-8 pb-16 pt-8 px-4 md:px-8">
       {/* Main unified profile card */}
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-white shadow-2xl border border-[var(--color-border)]/50 flex flex-col lg:flex-row">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-container)] bg-white shadow-2xl border border-[var(--color-border)]/50 flex flex-col lg:flex-row">
         {/* Left Side - Image */}
-        <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 bg-[var(--color-surface-soft)] flex flex-col justify-end min-h-[400px]">
+        <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 bg-[var(--color-surface-soft)] flex flex-col justify-end h-80 sm:h-96 lg:h-auto lg:min-h-[400px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,164,0.1),transparent_50%)]" />
           <img
             src={initialImg}
@@ -190,7 +198,7 @@ export default function FacultyProfile() {
           {faculty.research && (
             <>
               <div className="my-8 h-px w-full bg-[var(--color-border)]/40" />
-              <div className="relative overflow-hidden rounded-[1.5rem] bg-[var(--color-surface-soft)]/60 p-6 md:p-8 border border-[var(--color-border)]/50">
+              <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-surface-soft)]/60 p-6 md:p-8 border border-[var(--color-border)]/50">
                 <div className="absolute right-0 bottom-0 opacity-[0.03] text-[var(--color-accent)] pointer-events-none translate-x-1/4 translate-y-1/4">
                   <Award size={160} strokeWidth={1} />
                 </div>
@@ -228,7 +236,7 @@ export default function FacultyProfile() {
       </div>
 
       <section className="mx-auto w-full max-w-6xl pt-4">
-        <div className="rounded-[2.5rem] bg-white p-4 shadow-sm border border-[var(--color-border)]/50">
+        <div className="rounded-[var(--radius-container)] bg-white p-4 shadow-sm border border-[var(--color-border)]/50">
           <ProfileTabs faculty={faculty} />
         </div>
       </section>

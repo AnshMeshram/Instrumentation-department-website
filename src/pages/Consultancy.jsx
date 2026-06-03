@@ -1,12 +1,17 @@
 import { useMemo, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2 } from "lucide-react";
+import { Activity, BadgeCheck, BriefcaseBusiness, Building2 } from "lucide-react";
 import { Badge } from "../components/ui/badge";
 import ConsultancyCard from "../components/ConsultancyCard";
 import ConsultancyFilters from "../components/ConsultancyFilters";
 import ConsultancyTable from "../components/ConsultancyTable";
 import consultancyData from "../data/consultancy.json";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 export default function Consultancy() {
+  useDocumentMetadata({
+    title: "Consultancy & Industry Services",
+    description: "Explore the consulting services, technology transfers, and industrial projects undertaken by our faculty members.",
+  });
   const [search, setSearch] = useState("");
   const [selectedLeader, setSelectedLeader] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
@@ -99,71 +104,47 @@ export default function Consultancy() {
 
   return (
     <div className="space-y-12 pb-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-        
-        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
-          <div>
+      <section className="overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)] relative">
+        <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: 'radial-gradient(circle, var(--color-primary) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
+        <div className="relative px-8 py-12 lg:px-12 lg:py-14 space-y-10">
+          <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="type" className="bg-[var(--color-primary)] text-white px-4 py-1.5">Industry Engagement</Badge>
-              <Badge variant="default" className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Consultancy & Training</Badge>
+              <Badge variant="default" className="bg-white text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Consultancy & Training</Badge>
             </div>
 
             <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
-              Consultancy <br />& Services
+              Consultancy & Services
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
-              A comprehensive record of industrial consultancy and training projects 
-              reflecting our expertise in real-world instrumentation and automation 
+              A comprehensive record of industrial consultancy and training projects
+              reflecting our expertise in real-world instrumentation and automation
               problem solving.
             </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <BriefcaseBusiness size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-bold text-[var(--color-heading)]">{summary.total} projects</span>
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <Building2 size={20} className="text-[var(--color-accent)] group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-bold text-[var(--color-heading)]">{leaderOptions.length} lead investigators</span>
-              </div>
-            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-8 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-                    Active Portfolio
-                  </p>
-                  <p className="mt-4 text-5xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                    {summary.total}
-                  </p>
-                </div>
-                <div className="h-14 w-14 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)]">
-                   <Activity size={28} />
-                </div>
+          <div className="flex flex-wrap gap-4 border-t border-[var(--color-border)] pt-8">
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-white px-6 py-4 shadow-sm">
+              <BriefcaseBusiness size={20} className="text-[var(--color-accent)]" />
+              <div>
+                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.total}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Total Projects</p>
               </div>
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-[2rem] border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                  Completed
-                </p>
-                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                  {summary.completed}
-                </p>
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-4">
+              <BadgeCheck size={20} className="text-[var(--color-accent)]" />
+              <div>
+                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.completed}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Completed</p>
               </div>
-              <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
-                  Ongoing
-                </p>
-                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                  {summary.ongoing}
-                </p>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-4">
+              <Activity size={20} className="text-[var(--color-highlight)]" />
+              <div>
+                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.ongoing}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Ongoing</p>
               </div>
             </div>
           </div>
@@ -186,12 +167,11 @@ export default function Consultancy() {
       />
 
       <div className="flex items-center justify-between px-1">
-        <p className="text-sm text-slate-600" aria-live="polite">
-          Showing {filteredConsultancies.length} consultancy
-          {filteredConsultancies.length === 1 ? "" : "ies"}
+        <p className="text-sm text-[var(--color-text-soft)]" aria-live="polite">
+          Showing {filteredConsultancies.length} {filteredConsultancies.length === 1 ? "consultancy" : "consultancies"}
         </p>
-        <p className="hidden text-xs font-medium uppercase tracking-wide text-slate-500 lg:block">
-          Desktop table view
+        <p className="hidden text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)] md:block">
+          Table view
         </p>
       </div>
 
@@ -206,11 +186,11 @@ export default function Consultancy() {
         </section>
       ) : (
         <>
-          <div className="hidden lg:block">
+          <div className="hidden md:block overflow-x-auto">
             <ConsultancyTable consultancies={filteredConsultancies} />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 lg:hidden">
+          <div className="grid grid-cols-1 gap-4 md:hidden">
             {filteredConsultancies.map((consultancy) => (
               <ConsultancyCard key={consultancy.id} consultancy={consultancy} />
             ))}

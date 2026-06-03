@@ -7,6 +7,7 @@ import PatentTable from "../components/PatentTable";
 import { Badge } from "../components/ui/badge";
 import patentsData from "../data/patents.json";
 import { motion as Motion, useReducedMotion } from "framer-motion";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 function getDateValue(patent) {
   return patent.applicationDate || patent.grantedDate || "";
@@ -23,6 +24,10 @@ function getYear(patent) {
 }
 
 export default function Patents() {
+  useDocumentMetadata({
+    title: "Patents & Intellectual Property",
+    description: "Explore the patents, innovations, and intellectual property filed and granted to the faculty and researchers of the department.",
+  });
   const reduceMotion = useReducedMotion();
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("All");
@@ -98,102 +103,75 @@ export default function Patents() {
 
   return (
     <div className="space-y-12 pb-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+      <section className="overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] border-t-[5px] border-t-[var(--color-primary)] bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)]">
+        <div className="px-8 py-12 lg:px-12 lg:py-14 space-y-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr,auto] items-start">
+            <div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Badge
+                  variant="type"
+                  className="bg-[var(--color-primary)] text-white px-4 py-1.5"
+                >
+                  Intellectual Property
+                </Badge>
+                <Badge
+                  variant="default"
+                  className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
+                >
+                  IP Portfolio
+                </Badge>
+              </div>
 
-        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge
-                variant="type"
-                className="bg-[var(--color-primary)] text-white px-4 py-1.5"
-              >
-                Intellectual Property
-              </Badge>
-              <Badge
-                variant="default"
-                className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
-              >
-                IP Portfolio
-              </Badge>
+              <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+                Patents and Innovation
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+                A record of granted, published, and filed patents reflecting the
+                department&apos;s commitment to pioneering instrumentation and
+                industrial automation outcomes.
+              </p>
             </div>
 
-            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
-              Patents and <br />
-              Innovation
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
-              A record of granted, published, and filed patents reflecting the
-              department&apos;s commitment to pioneering instrumentation and
-              industrial automation outcomes.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <FileStack
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  {summary.total} records
-                </span>
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <BadgeCheck
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  {yearOptions.length} years indexed
-                </span>
-              </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3">
+              <FileStack size={20} className="text-[var(--color-accent)]" />
+              <span className="text-sm font-bold text-[var(--color-heading)]">
+                {yearOptions.length} years indexed
+              </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-                Cumulative
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-[var(--color-border)] pt-8">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+                Total
               </p>
-              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.total}
               </p>
-              <p className="mt-2 text-[10px] font-bold text-[var(--color-accent)] uppercase">
-                Patent Records
-              </p>
             </div>
-            <div className="rounded-[2rem] border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            <div className="rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                 Granted
               </p>
-              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.granted}
               </p>
-              <p className="mt-2 text-[10px] font-bold text-[var(--color-accent)]/70 uppercase tracking-widest">
-                Global IP
-              </p>
             </div>
-            <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
+            <div className="rounded-2xl border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-highlight)]">
                 Published
               </p>
-              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.published}
               </p>
-              <p className="mt-2 text-[10px] font-bold text-[var(--color-highlight)]/70 uppercase tracking-widest">
-                Public Discl.
-              </p>
             </div>
-            <div className="rounded-[2rem] border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-6 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)]">
+            <div className="rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)]">
                 Applied
               </p>
-              <p className="mt-4 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
                 {summary.applied}
-              </p>
-              <p className="mt-2 text-[10px] font-bold text-[var(--color-primary)]/70 uppercase tracking-widest">
-                Filed IP
               </p>
             </div>
           </div>
@@ -219,13 +197,13 @@ export default function Patents() {
           Showing {filteredPatents.length} patent
           {filteredPatents.length === 1 ? "" : "s"}
         </p>
-        <p className="hidden text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)] lg:block">
-          Desktop table view
+        <p className="hidden text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)] md:block">
+          Table view
         </p>
       </div>
 
       {filteredPatents.length === 0 ? (
-        <section className="rounded-[26px] border border-[var(--color-border)] bg-white p-8 text-center shadow-sm">
+        <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-8 text-center shadow-sm">
           <h2 className="text-lg font-semibold text-[var(--color-heading)]">
             No patents found
           </h2>
@@ -235,12 +213,12 @@ export default function Patents() {
         </section>
       ) : (
         <>
-          <div className="hidden lg:block">
+          <div className="hidden md:block overflow-x-auto">
             <PatentTable patents={filteredPatents} />
           </div>
 
           <Motion.div
-            className="grid grid-cols-1 gap-4 lg:hidden"
+            className="grid grid-cols-1 gap-4 md:hidden"
             initial="hidden"
             animate="visible"
             variants={

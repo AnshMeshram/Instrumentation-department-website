@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 const About = lazy(() => import("../pages/About"));
+const Contact = lazy(() => import("../pages/Contact"));
 const Consultancy = lazy(() => import("../pages/Consultancy"));
 const Faculty = lazy(() => import("../pages/Faculty"));
 const FacultyProfile = lazy(() => import("../pages/FacultyProfile"));
@@ -12,10 +13,11 @@ const Publications = lazy(() => import("../pages/Publications"));
 const ResearchPapers = lazy(() => import("../pages/ResearchPapers"));
 const TimeTable = lazy(() => import("../pages/TimeTable"));
 const VirtualLab = lazy(() => import("../pages/VirtualLab"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 function PageLoader() {
   return (
-    <div className="rounded-[2rem] border border-[var(--color-border)] bg-white/90 px-6 py-16 text-center shadow-sm">
+    <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white/90 px-6 py-16 text-center shadow-sm">
       <p className="text-sm font-medium text-[var(--color-text-soft)]">
         Loading page...
       </p>
@@ -30,6 +32,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Navigate to="/about" replace />} />
 
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/faculty" element={<Faculty />} />
         <Route path="/faculty/:id" element={<FacultyProfile />} />
         <Route path="/virtual-lab" element={<VirtualLab />} />
@@ -99,6 +102,8 @@ export default function AppRoutes() {
           }
         />
 
+        <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
+
         <Route path="/labs" element={<Navigate to="/laboratories" replace />} />
         <Route
           path="/projects"
@@ -146,15 +151,7 @@ export default function AppRoutes() {
           element={<Navigate to="/circulars-reports" replace />}
         />
 
-        <Route
-          path="*"
-          element={
-            <PlaceholderPage
-              title="404 - Page Not Found"
-              description="The requested page does not exist in the current website structure."
-            />
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

@@ -17,8 +17,8 @@ export default function DocumentIntelligencePanel({
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-primary-soft)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-primary)]">
-              <Sparkles size={12} />
-              Document Intelligence Layer
+              <FileSearch size={12} />
+              Academic Search
             </div>
             <div>
               <h2 className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)] md:text-3xl">
@@ -39,7 +39,7 @@ export default function DocumentIntelligencePanel({
                 variant="default"
                 className="border-[var(--color-border)] bg-white text-[var(--color-text)]"
               >
-                {summary.tagCount} auto-tags
+                {summary.tagCount} topics
               </Badge>
               {summary.latestYear ? (
                 <Badge
@@ -54,7 +54,7 @@ export default function DocumentIntelligencePanel({
 
           <div className="w-full max-w-md space-y-3">
             <label className="block text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
-              Full-text search
+              Search Keywords
             </label>
             <div className="relative">
               <FileSearch
@@ -74,8 +74,8 @@ export default function DocumentIntelligencePanel({
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/60 p-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-              Dominant tags
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+              Key Topics
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {summary.topTags.length ? (
@@ -93,15 +93,15 @@ export default function DocumentIntelligencePanel({
                 ))
               ) : (
                 <span className="text-sm text-[var(--color-text-soft)]">
-                  Auto-tags will appear once records are indexed.
+                  Topics will appear once records are loaded.
                 </span>
               )}
             </div>
           </div>
 
           <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/60 p-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-              Document types
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+              Categories
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {summary.topTypes.length ? (
@@ -119,19 +119,18 @@ export default function DocumentIntelligencePanel({
                 ))
               ) : (
                 <span className="text-sm text-[var(--color-text-soft)]">
-                  Metadata typing is inferred from the extracted text.
+                  Categories will appear once records are loaded.
                 </span>
               )}
             </div>
           </div>
 
           <div className="rounded-2xl border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(0,0,0,0.94),rgba(0,0,0,0.88))] p-4 text-white">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
-              Retrieval mode
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-accent)]">
+              Search Tips
             </p>
             <p className="mt-3 text-sm leading-6 text-white/80">
-              Search scans the title, raw PDF extraction, inferred year, and
-              auto-tags to surface documents even when the source text is noisy.
+              Search scans publication titles, years, topics, and authors to find matches.
             </p>
           </div>
         </div>

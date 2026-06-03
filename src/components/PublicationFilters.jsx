@@ -1,35 +1,4 @@
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-
-function SelectField({ label, value, options, onChange }) {
-  return (
-    <label className="flex flex-col gap-1">
-      <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
-        {label}
-      </span>
-
-      <Select value={value} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder={label} />
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option} value={option}>
-              {option}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </label>
-  );
-}
+import FilterBar from "./FilterBar";
 
 export default function PublicationFilters({
   search,
@@ -49,70 +18,42 @@ export default function PublicationFilters({
   onCategoryChange,
   onResetFilters,
 }) {
+  const filters = [
+    {
+      label: "Faculty",
+      value: selectedFaculty,
+      options: ["All", ...facultyOptions],
+      onChange: onFacultyChange,
+    },
+    {
+      label: "Session Year",
+      value: selectedYear,
+      options: ["All", ...yearOptions],
+      onChange: onYearChange,
+    },
+    {
+      label: "Author",
+      value: selectedAuthor,
+      options: ["All", ...authorOptions],
+      onChange: onAuthorChange,
+    },
+    {
+      label: "Category",
+      value: selectedCategory,
+      options: ["All", ...categoryOptions],
+      onChange: onCategoryChange,
+    },
+  ];
+
   return (
-    <section
-      className="rounded-[2rem] border border-[var(--color-border)] bg-white/90 p-4 shadow-sm backdrop-blur-md md:p-5"
-      aria-label="Publication search and filters"
-    >
-      <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-semibold tracking-wide text-[var(--color-primary)]">
-          Search & Filters
-        </p>
-        <p className="text-xs text-[var(--color-text-soft)]">
-          Active filters:{" "}
-          <span className="font-semibold text-[var(--color-text)]">
-            {activeFiltersCount}
-          </span>
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
-            Search
-          </span>
-          <Input
-            type="search"
-            value={search}
-            onChange={(event) => onSearchChange(event.target.value)}
-            placeholder="Search title, authors or venue"
-          />
-        </label>
-
-        <SelectField
-          label="Faculty"
-          value={selectedFaculty}
-          options={["All", ...facultyOptions]}
-          onChange={onFacultyChange}
-        />
-
-        <SelectField
-          label="Session Year"
-          value={selectedYear}
-          options={["All", ...yearOptions]}
-          onChange={onYearChange}
-        />
-
-        <SelectField
-          label="Author"
-          value={selectedAuthor}
-          options={["All", ...authorOptions]}
-          onChange={onAuthorChange}
-        />
-
-        <SelectField
-          label="Category"
-          value={selectedCategory}
-          options={["All", ...categoryOptions]}
-          onChange={onCategoryChange}
-        />
-      </div>
-
-      <div className="mt-4 flex justify-end">
-        <Button type="button" onClick={onResetFilters} variant="soft" size="lg">
-          Reset Filters
-        </Button>
-      </div>
-    </section>
+    <FilterBar
+      search={search}
+      searchPlaceholder="Search title, authors or venue"
+      filters={filters}
+      activeFiltersCount={activeFiltersCount}
+      onSearchChange={onSearchChange}
+      onResetFilters={onResetFilters}
+      ariaLabel="Publication search and filters"
+    />
   );
 }

@@ -96,6 +96,135 @@ export default function NavBar() {
             </div>
           </Link>
 
+          {/* Desktop Nav Links */}
+          <div
+            className="hidden lg:flex items-center gap-6 relative"
+            onMouseEnter={cancelCloseTimer}
+            onMouseLeave={closeDropdownWithDelay}
+            onFocusCapture={cancelCloseTimer}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                closeDropdownNow();
+              }
+            }}
+          >
+            <div className="flex items-center gap-6" role="navigation" aria-label="Primary navigation">
+              {NAV_GROUPS.map((group) => {
+                const isGroupActive = activeGroup?.id === group.id;
+                const isOpen = openGroupId === group.id;
+
+                return (
+                  <div key={group.id} className="relative">
+                    <button
+                      type="button"
+                      onMouseEnter={() => openDropdown(group.id)}
+                      onFocus={() => openDropdown(group.id)}
+                      onClick={() =>
+                        setOpenGroupId((prev) =>
+                          prev === group.id ? null : group.id,
+                        )
+                      }
+                      className={clsx(
+                        "group relative inline-flex items-center gap-1.5 pb-1 text-sm font-semibold text-white/80 transition-colors duration-150 cursor-pointer",
+                        "focus:outline-none focus-visible:text-white",
+                        isOpen || isGroupActive
+                          ? "text-white"
+                          : "hover:text-[var(--color-accent)]",
+                      )}
+                      aria-expanded={isOpen}
+                      aria-haspopup="menu"
+                    >
+                      <span>
+                        {DESKTOP_GROUP_LABELS[group.id] ?? group.title}
+                      </span>
+                      <ChevronDown
+                        size={14}
+                        aria-hidden="true"
+                        className={clsx(
+                          "mt-0.5 transition-transform duration-200 text-white/60",
+                          isOpen && "rotate-180",
+                        )}
+                      />
+                      <span
+                        className={clsx(
+                          "pointer-events-none absolute inset-x-0 -bottom-[12px] h-0.5 bg-[var(--color-accent)] transition-opacity duration-150",
+                          isOpen || isGroupActive
+                            ? "opacity-100"
+                            : "opacity-0 group-hover:opacity-100",
+                        )}
+                      />
+                    </button>
+
+                    <div
+                      className={clsx(
+                        "absolute top-full z-50 w-72 pt-3 transition-all duration-180",
+                        group.id === "about-department" || group.id === "academics"
+                          ? "right-auto left-0"
+                          : group.id === "students-career"
+                          ? "left-1/2 -translate-x-1/2"
+                          : "left-auto right-0",
+                        isOpen
+                          ? "pointer-events-auto translate-y-0 opacity-100"
+                          : "pointer-events-none -translate-y-1 opacity-0",
+                      )}
+                    >
+                      {/* Decorative arrow/caret */}
+                      <div
+                        className={clsx(
+                          "absolute top-[6px] h-3 w-3 rotate-45 border-t border-l border-[var(--color-border)] bg-white shadow-[-4px_-4px_8px_rgba(0,0,0,0.02)] transition-colors",
+                          group.id === "about-department" || group.id === "academics"
+                            ? "left-8"
+                            : group.id === "students-career"
+                            ? "left-1/2 -translate-x-1/2"
+                            : "right-8",
+                        )}
+                      />
+
+                      <div className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white/95 backdrop-blur-md p-2.5 shadow-[0_18px_38px_rgba(13,40,69,0.12)] text-[var(--color-text)]">
+                        <div className="mb-1.5 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-[var(--color-accent)] opacity-80 border-b border-[var(--color-border)] pb-1.5">
+                          {DESKTOP_GROUP_LABELS[group.id] ?? group.title}
+                        </div>
+                        <div className="space-y-1">
+                          {group.items.map((item) => {
+                            const isActiveItem =
+                              location.pathname === item.path ||
+                              location.pathname.startsWith(`${item.path}/`);
+
+                            return (
+                              <Link
+                                key={item.path}
+                                to={item.path}
+                                role="menuitem"
+                                onClick={closeDropdownNow}
+                                className={clsx(
+                                  "group/item flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-150",
+                                  isActiveItem
+                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-bold shadow-sm"
+                                    : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)] hover:translate-x-0.5",
+                                )}
+                              >
+                                <span>{item.label}</span>
+                                <ChevronRight
+                                  size={14}
+                                  className={clsx(
+                                    "transition-all duration-150 opacity-0 -translate-x-1",
+                                    isActiveItem
+                                      ? "opacity-100 translate-x-0 text-[var(--color-primary)]"
+                                      : "group-hover/item:opacity-100 group-hover/item:translate-x-0 text-[var(--color-primary)]/70",
+                                  )}
+                                />
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="lg:hidden">
             <MobileSidebar />
           </div>
@@ -103,9 +232,9 @@ export default function NavBar() {
       </div>
 
       <div className="bg-white shadow-inner border-b border-[var(--color-border)]">
-        <div className="page-shell py-2.5">
+        <div className="page-shell py-2">
           <nav aria-label="Breadcrumb" className="overflow-x-auto no-scrollbar">
-            <ol className="flex items-center gap-2 whitespace-nowrap text-[10px] font-black uppercase tracking-[0.1em] text-[var(--color-text-soft)]">
+            <ol className="flex items-center gap-2 whitespace-nowrap text-[9px] font-black uppercase tracking-[0.1em] text-[var(--color-text-soft)]">
               {breadcrumbTrail.map((crumb, index) => {
                 const isLast = index === breadcrumbTrail.length - 1;
                 return (
@@ -135,113 +264,6 @@ export default function NavBar() {
               })}
             </ol>
           </nav>
-        </div>
-      </div>
-
-      <div className="border-b border-[var(--color-border)] bg-white/95">
-        <div className="page-shell hidden lg:block">
-          <div
-            className="relative"
-            onMouseEnter={cancelCloseTimer}
-            onMouseLeave={closeDropdownWithDelay}
-            onFocusCapture={cancelCloseTimer}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                closeDropdownNow();
-              }
-            }}
-          >
-            <div
-              className="flex items-center justify-center gap-8 py-3"
-              role="navigation"
-              aria-label="Department sections"
-            >
-              {NAV_GROUPS.map((group) => {
-                const isGroupActive = activeGroup?.id === group.id;
-                const isOpen = openGroupId === group.id;
-
-                return (
-                  <div key={group.id} className="relative">
-                    <button
-                      type="button"
-                      onMouseEnter={() => openDropdown(group.id)}
-                      onFocus={() => openDropdown(group.id)}
-                      onClick={() =>
-                        setOpenGroupId((prev) =>
-                          prev === group.id ? null : group.id,
-                        )
-                      }
-                      className={clsx(
-                        "group relative inline-flex items-center gap-1.5 pb-2 text-base font-semibold text-[var(--color-text)] transition-colors duration-150",
-                        "focus:outline-none focus-visible:text-[var(--color-primary)]",
-                        isOpen || isGroupActive
-                          ? "text-[var(--color-primary)]"
-                          : "hover:text-[var(--color-accent)]",
-                      )}
-                      aria-expanded={isOpen}
-                      aria-haspopup="menu"
-                    >
-                      <span>
-                        {DESKTOP_GROUP_LABELS[group.id] ?? group.title}
-                      </span>
-                      <ChevronDown
-                        size={16}
-                        aria-hidden="true"
-                        className={clsx(
-                          "mt-0.5 transition-transform duration-200",
-                          isOpen && "rotate-180",
-                        )}
-                      />
-                      <span
-                        className={clsx(
-                          "pointer-events-none absolute inset-x-0 -bottom-px h-0.5 bg-[var(--color-accent)] transition-opacity duration-150",
-                          isOpen || isGroupActive
-                            ? "opacity-100"
-                            : "opacity-0 group-hover:opacity-100",
-                        )}
-                      />
-                    </button>
-
-                    <div
-                      className={clsx(
-                        "absolute left-0 top-full z-50 w-76 pt-2 transition-all duration-180",
-                        isOpen
-                          ? "pointer-events-auto translate-y-0 opacity-100"
-                          : "pointer-events-none -translate-y-1 opacity-0",
-                      )}
-                    >
-                      <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white p-2 shadow-[0_18px_38px_rgba(13,40,69,0.14)]">
-                        <div className="space-y-1">
-                          {group.items.map((item) => {
-                            const isActiveItem =
-                              location.pathname === item.path ||
-                              location.pathname.startsWith(`${item.path}/`);
-
-                            return (
-                              <Link
-                                key={item.path}
-                                to={item.path}
-                                role="menuitem"
-                                onClick={closeDropdownNow}
-                                className={clsx(
-                                  "block rounded-lg px-3 py-2.5 text-base font-medium transition-colors duration-150",
-                                  isActiveItem
-                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-bold"
-                                    : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]",
-                                )}
-                              >
-                                {item.label}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </div>
     </header>

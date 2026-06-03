@@ -35,8 +35,6 @@ export default function PageHeader({
             {subtitle}
           </p>
         )}
-
-        <div className="mt-10 h-1 w-20 rounded-full bg-[linear-gradient(90deg,var(--color-accent),var(--color-highlight))]" />
       </div>
     </section>
   );

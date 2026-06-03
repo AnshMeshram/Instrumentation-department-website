@@ -1,37 +1,6 @@
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import FilterBar from "./FilterBar";
 
 const statusOptions = ["All", "Completed", "Ongoing"];
-
-function SelectField({ label, value, options, onChange }) {
-  return (
-    <label className="flex flex-col gap-1">
-      <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
-        {label}
-      </span>
-
-      <Select value={value} onValueChange={onChange}>
-        <SelectTrigger>
-          <SelectValue placeholder={label} />
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option} value={option}>
-              {option}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </label>
-  );
-}
 
 export default function ConsultancyFilters({
   search,
@@ -47,63 +16,36 @@ export default function ConsultancyFilters({
   onStatusChange,
   onResetFilters,
 }) {
+  const filters = [
+    {
+      label: "Project Leader",
+      value: selectedLeader,
+      options: ["All", ...leaderOptions],
+      onChange: onLeaderChange,
+    },
+    {
+      label: "Year",
+      value: selectedYear,
+      options: ["All", ...yearOptions],
+      onChange: onYearChange,
+    },
+    {
+      label: "Status",
+      value: selectedStatus,
+      options: statusOptions,
+      onChange: onStatusChange,
+    },
+  ];
+
   return (
-    <section
-      className="rounded-2xl border border-[var(--color-border)] bg-white/95 p-4 shadow-sm backdrop-blur-sm md:p-5"
-      aria-label="Consultancy search and filters"
-    >
-      <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-semibold tracking-wide text-[var(--color-primary)]">
-          Search & Filters
-        </p>
-        <p className="text-xs text-[var(--color-text-soft)]">
-          Active filters:{" "}
-          <span className="font-semibold text-[var(--color-text)]">
-            {activeFiltersCount}
-          </span>
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        <label className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
-            Search
-          </span>
-          <Input
-            type="search"
-            value={search}
-            onChange={(event) => onSearchChange(event.target.value)}
-            placeholder="Search title, leader or agency"
-          />
-        </label>
-
-        <SelectField
-          label="Project Leader"
-          value={selectedLeader}
-          options={["All", ...leaderOptions]}
-          onChange={onLeaderChange}
-        />
-
-        <SelectField
-          label="Year"
-          value={selectedYear}
-          options={["All", ...yearOptions]}
-          onChange={onYearChange}
-        />
-
-        <SelectField
-          label="Status"
-          value={selectedStatus}
-          options={statusOptions}
-          onChange={onStatusChange}
-        />
-      </div>
-
-      <div className="mt-4 flex justify-end">
-        <Button type="button" onClick={onResetFilters} variant="soft" size="lg">
-          Reset Filters
-        </Button>
-      </div>
-    </section>
+    <FilterBar
+      search={search}
+      searchPlaceholder="Search title, leader or agency"
+      filters={filters}
+      activeFiltersCount={activeFiltersCount}
+      onSearchChange={onSearchChange}
+      onResetFilters={onResetFilters}
+      ariaLabel="Consultancy search and filters"
+    />
   );
 }

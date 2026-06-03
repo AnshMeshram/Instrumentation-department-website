@@ -1,3 +1,4 @@
+import { useState } from "react";
 import FacultyCard from "../components/FacultyCard";
 import facultyData from "../data/faculty.json";
 import PageHeader from "../components/PageHeader";
@@ -5,6 +6,7 @@ import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { GraduationCap, ScrollText, Trophy, FolderOpenDot } from "lucide-react";
 import { motion as Motion, useReducedMotion } from "framer-motion";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 const designationOrder = {
   Professor: 1,
@@ -13,6 +15,11 @@ const designationOrder = {
 };
 
 export default function Faculty() {
+  useDocumentMetadata({
+    title: "Faculty Directory",
+    description: "Browse the directory of faculty members at the Department of Instrumentation and Control Engineering, COEP Technological University.",
+  });
+
   const reduceMotion = useReducedMotion();
   const sortedFaculty = [...facultyData].sort((a, b) => {
     const first = designationOrder[a.designation] || 99;
@@ -21,6 +28,18 @@ export default function Faculty() {
       return first - second;
     }
     return a.name.localeCompare(b.name);
+  });
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredFaculty = sortedFaculty.filter((faculty) => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return true;
+    return (
+      faculty.name.toLowerCase().includes(query) ||
+      (faculty.research && faculty.research.toLowerCase().includes(query)) ||
+      faculty.designation.toLowerCase().includes(query)
+    );
   });
 
   const totals = sortedFaculty.reduce(
@@ -64,16 +83,16 @@ export default function Faculty() {
         badgeText="Academic Directory"
       />
 
-      <section className="relative overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-6 py-8 shadow-sm md:px-8">
+      <section className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-6 py-8 shadow-sm md:px-8">
         <div className="absolute right-0 top-0 h-64 w-64 -translate-y-24 translate-x-16 rounded-full bg-[var(--color-accent)]/10 blur-3xl" />
         <div className="relative">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] pb-6">
             <div>
               <Badge className="border-[var(--color-border)] bg-white px-3 py-1 text-[var(--color-text)]">
-                Faculty Intelligence Panel
+                Department Overview
               </Badge>
               <h2 className="mt-4 font-[var(--font-serif)] text-3xl font-black text-[var(--color-heading)] md:text-4xl">
-                Profiles aligned with teaching, research, and impact.
+                Dedicated to academic teaching, research, and innovation.
               </h2>
             </div>
           </div>
@@ -135,39 +154,85 @@ export default function Faculty() {
         </div>
       </section>
 
-      <Motion.div
-        initial={reduceMotion ? false : "hidden"}
-        animate={reduceMotion ? false : "visible"}
-        variants={
-          reduceMotion
-            ? undefined
-            : {
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.12 } },
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-soft)]">
+        <div className="flex-1 max-w-lg relative">
+          <input
+            type="text"
+            placeholder="Search faculty by name, designation, or research area..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 pl-11 text-sm text-[var(--color-text)] placeholder-[var(--color-text-soft)]/60 focus:border-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
+          />
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-soft)]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z"
+              />
+            </svg>
+          </div>
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-[var(--color-text-soft)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+        <div className="text-sm font-semibold text-[var(--color-text-soft)]">
+          Showing {filteredFaculty.length} of {sortedFaculty.length} members
+        </div>
+      </div>
+
+      {filteredFaculty.length === 0 ? (
+        <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--color-border)] bg-white p-12 text-center">
+          <p className="text-lg font-bold text-[var(--color-heading)]">No faculty members found</p>
+          <p className="mt-2 text-sm text-[var(--color-text-soft)]">Try adjusting your search query.</p>
+        </div>
+      ) : (
+        <Motion.div
+          initial={reduceMotion ? false : "hidden"}
+          animate={reduceMotion ? false : "visible"}
+          variants={
+            reduceMotion
+              ? undefined
+              : {
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.12 } },
+                }
+          }
+          className="grid grid-cols-1 gap-10"
+        >
+          {filteredFaculty.map((faculty) => (
+            <Motion.div
+              key={faculty.id}
+              variants={
+                reduceMotion
+                  ? undefined
+                  : {
+                      hidden: { opacity: 0, y: 30 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { type: "spring", stiffness: 300, damping: 24 },
+                      },
+                    }
               }
-        }
-        className="grid grid-cols-1 gap-10"
-      >
-        {sortedFaculty.map((faculty) => (
-          <Motion.div
-            key={faculty.id}
-            variants={
-              reduceMotion
-                ? undefined
-                : {
-                    hidden: { opacity: 0, y: 30 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: { type: "spring", stiffness: 300, damping: 24 },
-                    },
-                  }
-            }
-          >
-            <FacultyCard faculty={faculty} />
-          </Motion.div>
-        ))}
-      </Motion.div>
+            >
+              <FacultyCard faculty={faculty} />
+            </Motion.div>
+          ))}
+        </Motion.div>
+      )}
     </div>
   );
 }

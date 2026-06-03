@@ -7,7 +7,7 @@ const statusStyles = {
 
 export default function ConsultancyTable({ consultancies }) {
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-[0_22px_50px_-28px_rgba(0,0,0,0.25)]">
+    <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white shadow-[0_22px_50px_-28px_rgba(0,0,0,0.25)]">
       <div className="border-b border-[var(--color-border)] bg-[var(--color-primary)] px-4 py-4 text-white md:px-6">
         <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">
           Consultancy pipeline
@@ -73,6 +73,11 @@ export default function ConsultancyTable({ consultancies }) {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="flex flex-col gap-4 border-t border-[var(--color-border)] bg-[var(--color-surface-soft)]/20 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <span className="text-sm font-medium text-[var(--color-text-soft)]">
+          Showing {consultancies.length} of {consultancies.length} consultancies
+        </span>
       </div>
     </div>
   );

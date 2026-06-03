@@ -49,7 +49,7 @@ export default function PatentFilters({
 }) {
   return (
     <section
-      className="rounded-[2rem] border border-[var(--color-border)] bg-white/90 p-4 shadow-sm backdrop-blur-md md:p-5"
+      className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white/90 p-4 shadow-sm backdrop-blur-md md:p-5"
       aria-label="Patent search and filters"
     >
       <div className="mb-3 flex items-center justify-between">

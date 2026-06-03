@@ -31,6 +31,14 @@
   --color-highlight: #2563eb; /* Institutional blue */
 
   --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  --radius-card: 2rem;
+  --radius-container: 2.5rem;
+  --radius-button: 9999px;
+  --radius-input: 0.75rem;
+
+  --text-2xs: 0.625rem;
+  --text-3xs: 0.5625rem;
 }
 
 
@@ -71,11 +79,18 @@
   }
 
   h1,
-  h2,
-  h3,
-  h4 {
+  h2 {
     color: inherit; /* Inherit color from parent container by default */
     font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: inherit;
+    font-family: var(--font-sans);
     font-weight: 700;
   }
 
@@ -83,7 +98,9 @@
   body h1,
   body h2,
   body h3,
-  body h4 {
+  body h4,
+  body h5,
+  body h6 {
     color: var(--color-heading);
   }
 }

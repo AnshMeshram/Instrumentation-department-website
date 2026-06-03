@@ -1,10 +1,18 @@
 import { useMemo, useState } from "react";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 import { Badge } from "../components/ui/badge";
 import { Activity, BookOpen, UserCheck } from "lucide-react";
 import PdfInteractiveList from "../components/PdfInteractiveList";
@@ -151,61 +159,63 @@ function SectionView({ pages, search }) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="block">
-          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-soft)]">
             Year
           </span>
-          <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-            className="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm font-medium text-[var(--color-heading)] outline-none focus:border-[var(--color-accent)]"
-          >
-            <option value="All">All Years</option>
-            {yearOptions.map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger>
+              <SelectValue placeholder="All Years" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="All">All Years</SelectItem>
+              {yearOptions.map((y) => (
+                <SelectItem key={y} value={y}>{y}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
-        <label className="block">
-          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
+        <label className="flex flex-col gap-1">
+          <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-soft)]">
             Faculty
           </span>
-          <select
-            value={selectedFaculty}
-            onChange={(e) => setSelectedFaculty(e.target.value)}
-            className="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 text-sm font-medium text-[var(--color-heading)] outline-none focus:border-[var(--color-accent)]"
-          >
-            <option value="All">All Faculty</option>
-            {facultyOptions.map((f) => (
-              <option key={f} value={f}>{f}</option>
-            ))}
-          </select>
+          <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
+            <SelectTrigger>
+              <SelectValue placeholder="All Faculty" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="All">All Faculty</SelectItem>
+              {facultyOptions.map((f) => (
+                <SelectItem key={f} value={f}>{f}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
             Indexed records
           </p>
-          <p className="mt-3 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+          <p className="mt-3 text-3xl font-[var(--font-serif)] text-[var(--color-heading)]">
             {summary.total}
           </p>
         </div>
-        <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-            Auto-tags
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+            Topics
           </p>
-          <p className="mt-3 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+          <p className="mt-3 text-3xl font-[var(--font-serif)] text-[var(--color-heading)]">
             {summary.tagCount}
           </p>
         </div>
-        <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-            Inferred mode
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-6 shadow-inner transition hover:bg-white hover:shadow-md">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+            Search Mode
           </p>
           <p className="mt-3 text-sm font-semibold text-[var(--color-heading)]">
-            Full-text PDF retrieval
+            Full-Text Search Enabled
           </p>
         </div>
       </div>
@@ -227,6 +237,11 @@ function SectionView({ pages, search }) {
 }
 
 export default function FDPs() {
+  useDocumentMetadata({
+    title: "STTP & FDP Programs",
+    description: "Browse the records of Short Term Training Programs (STTP) and Faculty Development Programs (FDP) attended and conducted by the department.",
+  });
+
   const [search, setSearch] = useState("");
   const intelligenceSummary = useMemo(
     () =>
@@ -251,101 +266,80 @@ export default function FDPs() {
 
   return (
     <div className="space-y-12 pb-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+      <section className="overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] border-b-[5px] border-b-[var(--color-highlight)] bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)]">
+        <div className="px-8 py-12 lg:px-12 lg:py-14 space-y-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr,auto] items-start">
+            <div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Badge
+                  variant="type"
+                  className="bg-[var(--color-primary)] text-white px-4 py-1.5"
+                >
+                  Professional Development
+                </Badge>
+                <Badge
+                  variant="default"
+                  className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
+                >
+                  Faculty Training
+                </Badge>
+              </div>
 
-        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge
-                variant="type"
-                className="bg-[var(--color-primary)] text-white px-4 py-1.5"
-              >
-                Professional Development
-              </Badge>
-              <Badge
-                variant="default"
-                className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
-              >
-                Faculty Training
-              </Badge>
+              <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+                STTPs & FDP Records
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
+                A detailed record of Short Term Training Programs (STTPs) and
+                Faculty Development Programs (FDPs) attended and conducted by the
+                department faculty.
+              </p>
             </div>
 
-            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
-              STTPs & <br />
-              FDP Records
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
-              A detailed record of Short Term Training Programs (STTPs) and
-              Faculty Development Programs (FDPs) attended and conducted by the
-              department faculty.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <BookOpen
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  {summary.totalPages} total records
-                </span>
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <UserCheck
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  Validated Certification
-                </span>
-              </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3">
+              <BookOpen size={20} className="text-[var(--color-accent)]" />
+              <span className="text-sm font-bold text-[var(--color-heading)]">
+                {summary.totalPages} records
+              </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-8 py-8 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
-                Program Aggregate
-              </p>
-              <p className="mt-4 text-5xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                {summary.totalPages}
-              </p>
-              <p className="mt-2 text-[10px] font-bold text-[var(--color-accent)] uppercase">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-[var(--color-border)] pt-8">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
                 Total Indexed
               </p>
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                {summary.totalPages}
+              </p>
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-[2rem] border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                  Attended
-                </p>
-                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                  {summary.attendedPages}
-                </p>
-              </div>
-              <div className="rounded-[2rem] border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-6 shadow-inner transition-all hover:bg-white hover:shadow-md group">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-highlight)]">
-                  Conducted
-                </p>
-                <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
-                  {summary.conductedPages}
-                </p>
-              </div>
+            <div className="rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                Attended
+              </p>
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                {summary.attendedPages}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-highlight)]">
+                Conducted
+              </p>
+              <p className="mt-3 text-4xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
+                {summary.conductedPages}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       <DocumentIntelligencePanel
-        title="FDP records with extracted metadata"
-        subtitle="The PDF corpus is now indexed for full-text search, inferred year/faculty grouping, and auto-tagging across the extracted text."
+        title="Search FDP & STTP Records"
+        subtitle="Search through the department's Faculty Development Programs (FDP) and Short Term Training Programs (STTP) by faculty, year, or topic."
         summary={intelligenceSummary}
         search={search}
         onSearchChange={setSearch}
-        placeholder="Search faculty, year, topic, or extracted PDF text..."
+        placeholder="Search faculty, year, topic, or keywords..."
       />
 
       <Tabs defaultValue="attended" className="w-full">

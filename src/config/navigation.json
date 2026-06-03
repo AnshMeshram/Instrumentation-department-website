@@ -8,7 +8,8 @@
       { "label": "Faculty", "path": "/faculty" },
       { "label": "Laboratories", "path": "/laboratories" },
       { "label": "Publications", "path": "/publications" },
-      { "label": "Patents", "path": "/patents" }
+      { "label": "Patents", "path": "/patents" },
+      { "label": "Contact Us", "path": "/contact" }
     ]
   },
   {

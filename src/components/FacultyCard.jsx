@@ -27,7 +27,7 @@ export default function FacultyCard({ faculty }) {
     <Card className="group overflow-hidden border-none bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.14)] transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_50px_90px_-28px_rgba(0,0,0,0.2)]">
       <CardContent className="p-0">
         <div className="flex flex-col xl:flex-row">
-          <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-[var(--color-surface-soft)] xl:w-72">
+          <div className="relative w-full h-72 sm:h-96 xl:h-auto xl:aspect-[3/4] shrink-0 overflow-hidden bg-[var(--color-surface-soft)] xl:w-72">
             <img
               src={imgSrc}
               alt={faculty.name}
@@ -40,13 +40,10 @@ export default function FacultyCard({ faculty }) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
             <div className="absolute bottom-0 left-0 w-full p-6">
               <Badge className="bg-white/10 px-3 py-1 text-white backdrop-blur-md border-white/20">
-                COEP Faculty
+                Faculty Member
               </Badge>
-              <p className="mt-3 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-accent)]">
-                Research Mentor
-              </p>
-              <h4 className="mt-1 text-lg font-bold !text-white uppercase tracking-tight">
-                Instrumentation and Control
+              <h4 className="mt-3 text-lg font-bold !text-white uppercase tracking-tight">
+                Instrumentation & Control
               </h4>
             </div>
           </div>
@@ -78,18 +75,24 @@ export default function FacultyCard({ faculty }) {
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all group-hover:bg-white">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg">
+                <a
+                  href={`mailto:${faculty.email}`}
+                  className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all hover:bg-white hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 group-hover:bg-white"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg transition-transform hover:scale-105">
                     <Mail size={18} />
                   </div>
                   <span className="truncate">{faculty.email}</span>
-                </div>
-                <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all group-hover:bg-white">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg">
+                </a>
+                <a
+                  href={`tel:${faculty.phone.replace(/\s+/g, "")}`}
+                  className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all hover:bg-white hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 group-hover:bg-white"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg transition-transform hover:scale-105">
                     <Phone size={18} />
                   </div>
                   <span>{faculty.phone}</span>
-                </div>
+                </a>
               </div>
 
               <div className="mt-8 grid gap-3 sm:grid-cols-3">

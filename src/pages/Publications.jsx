@@ -1,5 +1,6 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { ArrowUpRight, FileSearch, LibraryBig, Microscope } from "lucide-react";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 import PublicationFilters from "../components/PublicationFilters";
 import PublicationTable from "../components/PublicationTable";
 import DocumentIntelligencePanel from "../components/DocumentIntelligencePanel";
@@ -80,7 +81,7 @@ function InsightCard({ title, value, tone = "default", helper }) {
         tones[tone],
       )}
     >
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
         {title}
       </p>
       <p className="mt-3 text-3xl font-black font-[var(--font-serif)] tracking-tight">
@@ -127,7 +128,7 @@ function MobilePublicationCard({ publication }) {
 
         <div className="space-y-4 border-t border-[var(--color-border)] pt-4">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)] mb-1">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)] mb-1">
               Authors
             </p>
             <p className="text-sm font-medium leading-relaxed text-[var(--color-text-soft)]">
@@ -146,7 +147,7 @@ function MobilePublicationCard({ publication }) {
 
         <div className="flex items-center justify-between gap-3 border-t border-[var(--color-border)] pt-4">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--color-text-soft)]">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">
               Published on
             </p>
             <p className="text-sm font-bold text-[var(--color-heading)]">
@@ -170,6 +171,11 @@ function MobilePublicationCard({ publication }) {
 }
 
 export default function Publications() {
+  useDocumentMetadata({
+    title: "Research Publications",
+    description: "Browse indexing and publication records from our faculty members, including journals, conferences, and books in control and instrumentation systems.",
+  });
+
   const catalog = useMemo(() => buildPublicationCatalog(publicationsData), []);
   const options = useMemo(() => getPublicationOptions(catalog), [catalog]);
   const summary = useMemo(() => summarizeCatalog(catalog), [catalog]);
@@ -265,35 +271,38 @@ export default function Publications() {
     1,
     Math.ceil(filteredPublications.length / PAGE_SIZE),
   );
-  const [prevSearch, setPrevSearch] = useState(deferredSearch);
-  const [prevFaculty, setPrevFaculty] = useState(selectedFaculty);
-  const [prevYear, setPrevYear] = useState(selectedYear);
-  const [prevAuthor, setPrevAuthor] = useState(selectedAuthor);
-  const [prevCategory, setPrevCategory] = useState(selectedCategory);
 
-  if (
-    deferredSearch !== prevSearch ||
-    selectedFaculty !== prevFaculty ||
-    selectedYear !== prevYear ||
-    selectedAuthor !== prevAuthor ||
-    selectedCategory !== prevCategory
-  ) {
-    setPrevSearch(deferredSearch);
-    setPrevFaculty(selectedFaculty);
-    setPrevYear(selectedYear);
-    setPrevAuthor(selectedAuthor);
-    setPrevCategory(selectedCategory);
-    setPage(1);
-  }
-
-  if (page > totalPages) {
-    setPage(totalPages);
-  }
+  const activePage = Math.min(page, totalPages);
 
   const paginatedPublications = useMemo(() => {
-    const startIndex = (page - 1) * PAGE_SIZE;
+    const startIndex = (activePage - 1) * PAGE_SIZE;
     return filteredPublications.slice(startIndex, startIndex + PAGE_SIZE);
-  }, [filteredPublications, page]);
+  }, [filteredPublications, activePage]);
+
+  const handleSearchChange = (val) => {
+    setSearch(val);
+    setPage(1);
+  };
+
+  const handleFacultyChange = (val) => {
+    setSelectedFaculty(val);
+    setPage(1);
+  };
+
+  const handleYearChange = (val) => {
+    setSelectedYear(val);
+    setPage(1);
+  };
+
+  const handleAuthorChange = (val) => {
+    setSelectedAuthor(val);
+    setPage(1);
+  };
+
+  const handleCategoryChange = (val) => {
+    setSelectedCategory(val);
+    setPage(1);
+  };
 
   function handleResetFilters() {
     setSearch("");
@@ -308,11 +317,9 @@ export default function Publications() {
 
   return (
     <div className="space-y-12 pb-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)] relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-
-        <div className="grid gap-12 px-8 py-12 lg:grid-cols-[1.3fr,0.7fr] lg:px-12 lg:py-16 relative">
-          <div>
+      <section className="overflow-hidden rounded-[var(--radius-container)] border-l-[5px] border-l-[var(--color-accent)] border border-[var(--color-border)] bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)]">
+        <div className="px-8 py-12 lg:px-12 lg:py-14 space-y-10">
+          <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-3">
               <Badge
                 variant="type"
@@ -324,86 +331,56 @@ export default function Publications() {
                 variant="default"
                 className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5"
               >
-                Extracted Repository
+                {summary.yearCount} Years Indexed
               </Badge>
             </div>
 
             <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
-              Academic <br />
-              Publications
+              Academic Publications
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
               A curated repository of departmental research, organized with
               searchable metadata, multi-year contribution insights, and faculty
-              productivity analytics.
+              research output.
             </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <LibraryBig
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  {summary.total} indexed records
-                </span>
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-6 py-3 transition-all hover:bg-white hover:shadow-md group">
-                <Microscope
-                  size={20}
-                  className="text-[var(--color-accent)] group-hover:scale-110 transition-transform"
-                />
-                <span className="text-sm font-bold text-[var(--color-heading)]">
-                  {summary.facultyCount} faculty contributors
-                </span>
-              </div>
-            </div>
           </div>
 
-          <Card className="border-none bg-[var(--color-surface-soft)] shadow-inner">
-            <CardContent className="p-8">
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
-                Performance Metrics
-              </p>
-
-              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <InsightCard
-                  title="Total Records"
-                  value={summary.total}
-                  helper="Cumulative Repository"
-                />
-                <InsightCard
-                  title="Journal Articles"
-                  value={summary.journals}
-                  tone="journal"
-                  helper="Peer-reviewed Output"
-                />
-                <InsightCard
-                  title="Conference"
-                  value={summary.conferences}
-                  tone="conference"
-                  helper="Global Proceedings"
-                />
-                <InsightCard
-                  title="Coverage"
-                  value={latestAcademicYear}
-                  tone="faculty"
-                  helper={`${summary.yearCount} Years of Data`}
-                />
-              </div>
-            </CardContent>
-          </Card>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-[var(--color-border)] pt-8">
+            <InsightCard
+              title="Total Records"
+              value={summary.total}
+              helper="Cumulative Repository"
+            />
+            <InsightCard
+              title="Journal Articles"
+              value={summary.journals}
+              tone="journal"
+              helper="Peer-reviewed Output"
+            />
+            <InsightCard
+              title="Conference"
+              value={summary.conferences}
+              tone="conference"
+              helper="Global Proceedings"
+            />
+            <InsightCard
+              title="Coverage"
+              value={latestAcademicYear}
+              tone="faculty"
+              helper={`${summary.yearCount} Years of Data`}
+            />
+          </div>
         </div>
       </section>
 
       <DocumentIntelligencePanel
-        title="Publication intelligence"
-        subtitle="The publication archive now carries inferred metadata, auto-tagging, and full-text retrieval across the raw extracted records."
+        title="Search Publications"
+        subtitle="Search through the department's publication history by title, author, journal, keyword, or academic year."
         summary={intelligenceSummary}
         search={search}
-        onSearchChange={setSearch}
-        placeholder="Search titles, authors, venues, years, or extracted raw text..."
+        onSearchChange={handleSearchChange}
+        placeholder="Search titles, authors, venues, years, or keywords..."
       />
 
       <section className="grid gap-8 xl:grid-cols-[1.1fr,0.9fr]">
@@ -411,7 +388,7 @@ export default function Publications() {
           <CardContent className="p-8">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
                   Data Distribution
                 </p>
                 <h2 className="mt-3 font-[var(--font-serif)] text-2xl font-black text-[var(--color-heading)]">
@@ -478,11 +455,11 @@ export default function Publications() {
         <Card className="border-none bg-black text-white shadow-2xl overflow-hidden relative group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)]/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150" />
           <CardContent className="p-8 relative">
-            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-accent)]">
-              Productivity Leaderboard
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              Top Contributors
             </p>
             <h2 className="mt-3 font-[var(--font-serif)] text-2xl font-black text-white">
-              Primary contributors
+              Primary Contributors
             </h2>
 
             <div className="mt-8 space-y-3">
@@ -500,7 +477,7 @@ export default function Publications() {
                         {faculty.faculty}
                       </p>
                       <p className="text-[10px] font-medium text-white/50 uppercase tracking-widest">
-                        Extracted catalog entry
+                        Department publication
                       </p>
                     </div>
                   </div>
@@ -515,7 +492,7 @@ export default function Publications() {
         </Card>
       </section>
 
-      <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-2">
+      <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-2">
         <PublicationFilters
           search={search}
           selectedFaculty={selectedFaculty}
@@ -527,11 +504,11 @@ export default function Publications() {
           authorOptions={options.authorOptions}
           categoryOptions={options.categoryOptions}
           activeFiltersCount={activeFiltersCount}
-          onSearchChange={setSearch}
-          onFacultyChange={setSelectedFaculty}
-          onYearChange={setSelectedYear}
-          onAuthorChange={setSelectedAuthor}
-          onCategoryChange={setSelectedCategory}
+          onSearchChange={handleSearchChange}
+          onFacultyChange={handleFacultyChange}
+          onYearChange={handleYearChange}
+          onAuthorChange={handleAuthorChange}
+          onCategoryChange={handleCategoryChange}
           onResetFilters={handleResetFilters}
         />
       </div>
@@ -559,12 +536,12 @@ export default function Publications() {
         </div>
       </section>
 
-      <div className="hidden lg:block overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-sm">
+      <div className="hidden md:block overflow-x-auto rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white shadow-sm">
         <PublicationTable
           publications={paginatedPublications}
-          startIndex={(page - 1) * PAGE_SIZE}
+          startIndex={(activePage - 1) * PAGE_SIZE}
           total={filteredPublications.length}
-          page={page}
+          page={activePage}
           totalPages={totalPages}
           pageSize={PAGE_SIZE}
           onNextPage={() =>
@@ -575,7 +552,7 @@ export default function Publications() {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:hidden">
+      <div className="grid grid-cols-1 gap-6 md:hidden">
         {paginatedPublications.length ? (
           paginatedPublications.map((publication) => (
             <MobilePublicationCard
@@ -601,14 +578,14 @@ export default function Publications() {
             <button
               type="button"
               onClick={() => setPage((current) => Math.max(1, current - 1))}
-              disabled={page === 1}
+              disabled={activePage === 1}
               className="flex-1 rounded-xl border border-[var(--color-border)] px-4 py-3 text-sm font-bold text-[var(--color-heading)] transition hover:bg-[var(--color-surface-soft)] disabled:opacity-30"
             >
               Previous
             </button>
 
             <span className="text-sm font-bold text-[var(--color-text-soft)]">
-              {page} / {totalPages}
+              {activePage} / {totalPages}
             </span>
 
             <button
@@ -616,7 +593,7 @@ export default function Publications() {
               onClick={() =>
                 setPage((current) => Math.min(totalPages, current + 1))
               }
-              disabled={page === totalPages}
+              disabled={activePage === totalPages}
               className="flex-1 rounded-xl border border-[var(--color-border)] px-4 py-3 text-sm font-bold text-[var(--color-heading)] transition hover:bg-[var(--color-surface-soft)] disabled:opacity-30"
             >
               Next

@@ -64,7 +64,7 @@ export default function Carousel({
 
   return (
     <section
-      className={`relative w-full overflow-hidden rounded-[2.25rem] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_30px_70px_-44px_rgba(7,24,44,0.55)] h-[clamp(16.5rem,38vw,30rem)] ${className}`}
+      className={`relative w-full overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_30px_70px_-44px_rgba(7,24,44,0.55)] ${className}`}
     >
       <AnimatePresence initial={false}>
         {imageSrc && (

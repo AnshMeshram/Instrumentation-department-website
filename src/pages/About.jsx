@@ -14,6 +14,7 @@ import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
 import aboutData from "../data/about.json";
 import facultyData from "../data/faculty.json";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 const highlightCards = [
   {
@@ -59,6 +60,11 @@ const valuePoints = [
 ];
 
 export default function About() {
+  useDocumentMetadata({
+    title: "About Us",
+    description: "Welcome to the Department of Instrumentation and Control Engineering at COEP Technological University. Established in 1965, we focus on control, instrumentation, automation, and biomedical systems.",
+  });
+
   const { title, summary, images } = aboutData;
 
   const carouselImages = images.map((src, index) => ({
@@ -70,80 +76,84 @@ export default function About() {
 
   return (
     <div className="page-stack-tight pb-12">
-      <section className="relative overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-[0_20px_60px_-15px_rgba(0,33,71,0.1)]">
-        <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(to_left,var(--color-primary-soft)_0%,transparent_100%)] lg:block" />
+      <section className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white shadow-[0_20px_60px_-15px_rgba(0,33,71,0.1)]">
+        <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[linear-gradient(to_left,var(--color-primary-soft)_0%,transparent_100%)] lg:block" />
 
-        <div className="relative px-6 py-10 lg:px-10 lg:py-12">
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge
-              variant="type"
-              className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-strong)] px-3 py-1 text-xs"
-            >
-              COEP Technological University
-            </Badge>
-            <Badge
-              variant="default"
-              className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-3 py-1 text-xs"
-            >
-              School of Engineering and Technology
-            </Badge>
+        <div className="grid gap-8 p-6 md:p-10 lg:grid-cols-12 lg:p-12 relative items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge
+                variant="type"
+                className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-strong)] px-3 py-1 text-xs"
+              >
+                COEP Technological University
+              </Badge>
+              <Badge
+                variant="default"
+                className="bg-[var(--color-surface-soft)] text-[var(--color-text)] border-[var(--color-border)] px-3 py-1 text-xs"
+              >
+                School of Engineering and Technology
+              </Badge>
+            </div>
+
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+              Future-ready instrumentation education
+            </p>
+
+            <h1 className="font-[var(--font-serif)] text-4xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-5xl xl:text-6xl">
+              Department of Instrumentation & Control Engineering
+            </h1>
+
+            <p className="text-base leading-relaxed text-[var(--color-text-soft)]">
+              Building engineers for automation, control, sensing, and intelligent
+              systems through academically rigorous teaching, research-led
+              learning, and long-standing industry engagement.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link
+                to="/faculty"
+                className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-strong)] hover:shadow-lg hover:-translate-y-0.5"
+              >
+                Meet the Faculty
+                <ArrowRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+              <Link
+                to="/publications"
+                className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border-strong)] bg-white px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition-all hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]"
+              >
+                Explore Publications
+              </Link>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 border-t border-[var(--color-border)] pt-6">
+              {quickFacts.map((fact) => (
+                <div key={fact.label}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">
+                    {fact.label}
+                  </p>
+                  <p className="mt-1 text-2xl font-[var(--font-serif)] font-bold text-[var(--color-primary)]">
+                    {fact.value}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-            Future-ready instrumentation education
-          </p>
-
-          <h1 className="mt-4 max-w-4xl font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl xl:text-[4.5rem]">
-            Department of Instrumentation and Control Engineering
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)]">
-            Building engineers for automation, control, sensing, and intelligent
-            systems through academically rigorous teaching, research-led
-            learning, and long-standing industry engagement.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              to="/faculty"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-strong)] hover:shadow-lg hover:-translate-y-0.5"
-            >
-              Meet the Faculty
-              <ArrowRight
-                size={18}
-                className="transition-transform group-hover:translate-x-1"
+          <div className="lg:col-span-5 w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-full min-h-[300px] lg:min-h-[400px]">
+            <div className="w-full h-full rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-md">
+              <Carousel
+                images={carouselImages}
+                autoPlay
+                interval={5200}
+                className="w-full h-full"
               />
-            </Link>
-            <Link
-              to="/publications"
-              className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border-strong)] bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-text)] transition-all hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)]"
-            >
-              Explore Publications
-            </Link>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 border-t border-[var(--color-border)] pt-8">
-            {quickFacts.map((fact) => (
-              <div key={fact.label}>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">
-                  {fact.label}
-                </p>
-                <p className="mt-1 text-3xl font-[var(--font-serif)] font-bold text-[var(--color-primary)]">
-                  {fact.value}
-                </p>
-              </div>
-            ))}
+            </div>
           </div>
         </div>
-      </section>
-
-      <section className="page-shell-wide">
-        <Carousel
-          images={carouselImages}
-          autoPlay
-          interval={5200}
-          className="mx-auto"
-        />
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -239,7 +249,7 @@ export default function About() {
                   className={`group/item flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-6 py-5 transition-all duration-300 hover:-translate-x-1 ${area.color} cursor-default`}
                 >
                   <div className="flex items-center gap-5">
-                    <span className="text-[10px] font-black text-white/60 group-hover/item:text-[var(--color-accent)] transition-colors">
+                    <span className="text-[10px] font-bold text-white/60 group-hover/item:text-[var(--color-accent)] transition-colors">
                       0{idx + 1}
                     </span>
                     <span className="text-sm font-bold tracking-tight text-white group-hover/item:text-white transition-colors">
@@ -337,8 +347,8 @@ export default function About() {
                   </div>
 
                   <div className="absolute bottom-0 left-0 w-full p-6 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--color-accent)] mb-2">
-                      Academic Leadership
+                    <p className="text-[9px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-2">
+                      Faculty Member
                     </p>
                     <h3 className="text-lg font-bold text-white leading-tight">
                       {faculty.designation}
@@ -350,7 +360,7 @@ export default function About() {
               <CardContent className="p-6 pt-2">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="h-px w-8 bg-[var(--color-accent)]" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-accent)]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-accent)]">
                     Faculty Profile
                   </span>
                 </div>
@@ -367,7 +377,7 @@ export default function About() {
                   <div className="flex items-center gap-4 pt-2">
                     <div className="h-8 w-px bg-[var(--color-border)]" />
                     <div>
-                      <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-text-soft)] opacity-50">
+                      <p className="text-[9px] font-bold uppercase tracking-widest text-[var(--color-text-soft)] opacity-50">
                         Department
                       </p>
                       <p className="text-[10px] font-bold text-[var(--color-heading)]">

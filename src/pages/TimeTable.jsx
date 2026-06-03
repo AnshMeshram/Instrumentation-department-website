@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button";
 import CalendarExportButtons from "../components/CalendarExportButtons";
 import academicCalendar from "../data/academicCalendar.json";
 import { CalendarDays, Filter } from "lucide-react";
+import useDocumentMetadata from "../hooks/useDocumentMetadata";
 import {
   Select,
   SelectContent,
@@ -89,7 +90,7 @@ function CalendarItemCard({ event }) {
                   key={label}
                   className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/60 px-4 py-3"
                 >
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
                     {label}
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[var(--color-heading)]">
@@ -101,7 +102,7 @@ function CalendarItemCard({ event }) {
           </div>
 
           <div className="w-full max-w-sm rounded-3xl border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(10,10,10,0.96),rgba(10,10,10,0.88))] p-5 text-white">
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[var(--color-accent)]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-accent)]">
               Calendar export
             </p>
             <div className="mt-4 space-y-3 text-sm text-white/80">
@@ -120,6 +121,10 @@ function CalendarItemCard({ event }) {
 }
 
 export default function TimeTable() {
+  useDocumentMetadata({
+    title: "Academic Schedules & Calendar",
+    description: "Access class timetables, academic calendars, deadlines, and department meeting schedules for all batches.",
+  });
   const [category, setCategory] = useState("Timetable");
   const [division, setDivision] = useState("All");
   const [batch, setBatch] = useState("All");
@@ -151,8 +156,8 @@ export default function TimeTable() {
 
   return (
     <div className="space-y-12 pb-12">
-      <section className="relative overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)]">
-        <div className="absolute right-0 top-0 -mr-32 -mt-32 h-64 w-64 rounded-full bg-[var(--color-accent)]/5 blur-3xl" />
+      <section className="relative overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)]">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-[linear-gradient(90deg,var(--color-primary),var(--color-accent),var(--color-highlight))]" />
         <div className="relative grid gap-10 px-8 py-12 lg:grid-cols-[1.2fr,0.8fr] lg:px-12 lg:py-16">
           <div>
             <div className="flex flex-wrap items-center gap-3">
@@ -191,7 +196,7 @@ export default function TimeTable() {
                   key={label}
                   className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-5 py-4"
                 >
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
                     {label}
                   </p>
                   <p className="mt-2 text-3xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
@@ -212,7 +217,7 @@ export default function TimeTable() {
               </div>
 
               <div className="mt-6 rounded-3xl border border-[var(--color-border)] bg-white p-5 shadow-sm">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   Upcoming
                 </p>
                 <h3 className="mt-3 text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">
@@ -237,7 +242,7 @@ export default function TimeTable() {
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <div className="rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
                     Current view
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[var(--color-heading)]">
@@ -245,7 +250,7 @@ export default function TimeTable() {
                   </p>
                 </div>
                 <div className="rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
                     Active filters
                   </p>
                   <p className="mt-1 text-sm font-semibold text-[var(--color-heading)]">
@@ -259,7 +264,7 @@ export default function TimeTable() {
         </div>
       </section>
 
-      <section className="rounded-[2rem] border border-[var(--color-border)] bg-white p-6 shadow-sm">
+      <section className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-primary-soft)] text-[var(--color-primary)]">

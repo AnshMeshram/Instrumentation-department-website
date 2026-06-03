@@ -30,7 +30,7 @@ const sectionIcons = {
 
 function EmptyState({ label }) {
   return (
-    <div className="rounded-2xl bg-surface-soft p-6 text-sm font-medium text-text-soft">
+    <div className="rounded-2xl bg-[var(--color-surface-soft)] p-6 text-sm font-medium text-[var(--color-text-soft)]">
       No {label.toLowerCase()} records available yet.
     </div>
   );
@@ -111,11 +111,11 @@ export default function ProfileTabs({ faculty }) {
           {faculty.education.map((edu, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-border bg-white p-5"
+              className="rounded-2xl border border-[var(--color-border)] bg-white p-5"
             >
-              <h3 className="font-semibold text-heading">{edu.degree}</h3>
-              <p className="mt-1 text-sm text-text-soft">{edu.institute}</p>
-              <span className="mt-2 inline-flex rounded-full border border-border bg-surface-soft px-3 py-1 text-xs font-semibold text-text">
+              <h3 className="font-semibold text-[var(--color-heading)]">{edu.degree}</h3>
+              <p className="mt-1 text-sm text-[var(--color-text-soft)]">{edu.institute}</p>
+              <span className="mt-2 inline-flex rounded-full border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-3 py-1 text-xs font-semibold text-[var(--color-text)]">
                 {edu.year}
               </span>
             </div>
@@ -133,16 +133,16 @@ export default function ProfileTabs({ faculty }) {
           {faculty.experience.map((exp, i) => (
             <li
               key={i}
-              className="relative overflow-hidden flex items-start gap-4 rounded-[1.5rem] border border-border/50 bg-surface-soft/60 p-6 transition-all hover:bg-surface-soft"
+              className="relative overflow-hidden flex items-start gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)]/50 bg-[var(--color-surface-soft)]/60 p-6 transition-all hover:bg-[var(--color-surface-soft)]"
             >
-              <div className="absolute right-0 bottom-0 opacity-[0.02] text-accent pointer-events-none translate-x-4 translate-y-4">
+              <div className="absolute right-0 bottom-0 opacity-[0.02] text-[var(--color-accent)] pointer-events-none translate-x-4 translate-y-4">
                 <Briefcase size={80} strokeWidth={1} />
               </div>
-              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-accent shadow-sm border border-border/40">
+              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[var(--color-accent)] shadow-sm border border-[var(--color-border)]/40">
                 <Briefcase size={18} strokeWidth={2.5} />
               </div>
               <div className="relative z-10 min-w-0 flex-1 pt-1">
-                <p className="text-[14px] font-semibold leading-relaxed text-heading">
+                <p className="text-[14px] font-semibold leading-relaxed text-[var(--color-heading)]">
                   {exp}
                 </p>
               </div>
@@ -161,7 +161,7 @@ export default function ProfileTabs({ faculty }) {
           {faculty.publications.map((pub, i) => (
             <li
               key={i}
-              className="rounded-2xl border border-border bg-white p-4 text-text"
+              className="rounded-2xl border border-[var(--color-border)] bg-white p-4 text-[var(--color-text)]"
             >
               {pub}
             </li>
@@ -179,7 +179,7 @@ export default function ProfileTabs({ faculty }) {
           {faculty.patents.map((pat, i) => (
             <li
               key={i}
-              className="rounded-2xl border border-border bg-white p-4 text-text"
+              className="rounded-2xl border border-[var(--color-border)] bg-white p-4 text-[var(--color-text)]"
             >
               {pat}
             </li>
@@ -197,7 +197,7 @@ export default function ProfileTabs({ faculty }) {
         {faculty.achievements.map((ach, i) => (
           <li
             key={i}
-            className="rounded-2xl border border-border bg-white p-4 text-text"
+            className="rounded-2xl border border-[var(--color-border)] bg-white p-4 text-[var(--color-text)]"
           >
             {ach}
           </li>
@@ -213,18 +213,18 @@ export default function ProfileTabs({ faculty }) {
       <div className="rounded-2xl bg-[linear-gradient(180deg,#fafafa_0%,#ffffff_100%)] p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.25)]">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-black uppercase tracking-[0.24em] text-accent">
+            <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--color-accent)]">
               Section Order
             </p>
             <div className="mt-2 flex items-center gap-3">
-              <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white text-accent shadow-sm">
+              <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[var(--color-accent)] shadow-sm">
                 {ActiveIcon ? <ActiveIcon size={16} /> : <Sparkles size={16} />}
               </div>
               <div>
-                <p className="text-base font-black text-heading">
+                <p className="text-base font-black text-[var(--color-heading)]">
                   {activeTabMeta.label}
                 </p>
-                <p className="text-sm text-text-soft">
+                <p className="text-sm text-[var(--color-text-soft)]">
                   {activeTabMeta.description}
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function ProfileTabs({ faculty }) {
                   <SelectItem
                     key={tab.key}
                     value={tab.key}
-                    className="rounded-lg data-highlighted:bg-surface-soft data-highlighted:text-heading"
+                    className="rounded-lg data-[highlighted]:bg-[var(--color-surface-soft)] data-[highlighted]:text-[var(--color-heading)]"
                   >
                     {String(index + 1).padStart(2, "0")} - {tab.label}
                   </SelectItem>
@@ -251,8 +251,8 @@ export default function ProfileTabs({ faculty }) {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-4">
-          <div className="inline-flex rounded-full bg-surface-soft px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-text-soft">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)]/70 pt-4">
+          <div className="inline-flex rounded-full bg-[var(--color-surface-soft)] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
             Section {activeIndex + 1} of {tabs.length}
           </div>
 
@@ -261,7 +261,7 @@ export default function ProfileTabs({ faculty }) {
               type="button"
               onClick={() => moveSection(-1)}
               disabled={activeIndex <= 0}
-              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-heading shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
             >
               <ChevronLeft size={14} />
               Previous
@@ -270,7 +270,7 @@ export default function ProfileTabs({ faculty }) {
               type="button"
               onClick={() => moveSection(1)}
               disabled={activeIndex >= tabs.length - 1}
-              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-heading shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Next
               <ChevronRight size={14} />
@@ -286,11 +286,11 @@ export default function ProfileTabs({ faculty }) {
                 href={resource.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-heading shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5"
               >
                 <FileText size={12} />
                 {resource.label}
-                <span className="rounded-full bg-surface-soft px-2 py-0.5 text-[9px] text-text-soft">
+                <span className="rounded-full bg-[var(--color-surface-soft)] px-2 py-0.5 text-[9px] text-[var(--color-text-soft)]">
                   {resource.type}
                 </span>
               </a>
@@ -299,13 +299,9 @@ export default function ProfileTabs({ faculty }) {
         ) : null}
       </div>
 
-      <div className="min-h-112 rounded-2xl bg-white p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.25)]">
+      <div className="min-h-[28rem] rounded-2xl bg-white p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.25)]">
         <AnimatePresence mode="wait" initial={false}>
           <Motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
           >
             {renderSectionContent(activeTab)}
