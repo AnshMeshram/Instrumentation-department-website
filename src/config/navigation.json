@@ -4,12 +4,12 @@
     "title": "About the Department",
     "shortTitle": "About",
     "items": [
-      { "label": "About", "path": "/about" },
-      { "label": "Faculty", "path": "/faculty" },
-      { "label": "Laboratories", "path": "/laboratories" },
-      { "label": "Publications", "path": "/publications" },
-      { "label": "Patents", "path": "/patents" },
-      { "label": "Contact Us", "path": "/contact" }
+      { "label": "About", "path": "/about", "description": "Department overview and history", "icon": "Building2" },
+      { "label": "Faculty", "path": "/faculty", "description": "Meet our professors and researchers", "icon": "Users" },
+      { "label": "Laboratories", "path": "/laboratories", "description": "State-of-the-art research labs", "icon": "FlaskConical" },
+      { "label": "Publications", "path": "/publications", "description": "Journals, papers and proceedings", "icon": "BookOpen" },
+      { "label": "Patents", "path": "/patents", "description": "Intellectual property and innovations", "icon": "BadgeCheck" },
+      { "label": "Contact Us", "path": "/contact", "description": "Reach the department", "icon": "Mail" }
     ]
   },
   {
@@ -17,9 +17,9 @@
     "title": "Academics",
     "shortTitle": "Academics",
     "items": [
-      { "label": "Curriculum", "path": "/curriculum" },
-      { "label": "Time Table", "path": "/time-table" },
-      { "label": "STTPs / FDPs", "path": "/sttps-fdps" }
+      { "label": "Curriculum", "path": "/curriculum", "description": "Syllabi, course structures, and credit templates.", "icon": "FileText" },
+      { "label": "Time Table", "path": "/time-table", "description": "Class schedules, batch listings, and calendars.", "icon": "Calendar" },
+      { "label": "STTPs / FDPs", "path": "/sttps-fdps", "description": "Short Term Training & Faculty Development Programs.", "icon": "Briefcase" }
     ]
   },
   {
@@ -29,11 +29,15 @@
     "items": [
       {
         "label": "Internships and Placements",
-        "path": "/internships-and-placements"
+        "path": "/internships-and-placements",
+        "description": "Placement records, average packages, and recruiters.",
+        "icon": "TrendingUp"
       },
       {
         "label": "Consultancy and Training",
-        "path": "/consultancy-and-training"
+        "path": "/consultancy-and-training",
+        "description": "Industrial consultancy, testing services, and training.",
+        "icon": "Activity"
       }
     ]
   },
@@ -44,15 +48,29 @@
     "items": [
       {
         "label": "BOS Committee and Minutes of Meeting",
-        "path": "/bos-committee-minutes"
+        "path": "/bos-committee-minutes",
+        "description": "Board of Studies composition and MOM details.",
+        "icon": "ClipboardList"
       },
-      { "label": "Department Committees", "path": "/department-committees" }
+      {
+        "label": "Department Committees",
+        "path": "/department-committees",
+        "description": "Constituted departmental committees and portfolios.",
+        "icon": "Users"
+      }
     ]
   },
   {
     "id": "notices-updates",
     "title": "Notices & Updates",
     "shortTitle": "Notices",
-    "items": [{ "label": "Circulars / Reports", "path": "/circulars-reports" }]
+    "items": [
+      {
+        "label": "Circulars / Reports",
+        "path": "/circulars-reports",
+        "description": "Official notifications, circulars, and annual reports.",
+        "icon": "Bell"
+      }
+    ]
   }
 ]

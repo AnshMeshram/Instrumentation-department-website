@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import * as Icons from "lucide-react";
 import MobileSidebar from "./MobileSidebar";
-import {
-  NAV_GROUPS,
-  NAV_ITEM_BY_PATH,
-  getActiveGroup,
-} from "../config/navigation";
+import { NAV_GROUPS } from "../config/navigation";
 
 const BREADCRUMB_PREFIX = [
   "Home",
@@ -17,39 +14,68 @@ const BREADCRUMB_PREFIX = [
   "Department of Instrumentation and Control Engineering",
 ];
 
-const DESKTOP_GROUP_LABELS = {
-  "about-department": "About us",
-  academics: "Academics",
-  "students-career": "Career",
-  "administration-governance": "Committees",
-  "notices-updates": "Notices",
+const FEATURED_CARDS = {
+  "about-department": {
+    title: "Meet the Faculty",
+    description: "Our world-class faculty drive innovation and teach the next generation of control engineers.",
+    cta: "Explore Faculty Profiles →",
+    path: "/faculty"
+  },
+  "academics": {
+    title: "Curriculum & Syllabi",
+    description: "Browse detailed course structures and syllabus files for both B.Tech and M.Tech programs.",
+    cta: "View Curriculum →",
+    path: "/curriculum"
+  },
+  "students-career": {
+    title: "Careers & Placements",
+    description: "See our placement ratios, recruitment statistics, average packages, and top corporate partners.",
+    cta: "View Placement Records →",
+    path: "/internships-and-placements"
+  },
+  "administration-governance": {
+    title: "Board of Studies Minutes",
+    description: "Explore the constitution of our Board of Studies and view official minutes of meetings.",
+    cta: "Access Minutes →",
+    path: "/bos-committee-minutes"
+  },
+  "notices-updates": {
+    title: "Latest Bulletins",
+    description: "Read official department notices, circulars, and the latest annual progress reports.",
+    cta: "View Circulars & Notices →",
+    path: "/circulars-reports"
+  }
 };
 
 export default function NavBar() {
   const location = useLocation();
-  const activeItem = NAV_ITEM_BY_PATH[location.pathname];
-  const activeGroup = getActiveGroup(location.pathname);
-  const [openGroupId, setOpenGroupId] = useState(null);
+  const [openGroup, setOpenGroup] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const closeTimerRef = useRef(null);
 
-  const breadcrumbTrail = activeItem
-    ? [...BREADCRUMB_PREFIX, activeItem.label]
-    : BREADCRUMB_PREFIX;
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const openDropdown = (groupId) => {
+  const openDropdown = (groupKey) => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
     }
-    setOpenGroupId(groupId);
+    setOpenGroup(groupKey);
   };
 
   const closeDropdownWithDelay = () => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     closeTimerRef.current = setTimeout(() => {
-      setOpenGroupId(null);
+      setOpenGroup(null);
       closeTimerRef.current = null;
-    }, 120);
+    }, 150);
   };
 
   const cancelCloseTimer = () => {
@@ -59,24 +85,51 @@ export default function NavBar() {
     }
   };
 
-  const closeDropdownNow = () => {
-    cancelCloseTimer();
-    setOpenGroupId(null);
+  const getBreadcrumbs = () => {
+    const path = location.pathname;
+    const crumbs = [...BREADCRUMB_PREFIX];
+    
+    // Find active label in menus
+    let foundLabel = null;
+    NAV_GROUPS.forEach(group => {
+      const match = group.items.find(item => item.path === path);
+      if (match) foundLabel = match.label;
+    });
+
+    if (foundLabel) {
+      crumbs.push(foundLabel);
+    } else if (path === "/about") {
+      crumbs.push("About");
+    } else if (path === "/contact") {
+      crumbs.push("Contact Us");
+    }
+    return crumbs;
   };
 
-  useEffect(() => {
-    return () => {
-      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    };
-  }, []);
+  const isMenuGroupActive = (items) => {
+    return items.some(item => {
+      if (item.external) return false;
+      const pathBase = item.path.split("#")[0];
+      return location.pathname === pathBase || (pathBase !== "/" && location.pathname.startsWith(pathBase));
+    });
+  };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white shadow-[0_8px_24px_rgba(13,40,69,0.08)]">
-      <div className="border-b border-white/10 bg-[var(--color-primary)] text-white">
+    <header
+      className={clsx(
+        "sticky top-0 z-50 w-full transition-all duration-300 border-b",
+        isScrolled
+          ? "bg-white/85 backdrop-blur-md border-[var(--color-border)] shadow-md"
+          : "bg-white border-transparent"
+      )}
+    >
+      {/* Top Banner and Logo Section */}
+      <div className="bg-[var(--color-primary)] text-white relative">
         <div className="page-shell flex items-center justify-between gap-4 py-3">
           <Link
             to="/about"
-            className="flex min-w-0 items-center gap-3 rounded-lg pr-2 transition hover:bg-white/8"
+            onClick={() => setOpenGroup(null)}
+            className="flex min-w-0 items-center gap-3 rounded-lg pr-2 transition hover:opacity-90"
           >
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white p-0.5 shadow-sm">
               <img
@@ -96,154 +149,181 @@ export default function NavBar() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div
-            className="hidden lg:flex items-center gap-6 relative"
-            onMouseEnter={cancelCloseTimer}
-            onMouseLeave={closeDropdownWithDelay}
-            onFocusCapture={cancelCloseTimer}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                closeDropdownNow();
-              }
-            }}
-          >
-            <div className="flex items-center gap-6" role="navigation" aria-label="Primary navigation">
-              {NAV_GROUPS.map((group) => {
-                const isGroupActive = activeGroup?.id === group.id;
-                const isOpen = openGroupId === group.id;
-
-                return (
-                  <div key={group.id} className="relative">
-                    <button
-                      type="button"
-                      onMouseEnter={() => openDropdown(group.id)}
-                      onFocus={() => openDropdown(group.id)}
-                      onClick={() =>
-                        setOpenGroupId((prev) =>
-                          prev === group.id ? null : group.id,
-                        )
-                      }
-                      className={clsx(
-                        "group relative inline-flex items-center gap-1.5 pb-1 text-sm font-semibold text-white/80 transition-colors duration-150 cursor-pointer",
-                        "focus:outline-none focus-visible:text-white",
-                        isOpen || isGroupActive
-                          ? "text-white"
-                          : "hover:text-[var(--color-accent)]",
-                      )}
-                      aria-expanded={isOpen}
-                      aria-haspopup="menu"
-                    >
-                      <span>
-                        {DESKTOP_GROUP_LABELS[group.id] ?? group.title}
-                      </span>
-                      <ChevronDown
-                        size={14}
-                        aria-hidden="true"
-                        className={clsx(
-                          "mt-0.5 transition-transform duration-200 text-white/60",
-                          isOpen && "rotate-180",
-                        )}
-                      />
-                      <span
-                        className={clsx(
-                          "pointer-events-none absolute inset-x-0 -bottom-[12px] h-0.5 bg-[var(--color-accent)] transition-opacity duration-150",
-                          isOpen || isGroupActive
-                            ? "opacity-100"
-                            : "opacity-0 group-hover:opacity-100",
-                        )}
-                      />
-                    </button>
-
-                    <div
-                      className={clsx(
-                        "absolute top-full z-50 w-72 pt-3 transition-all duration-180",
-                        group.id === "about-department" || group.id === "academics"
-                          ? "right-auto left-0"
-                          : group.id === "students-career"
-                          ? "left-1/2 -translate-x-1/2"
-                          : "left-auto right-0",
-                        isOpen
-                          ? "pointer-events-auto translate-y-0 opacity-100"
-                          : "pointer-events-none -translate-y-1 opacity-0",
-                      )}
-                    >
-                      {/* Decorative arrow/caret */}
-                      <div
-                        className={clsx(
-                          "absolute top-[6px] h-3 w-3 rotate-45 border-t border-l border-[var(--color-border)] bg-white shadow-[-4px_-4px_8px_rgba(0,0,0,0.02)] transition-colors",
-                          group.id === "about-department" || group.id === "academics"
-                            ? "left-8"
-                            : group.id === "students-career"
-                            ? "left-1/2 -translate-x-1/2"
-                            : "right-8",
-                        )}
-                      />
-
-                      <div className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white/95 backdrop-blur-md p-2.5 shadow-[0_18px_38px_rgba(13,40,69,0.12)] text-[var(--color-text)]">
-                        <div className="mb-1.5 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-[var(--color-accent)] opacity-80 border-b border-[var(--color-border)] pb-1.5">
-                          {DESKTOP_GROUP_LABELS[group.id] ?? group.title}
-                        </div>
-                        <div className="space-y-1">
-                          {group.items.map((item) => {
-                            const isActiveItem =
-                              location.pathname === item.path ||
-                              location.pathname.startsWith(`${item.path}/`);
-
-                            return (
-                              <Link
-                                key={item.path}
-                                to={item.path}
-                                role="menuitem"
-                                onClick={closeDropdownNow}
-                                className={clsx(
-                                  "group/item flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-150",
-                                  isActiveItem
-                                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-bold shadow-sm"
-                                    : "text-[var(--color-text)] hover:bg-[var(--color-surface-soft)] hover:text-[var(--color-primary)] hover:translate-x-0.5",
-                                )}
-                              >
-                                <span>{item.label}</span>
-                                <ChevronRight
-                                  size={14}
-                                  className={clsx(
-                                    "transition-all duration-150 opacity-0 -translate-x-1",
-                                    isActiveItem
-                                      ? "opacity-100 translate-x-0 text-[var(--color-primary)]"
-                                      : "group-hover/item:opacity-100 group-hover/item:translate-x-0 text-[var(--color-primary)]/70",
-                                  )}
-                                />
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          {/* Desktop Nav Actions */}
+          <div className="hidden lg:flex items-center gap-6">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-accent)] px-5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-teal-600 active:scale-[0.97] ring-1 ring-white/10"
+            >
+              <Icons.PhoneCall size={12} />
+              Contact Us
+            </Link>
           </div>
 
           <div className="lg:hidden">
-            <MobileSidebar />
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="p-2 text-white hover:bg-white/10 rounded-lg transition"
+              aria-label="Open navigation menu"
+            >
+              <Icons.Menu size={24} />
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="bg-white shadow-inner border-b border-[var(--color-border)]">
+      {/* Main Desktop Navbar Bar */}
+      <div className="hidden lg:block bg-white border-b border-[var(--color-border)] shadow-sm">
+        <div className="page-shell flex items-center justify-center py-0.5 relative">
+          <nav
+            className="flex items-center gap-8"
+            onMouseLeave={closeDropdownWithDelay}
+            onMouseEnter={cancelCloseTimer}
+          >
+            {NAV_GROUPS.map((group) => {
+              const key = group.id;
+              const isActive = isMenuGroupActive(group.items);
+              const isOpen = openGroup === key;
+              const featured = FEATURED_CARDS[key] || {
+                title: "Explore More",
+                description: "Find out more about the Department of Instrumentation & Control Engineering.",
+                cta: "Explore Now →",
+                path: "/about"
+              };
+
+              return (
+                <div key={key} className="relative py-3.5">
+                  <button
+                    onMouseEnter={() => openDropdown(key)}
+                    onClick={() => setOpenGroup(isOpen ? null : key)}
+                    className={clsx(
+                      "flex items-center gap-1 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] transition duration-150 relative cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-md px-1",
+                      (isActive || isOpen) && "text-[var(--color-primary)]"
+                    )}
+                  >
+                    <span>{group.title}</span>
+                    <Icons.ChevronDown
+                      size={14}
+                      className={clsx(
+                        "mt-0.5 transition-transform duration-200 text-[var(--color-text-soft)]",
+                        isOpen && "rotate-180 text-[var(--color-primary)]"
+                      )}
+                    />
+                    
+                    {/* Sliding underline indicator */}
+                    {(isActive || isOpen) && (
+                      <Motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-accent)]"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </button>
+
+                  {/* Mega Dropdown Panel */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <Motion.div
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 z-50 w-[720px] pt-2"
+                        onMouseEnter={cancelCloseTimer}
+                        onMouseLeave={closeDropdownWithDelay}
+                      >
+                        <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white shadow-xl grid grid-cols-12 p-4 gap-4">
+                          {/* Left Column - Nav Links (icon + label + description) */}
+                          <div className="col-span-8 bg-white space-y-2">
+                            <h4 className="text-2xs font-bold uppercase tracking-[0.15em] text-[var(--color-accent)] border-b border-[var(--color-border)] pb-2 mb-2">
+                              {group.title}
+                            </h4>
+                            <div className="grid grid-cols-1 gap-1">
+                              {group.items.map((item) => {
+                                const IconComponent = Icons[item.icon] || Icons.HelpCircle;
+                                const isItemActive = location.pathname === item.path.split("#")[0];
+
+                                return (
+                                  <Link
+                                    key={item.label}
+                                    to={item.path}
+                                    onClick={() => setOpenGroup(null)}
+                                    className={clsx(
+                                      "flex items-start gap-3 p-2.5 transition-all duration-200 group hover:translate-x-[2px]",
+                                      isItemActive
+                                        ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-semibold rounded-xl"
+                                        : "hover:bg-[var(--color-surface-soft)] text-[var(--color-text)] hover:rounded-xl"
+                                    )}
+                                  >
+                                    <div
+                                      className={clsx(
+                                        "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors",
+                                        isItemActive
+                                          ? "bg-white text-[var(--color-primary)] shadow-sm"
+                                          : "bg-[var(--color-primary-soft)] text-[var(--color-accent)] group-hover:bg-white"
+                                      )}
+                                    >
+                                      <IconComponent size={16} />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                      <div className="flex items-center gap-1 text-sm font-semibold">
+                                        <span>{item.label}</span>
+                                        {item.external && <Icons.ExternalLink size={10} className="opacity-60" />}
+                                      </div>
+                                      <p className="text-xs text-[var(--color-text-soft)] line-clamp-1 leading-normal font-normal">
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Right Column - Featured Highlight Card */}
+                          <div className="col-span-4 bg-[var(--color-primary)] text-white rounded-xl p-5 flex flex-col justify-between">
+                            <div className="space-y-3">
+                              <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--color-accent)]">
+                                Featured
+                              </h4>
+                              <h5 className="text-sm font-bold text-white leading-tight">
+                                {featured.title}
+                              </h5>
+                              <p className="text-[11px] text-white/80 leading-relaxed font-normal">
+                                {featured.description}
+                              </p>
+                            </div>
+                            <Link
+                              to={featured.path}
+                              onClick={() => setOpenGroup(null)}
+                              className="mt-6 inline-flex items-center gap-1 text-xs font-bold text-[var(--color-accent)] hover:text-white transition-colors"
+                            >
+                              <span>{featured.cta}</span>
+                              <Icons.ChevronRight size={14} />
+                            </Link>
+                          </div>
+                        </div>
+                      </Motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+
+      {/* Breadcrumb Bar */}
+      <div className="bg-white border-b border-[var(--color-border)] shadow-inner">
         <div className="page-shell py-2">
           <nav aria-label="Breadcrumb" className="overflow-x-auto no-scrollbar">
             <ol className="flex items-center gap-2 whitespace-nowrap text-[9px] font-black uppercase tracking-[0.1em] text-[var(--color-text-soft)]">
-              {breadcrumbTrail.map((crumb, index) => {
-                const isLast = index === breadcrumbTrail.length - 1;
+              {getBreadcrumbs().map((crumb, index, arr) => {
+                const isLast = index === arr.length - 1;
                 return (
-                  <li
-                    key={`${crumb}-${index}`}
-                    className="flex items-center gap-2"
-                  >
+                  <li key={`${crumb}-${index}`} className="flex items-center gap-2">
                     {index > 0 && (
-                      <ChevronRight
+                      <Icons.ChevronRight
                         size={10}
                         className="text-[var(--color-border-strong)] opacity-50"
                         aria-hidden="true"
@@ -254,7 +334,7 @@ export default function NavBar() {
                         "transition-colors",
                         isLast
                           ? "text-[var(--color-accent)] font-black"
-                          : "hover:text-[var(--color-primary)] cursor-default opacity-60",
+                          : "hover:text-[var(--color-primary)] cursor-default opacity-60"
                       )}
                     >
                       {crumb}
@@ -266,6 +346,9 @@ export default function NavBar() {
           </nav>
         </div>
       </div>
+
+      {/* Mobile Drawer menu */}
+      <MobileSidebar isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
     </header>
   );
 }

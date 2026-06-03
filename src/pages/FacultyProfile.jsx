@@ -74,11 +74,11 @@ export default function FacultyProfile() {
 
         {/* Right Side - Info */}
         <div className="flex-1 p-8 md:p-12 lg:p-14 xl:p-16 flex flex-col justify-center">
-          <div className="mb-4 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-accent)]">
+          <div className="mb-4 flex items-center gap-4 text-2xs font-bold uppercase tracking-[0.3em] text-[var(--color-accent)]">
             <span className="h-[2px] w-6 bg-[var(--color-accent)]"></span>
             FACULTY PROFILE
           </div>
-          <h1 className="font-serif text-4xl font-black leading-tight text-[var(--color-heading)] md:text-5xl">
+          <h1 className="font-serif text-4xl font-bold leading-tight text-[var(--color-heading)] md:text-5xl">
             {faculty.name}
           </h1>
           <p className="mt-3 text-lg md:text-xl font-bold text-[var(--color-text-soft)]">
@@ -90,7 +90,7 @@ export default function FacultyProfile() {
               {faculty.research.split(",").map((spec, i) => (
                 <span
                   key={i}
-                  className="rounded-full border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-4 py-1.5 text-[11px] font-black uppercase tracking-wider text-[var(--color-primary)] shadow-sm"
+                  className="rounded-full border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[var(--color-primary)] shadow-sm"
                 >
                   {spec.trim()}
                 </span>
@@ -107,7 +107,7 @@ export default function FacultyProfile() {
                 <Mail size={20} strokeWidth={2.5} />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                <p className="text-2xs font-bold text-[var(--color-text-soft)] uppercase tracking-widest">
                   Email
                 </p>
                 <p className="mt-1 break-all text-[13px] font-bold text-[var(--color-heading)]">
@@ -121,7 +121,7 @@ export default function FacultyProfile() {
                 <Phone size={20} strokeWidth={2.5} />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                <p className="text-2xs font-bold text-[var(--color-text-soft)] uppercase tracking-widest">
                   Phone
                 </p>
                 <p className="mt-1 text-[13px] font-bold text-[var(--color-heading)]">
@@ -207,7 +207,7 @@ export default function FacultyProfile() {
                     <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white shadow-sm border border-[var(--color-border)]/40">
                       <Award size={16} strokeWidth={2.5} />
                     </span>
-                    <h2 className="text-[11px] font-black uppercase tracking-[0.15em]">
+                    <h2 className="text-[11px] font-bold uppercase tracking-[0.15em]">
                       Primary Research & Expertise
                     </h2>
                   </div>
@@ -225,7 +225,7 @@ export default function FacultyProfile() {
                 href={docPath}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-3 rounded-full bg-[var(--color-heading)] px-8 py-4 text-[11px] font-black uppercase tracking-[0.15em] text-white transition-all hover:bg-black hover:shadow-lg"
+                className="inline-flex items-center gap-3 rounded-full bg-[var(--color-heading)] px-8 py-4 text-[11px] font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-black hover:shadow-lg"
               >
                 Download Profile Document
                 <ChevronRight size={16} strokeWidth={3} />

@@ -4,36 +4,84 @@ import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { MapPin, Phone, Mail, Clock, Building } from "lucide-react";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
+import { toast } from "sonner";
 
 export default function Contact() {
   useDocumentMetadata({
     title: "Contact Us",
-    description: "Get in touch with the Department of Instrumentation and Control Engineering at COEP Technological University for academic, research, or administrative inquiries.",
+    description: "Get in touch with the Department of Instrumentation and Control Engineering at COEP Technological University for academic, research, or administrative inquiries."
   });
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
-    message: "",
+    message: ""
   });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
   const [submitted, setSubmitted] = useState(false);
+
+  const validateField = (name, value) => {
+    let error = "";
+    if (name === "name") {
+      if (!value.trim()) {
+        error = "Full name is required.";
+      }
+    } else if (name === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!value.trim()) {
+        error = "Email address is required.";
+      } else if (!emailRegex.test(value)) {
+        error = "Please enter a valid email address.";
+      }
+    } else if (name === "message") {
+      if (!value.trim()) {
+        error = "Message is required.";
+      } else if (value.trim().length < 20) {
+        error = "Message must be at least 20 characters long.";
+      }
+    }
+    setErrors((prev) => ({ ...prev, [name]: error }));
+    return error;
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    validateField(name, value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate form submission
+    const nameErr = validateField("name", formData.name);
+    const emailErr = validateField("email", formData.email);
+    const messageErr = validateField("message", formData.message);
+
+    if (nameErr || emailErr || messageErr) {
+      toast.error("Please fix the validation errors before submitting.");
+      return;
+    }
+
     setSubmitted(true);
+    toast.success("Message sent!");
+
     setTimeout(() => {
       setSubmitted(false);
       setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 3000);
+      setErrors({ name: "", email: "", message: "" });
+    }, 1500);
   };
 
   return (
     <div className="space-y-12 pb-12">
       <PageHeader
         title="Contact Us"
-        subtitle="Get in touch with the Department of Instrumentation and Control Engineering for academic, research, or administrative inquiries."
+        description="Get in touch with the Department of Instrumentation and Control Engineering for academic, research, or administrative inquiries."
         badgeText="Contact"
       />
 
@@ -41,7 +89,7 @@ export default function Contact() {
         {/* Contact Info and Form */}
         <div className="lg:col-span-7 space-y-8">
           <div className="grid gap-6 sm:grid-cols-2">
-            <Card className="border-none bg-white shadow-[var(--shadow-soft)]">
+            <Card className="border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] hover:-translate-y-1 hover:shadow-md transition duration-300">
               <CardContent className="p-6 space-y-4">
                 <div className="h-10 w-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center text-[var(--color-accent)]">
                   <Building size={20} />
@@ -60,7 +108,7 @@ export default function Contact() {
               </CardContent>
             </Card>
 
-            <Card className="border-none bg-white shadow-[var(--shadow-soft)]">
+            <Card className="border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] hover:-translate-y-1 hover:shadow-md transition duration-300">
               <CardContent className="p-6 space-y-4">
                 <div className="h-10 w-10 rounded-xl bg-[var(--color-highlight)]/10 flex items-center justify-center text-[var(--color-highlight)]">
                   <Clock size={20} />
@@ -81,7 +129,7 @@ export default function Contact() {
           </div>
 
           {/* Quick Contact Form */}
-          <Card className="border-none bg-white shadow-[var(--shadow-soft)]">
+          <Card className="border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] hover:-translate-y-1 hover:shadow-md transition duration-300">
             <CardContent className="p-6 sm:p-8">
               <h3 className="text-xl font-bold text-[var(--color-heading)] mb-6">Send an Inquiry</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -92,12 +140,20 @@ export default function Contact() {
                     </span>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onBlur={handleBlur}
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value });
+                        if (errors.name) validateField("name", e.target.value);
+                      }}
                       className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:border-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                       placeholder="Your Name"
                     />
+                    {errors.name && (
+                      <p className="text-red-600 text-xs mt-1 font-semibold">{errors.name}</p>
+                    )}
                   </label>
                   <label className="block">
                     <span className="block text-xs font-bold uppercase tracking-wider text-[var(--color-text-soft)] mb-2">
@@ -105,12 +161,20 @@ export default function Contact() {
                     </span>
                     <input
                       type="email"
+                      name="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onBlur={handleBlur}
+                      onChange={(e) => {
+                        setFormData({ ...formData, email: e.target.value });
+                        if (errors.email) validateField("email", e.target.value);
+                      }}
                       className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:border-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                       placeholder="your.email@example.com"
                     />
+                    {errors.email && (
+                      <p className="text-red-600 text-xs mt-1 font-semibold">{errors.email}</p>
+                    )}
                   </label>
                 </div>
                 <label className="block">
@@ -132,17 +196,25 @@ export default function Contact() {
                   </span>
                   <textarea
                     required
+                    name="message"
                     rows={4}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      if (errors.message) validateField("message", e.target.value);
+                    }}
                     className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:border-[var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all resize-none"
                     placeholder="Write your message here..."
                   />
+                  {errors.message && (
+                    <p className="text-red-600 text-xs mt-1 font-semibold">{errors.message}</p>
+                  )}
                 </label>
                 <button
                   type="submit"
                   disabled={submitted}
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-[var(--color-primary)] text-white text-sm font-bold transition-all hover:bg-[var(--color-primary-strong)] hover:shadow-lg disabled:opacity-50"
+                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-[var(--color-primary)] text-white text-sm font-bold transition-all hover:bg-teal-600 hover:shadow-lg disabled:opacity-50 cursor-pointer"
                 >
                   {submitted ? "Inquiry Sent Successfully" : "Send Inquiry"}
                 </button>
@@ -153,7 +225,7 @@ export default function Contact() {
 
         {/* Reach Out details and Map */}
         <div className="lg:col-span-5 space-y-8">
-          <Card className="border-none bg-white shadow-[var(--shadow-soft)] overflow-hidden">
+          <Card className="border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] hover:-translate-y-1 hover:shadow-md transition duration-300 overflow-hidden">
             <CardContent className="p-6 space-y-6">
               <h3 className="text-xl font-bold text-[var(--color-heading)] border-b border-[var(--color-border)] pb-4">
                 Reach Us Directly

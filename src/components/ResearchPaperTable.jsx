@@ -22,7 +22,7 @@ export default function ResearchPaperTable({ papers }) {
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white shadow-[0_22px_50px_-28px_rgba(0,0,0,0.25)]">
       <div className="border-b border-[var(--color-border)] bg-[var(--color-primary)] px-4 py-4 text-white md:px-6">
-        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">
+        <p className="text-2xs font-bold uppercase tracking-[0.18em] text-white/60">
           Research project register
         </p>
         <p className="mt-1 text-sm font-medium text-white/80">

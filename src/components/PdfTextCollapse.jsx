@@ -12,24 +12,24 @@ export default function PdfTextCollapse({ title, subtitle, text, pageLabel }) {
   return (
     <div
       tabIndex={0}
-      className="collapse collapse-arrow border border-slate-200 bg-slate-50"
+      className="collapse collapse-arrow border border-[var(--color-border)] bg-[var(--color-surface-soft)]"
     >
       <div className="collapse-title flex min-h-0 items-start gap-3 py-4 pr-12">
         <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#1a3f70]">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-primary)]">
             {pageLabel}
           </p>
-          <h3 className="mt-1 text-sm font-semibold text-slate-900 md:text-base">
+          <h3 className="mt-1 text-sm font-semibold text-[var(--color-heading)] md:text-base">
             {title}
           </h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600">{preview}</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">{preview}</p>
         </div>
       </div>
 
       <div className="collapse-content pt-0">
-        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-[var(--color-border)] bg-white p-4 shadow-sm">
           {subtitle ? (
-            <p className="mb-3 text-xs font-medium uppercase tracking-wide text-slate-500">
+            <p className="mb-3 text-xs font-medium uppercase tracking-wide text-[var(--color-text-soft)]">
               {subtitle}
             </p>
           ) : null}
@@ -38,7 +38,7 @@ export default function PdfTextCollapse({ title, subtitle, text, pageLabel }) {
             {lines.map((line, index) => (
               <div
                 key={`${pageLabel}-${index}`}
-                className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-sm leading-6 text-slate-700"
+                className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-3 py-2 text-sm leading-6 text-[var(--color-text)]"
               >
                 {line}
               </div>

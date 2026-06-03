@@ -165,7 +165,7 @@ export default function TimeTable() {
                 variant="type"
                 className="bg-[var(--color-primary)] px-4 py-1.5 text-white"
               >
-                Academic Calendar Hub
+                Academic Calendar
               </Badge>
               <Badge
                 variant="default"

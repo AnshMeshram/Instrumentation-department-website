@@ -24,27 +24,24 @@ export default function FacultyCard({ faculty }) {
   const topDegree = getTopDegree(faculty);
 
   return (
-    <Card className="group overflow-hidden border-none bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.14)] transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_50px_90px_-28px_rgba(0,0,0,0.2)]">
+    <Card className="group overflow-hidden border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
       <CardContent className="p-0">
-        <div className="flex flex-col xl:flex-row">
-          <div className="relative w-full h-72 sm:h-96 xl:h-auto xl:aspect-[3/4] shrink-0 overflow-hidden bg-[var(--color-surface-soft)] xl:w-72">
+        <div className="flex flex-col xl:flex-row items-center p-4 gap-6">
+          <div className="relative w-72 h-72 shrink-0 overflow-hidden bg-[var(--color-surface-soft)] rounded-2xl shadow-inner">
             <img
               src={imgSrc}
               alt={faculty.name}
-              className="absolute inset-0 h-full w-full object-cover transition-all duration-1000 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover rounded-2xl transition-all duration-1000 group-hover:scale-105"
               onError={(e) => {
                 if (e?.target) e.target.src = "/faculty_images/image.png";
               }}
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-            <div className="absolute bottom-0 left-0 w-full p-6">
-              <Badge className="bg-white/10 px-3 py-1 text-white backdrop-blur-md border-white/20">
-                Faculty Member
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+            <div className="absolute bottom-0 left-0 w-full p-4">
+              <Badge className="bg-white/10 px-2 py-0.5 text-[9px] text-white backdrop-blur-md border-white/20 uppercase tracking-widest font-bold">
+                Faculty
               </Badge>
-              <h4 className="mt-3 text-lg font-bold !text-white uppercase tracking-tight">
-                Instrumentation & Control
-              </h4>
             </div>
           </div>
 

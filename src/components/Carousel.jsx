@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Carousel({
@@ -76,12 +74,12 @@ export default function Carousel({
             transition={{ duration: 0.8, ease: "easeInOut" }}
             className="absolute inset-0 h-full w-full"
           >
-            <LazyLoadImage
+            <img
               src={imageSrc}
               alt={imageAlt}
-              effect="blur"
-              className="h-full w-full object-cover"
-              wrapperClassName="h-full w-full bg-[var(--color-surface)]"
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </Motion.div>
         )}

@@ -1,12 +1,26 @@
 import { Badge } from "./ui/badge";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import { motion as Motion } from "framer-motion";
 
 export default function PageHeader({
   title,
   subtitle,
+  description,
   badgeText = "Department Resource",
 }) {
+  const displaySubtitle = subtitle || description;
+  const { ref, isInView } = useScrollReveal();
+
   return (
-    <section className="relative mb-8 overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)]">
+    <section
+      ref={ref}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? "translateY(0)" : "translateY(32px)",
+        transition: "opacity 0.5s ease, transform 0.5s ease"
+      }}
+      className="relative mb-8 overflow-hidden rounded-[2.5rem] border border-[var(--color-border)] bg-white shadow-[0_30px_60px_-12px_rgba(0,0,0,0.08)]"
+    >
       <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/5 rounded-full -mr-32 -mt-32 blur-3xl" />
       <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-[linear-gradient(to_left,var(--color-primary-soft)_0%,transparent_100%)] lg:block" />
 
@@ -22,17 +36,25 @@ export default function PageHeader({
             variant="default"
             className="border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-1.5 text-[var(--color-text)]"
           >
-            Official Catalog
+            COEP Tech · Pune
           </Badge>
         </div>
 
         <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
           {title}
         </h1>
+        
+        {/* Underline */}
+        <Motion.div
+          initial={{ width: 0 }}
+          animate={{ width: 64 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-highlight)] mt-2 rounded-full"
+        />
 
-        {subtitle && (
+        {displaySubtitle && (
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-text-soft)] font-medium">
-            {subtitle}
+            {displaySubtitle}
           </p>
         )}
       </div>

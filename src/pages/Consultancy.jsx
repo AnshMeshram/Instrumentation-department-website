@@ -114,7 +114,7 @@ export default function Consultancy() {
               <Badge variant="default" className="bg-white text-[var(--color-text)] border-[var(--color-border)] px-4 py-1.5">Consultancy & Training</Badge>
             </div>
 
-            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-bold leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
               Consultancy & Services
             </h1>
 
@@ -129,22 +129,22 @@ export default function Consultancy() {
             <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-white px-6 py-4 shadow-sm">
               <BriefcaseBusiness size={20} className="text-[var(--color-accent)]" />
               <div>
-                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.total}</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Total Projects</p>
+                <p className="text-2xl font-bold font-[var(--font-serif)] text-[var(--color-heading)]">{summary.total}</p>
+                <p className="text-2xs font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Total Projects</p>
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-6 py-4">
               <BadgeCheck size={20} className="text-[var(--color-accent)]" />
               <div>
-                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.completed}</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Completed</p>
+                <p className="text-2xl font-bold font-[var(--font-serif)] text-[var(--color-heading)]">{summary.completed}</p>
+                <p className="text-2xs font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Completed</p>
               </div>
             </div>
             <div className="flex items-center gap-3 rounded-2xl border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-6 py-4">
               <Activity size={20} className="text-[var(--color-highlight)]" />
               <div>
-                <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{summary.ongoing}</p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Ongoing</p>
+                <p className="text-2xl font-bold font-[var(--font-serif)] text-[var(--color-heading)]">{summary.ongoing}</p>
+                <p className="text-2xs font-bold uppercase tracking-widest text-[var(--color-text-soft)]">Ongoing</p>
               </div>
             </div>
           </div>

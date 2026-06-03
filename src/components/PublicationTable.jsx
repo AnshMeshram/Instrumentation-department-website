@@ -154,7 +154,7 @@ export default function PublicationTable({
       <div className="space-y-4">
         <div className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-[0_22px_50px_-28px_rgba(0,0,0,0.25)]">
           <div className="border-b border-[var(--color-border)] bg-[var(--color-primary)] px-4 py-4 text-white md:px-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/60">
+            <p className="text-2xs font-bold uppercase tracking-[0.18em] text-white/60">
               Publication archive
             </p>
             <p className="mt-1 text-sm font-medium text-white/80">
@@ -399,28 +399,28 @@ export default function PublicationTable({
                     </div>
                   </div>
 
-                  <div className="space-y-4 rounded-2xl border border-slate-100 bg-white p-5">
+                  <div className="space-y-4 rounded-2xl border border-[var(--color-border)] bg-white p-5">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-soft)]">
                         Record Reference
                       </p>
-                      <p className="mt-2 text-sm text-slate-700">
+                      <p className="mt-2 text-sm text-[var(--color-text)]">
                         Serial No. {activePublication.serialNumber}
                       </p>
-                      <p className="mt-1 text-sm text-slate-700">
+                      <p className="mt-1 text-sm text-[var(--color-text)]">
                         Source page: {activePublication.sourcePage}
                       </p>
                     </div>
 
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-soft)]">
                         Publication Link
                       </p>
                       <a
                         href={activePublication.publicationUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0f2f66] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#12386f]"
+                        className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-primary)] px-4 py-3 text-sm font-semibold text-white transition hover:bg-black"
                       >
                         <ExternalLink size={16} />
                         Open Link
@@ -428,10 +428,10 @@ export default function PublicationTable({
                     </div>
 
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-soft)]">
                         OCR Extract Preview
                       </p>
-                      <div className="mt-2 max-h-56 overflow-auto rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs leading-6 text-slate-600">
+                      <div className="mt-2 max-h-56 overflow-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-3 text-xs leading-6 text-[var(--color-text-soft)]">
                         {activePublication.rawText}
                       </div>
                     </div>
