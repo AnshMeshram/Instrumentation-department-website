@@ -1,4 +1,4 @@
-import {
+﻿import {
   Mail,
   Phone,
   Award,
@@ -56,18 +56,33 @@ export default function FacultyProfile() {
 
   return (
     <div className="space-y-8 pb-16 pt-8 px-4 md:px-8">
+      <div className="mx-auto max-w-6xl w-full rounded-[var(--radius-container)]
+        bg-[var(--color-primary)] px-8 py-10 md:px-12 md:py-12">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="h-[2px] w-8 bg-[var(--color-accent)]" />
+          <span className="text-[11px] font-bold uppercase tracking-[0.25em]
+            text-[var(--color-accent)]">Faculty Profile</span>
+        </div>
+        <h1 className="font-[var(--font-serif)] text-4xl font-black
+          text-white leading-tight md:text-5xl">
+          {faculty.name}
+        </h1>
+        <p className="mt-3 text-lg font-medium text-white/70">
+          {faculty.designation}
+        </p>
+      </div>
+
       {/* Main unified profile card */}
-      <div className="mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-container)] bg-white shadow-2xl border border-[var(--color-border)]/50 flex flex-col lg:flex-row">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-container)] bg-white shadow-sm border border-[var(--color-border)] flex flex-col lg:flex-row">
         {/* Left Side - Image */}
         <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 overflow-hidden bg-[var(--color-surface-soft)] flex flex-col justify-end h-80 sm:h-96 lg:h-auto lg:min-h-[400px]">
           <img
             src={initialImg}
             alt={faculty.name}
             className="absolute inset-0 h-full w-full object-cover object-top"
-            onError={(e) => {
-              if (e?.target) e.target.src = "/faculty_images/image.png";
-            }}
+            onError={(e) => { e.target.src = "/faculty_images/image.png"; }}
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
         </div>
@@ -78,9 +93,9 @@ export default function FacultyProfile() {
             <span className="h-[2px] w-6 bg-[var(--color-accent)]"></span>
             FACULTY PROFILE
           </div>
-          <h1 className="font-serif text-4xl font-bold leading-tight text-[var(--color-heading)] md:text-5xl">
+          <h2 className="font-serif text-4xl font-bold leading-tight text-[var(--color-heading)] md:text-5xl">
             {faculty.name}
-          </h1>
+          </h2>
           <p className="mt-3 text-lg md:text-xl font-bold text-[var(--color-text-soft)]">
             {faculty.designation}
           </p>
@@ -180,18 +195,25 @@ export default function FacultyProfile() {
             </div>
           )}
 
-          <div className="mt-8 grid grid-cols-3 divide-x divide-[var(--color-border)] rounded-2xl border border-[var(--color-border)] overflow-hidden">
-            <div className="flex flex-col items-center py-4 px-2">
-              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.publicationCount}</p>
-              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Publications</p>
+          <div className="mt-8 grid grid-cols-3 divide-x divide-[var(--color-border)]
+            rounded-2xl border border-[var(--color-border)] overflow-hidden">
+            <div className="flex flex-col items-center py-4 px-3">
+              <p className="text-2xl font-black font-[var(--font-serif)]
+                text-[var(--color-heading)]">{metrics.publicationCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider
+                text-[var(--color-text-soft)]">Publications</p>
             </div>
-            <div className="flex flex-col items-center py-4 px-2">
-              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.patentCount}</p>
-              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Patents</p>
+            <div className="flex flex-col items-center py-4 px-3">
+              <p className="text-2xl font-black font-[var(--font-serif)]
+                text-[var(--color-heading)]">{metrics.patentCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider
+                text-[var(--color-text-soft)]">Patents</p>
             </div>
-            <div className="flex flex-col items-center py-4 px-2">
-              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.experienceCount}</p>
-              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Positions</p>
+            <div className="flex flex-col items-center py-4 px-3">
+              <p className="text-2xl font-black font-[var(--font-serif)]
+                text-[var(--color-heading)]">{metrics.experienceCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider
+                text-[var(--color-text-soft)]">Positions</p>
             </div>
           </div>
 
@@ -236,7 +258,7 @@ export default function FacultyProfile() {
       </div>
 
       <section className="mx-auto w-full max-w-6xl pt-4">
-        <div className="rounded-[var(--radius-container)] bg-white p-6 md:p-8 shadow-sm border border-[var(--color-border)]/50">
+        <div className="rounded-[var(--radius-container)] bg-white p-0 shadow-sm border border-[var(--color-border)]/50">
           <ProfileTabs faculty={faculty} />
         </div>
       </section>

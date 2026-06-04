@@ -113,6 +113,9 @@ export default function Events() {
                       src={ev.image}
                       alt={ev.title}
                       className="w-full h-full object-cover"
+                      onError={(e) => { e.target.src = "/faculty_images/image.png"; }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <Badge className="absolute top-4 left-4 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-strong)]">
                       {ev.category}

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
-import { X, ChevronDown, PhoneCall } from "lucide-react";
+import { ChevronDown, ExternalLink, PhoneCall, X } from "lucide-react";
 import clsx from "clsx";
-import * as Icons from "lucide-react";
+import { resolveIcon } from "../config/iconMap";
 import { NAV_GROUPS } from "../config/navigation";
 
 export default function MobileSidebar({ isOpen, onClose }) {
@@ -12,13 +12,18 @@ export default function MobileSidebar({ isOpen, onClose }) {
   const [openGroup, setOpenGroup] = useState(null);
 
   const toggleGroup = (groupId) => {
-    setOpenGroup(prev => prev === groupId ? null : groupId);
+    setOpenGroup((prev) => (prev === groupId ? null : groupId));
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <Dialog.Root open={isOpen} onOpenChange={(val) => { if (!val) onClose(); }}>
+        <Dialog.Root
+          open={isOpen}
+          onOpenChange={(val) => {
+            if (!val) onClose();
+          }}
+        >
           <Dialog.Portal>
             {/* Backdrop Overlay */}
             <Dialog.Overlay asChild>
@@ -46,6 +51,11 @@ export default function MobileSidebar({ isOpen, onClose }) {
                       src="/college-logo/college_logo.jpg"
                       alt="COEP Logo"
                       className="h-8 w-8 object-contain"
+                      onError={(e) => {
+                        e.target.src = "/faculty_images/image.png";
+                      }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <span className="text-xs font-bold text-[var(--color-primary)] font-[var(--font-serif)]">
                       COEP Tech
@@ -67,18 +77,21 @@ export default function MobileSidebar({ isOpen, onClose }) {
                   {NAV_GROUPS.map((group) => {
                     const isExpanded = openGroup === group.id;
                     const isGroupActive = group.items.some(
-                      (item) => location.pathname === item.path.split("#")[0]
+                      (item) => location.pathname === item.path.split("#")[0],
                     );
 
                     return (
-                      <div key={group.id} className="border-b border-[var(--color-border)]/50 pb-2">
+                      <div
+                        key={group.id}
+                        className="border-b border-[var(--color-border)]/50 pb-2"
+                      >
                         <button
                           onClick={() => toggleGroup(group.id)}
                           className={clsx(
                             "flex w-full items-center justify-between py-2 text-sm font-semibold transition text-left cursor-pointer",
                             isGroupActive
                               ? "text-[var(--color-primary)]"
-                              : "text-[var(--color-text)]"
+                              : "text-[var(--color-text)]",
                           )}
                         >
                           <span>{group.title}</span>
@@ -103,8 +116,10 @@ export default function MobileSidebar({ isOpen, onClose }) {
                             >
                               <div className="space-y-1 border-l-2 border-[var(--color-border)] pl-3 py-1">
                                 {group.items.map((item) => {
-                                  const IconComponent = Icons[item.icon] || Icons.HelpCircle;
-                                  const isItemActive = location.pathname === item.path.split("#")[0];
+                                  const IconComponent = resolveIcon(item.icon);
+                                  const isItemActive =
+                                    location.pathname ===
+                                    item.path.split("#")[0];
 
                                   return (
                                     <Link
@@ -115,12 +130,19 @@ export default function MobileSidebar({ isOpen, onClose }) {
                                         "flex items-center gap-2.5 rounded-lg py-2 px-2 text-xs transition-colors",
                                         isItemActive
                                           ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-bold"
-                                          : "text-[var(--color-text-soft)] hover:text-[var(--color-primary)] hover:bg-slate-50"
+                                          : "text-[var(--color-text-soft)] hover:text-[var(--color-primary)] hover:bg-slate-50",
                                       )}
                                     >
-                                      <IconComponent size={14} className="shrink-0" />
-                                      <span className="flex-1">{item.label}</span>
-                                      {item.external && <Icons.ExternalLink size={10} />}
+                                      <IconComponent
+                                        size={14}
+                                        className="shrink-0"
+                                      />
+                                      <span className="flex-1">
+                                        {item.label}
+                                      </span>
+                                      {item.external && (
+                                        <ExternalLink size={10} />
+                                      )}
                                     </Link>
                                   );
                                 })}

@@ -77,7 +77,8 @@ export default function Carousel({
             <img
               src={imageSrc}
               alt={imageAlt}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              onError={(e) => { e.target.src = "/faculty_images/image.png"; }}
               loading="lazy"
               decoding="async"
             />

@@ -77,6 +77,9 @@ export default function Alumni() {
                     src={alumni.image}
                     alt={alumni.name}
                     className="w-full h-full object-cover"
+                    onError={(e) => { e.target.src = "/faculty_images/image.png"; }}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="sm:col-span-7 p-6 flex flex-col justify-between">

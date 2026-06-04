@@ -6,6 +6,7 @@ export default defineConfig({
   base: "/",
   plugins: [react(), tailwindcss()],
   build: {
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -13,10 +14,13 @@ export default defineConfig({
             return;
           }
 
+          if (id.includes("lucide-react")) {
+            return "lucide-vendor";
+          }
+
           if (
             id.includes("@radix-ui") ||
             id.includes("@headlessui") ||
-            id.includes("lucide-react") ||
             id.includes("@heroicons")
           ) {
             return "ui-vendor";

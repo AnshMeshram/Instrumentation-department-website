@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
-import * as Icons from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  ExternalLink,
+  Menu,
+  PhoneCall,
+} from "lucide-react";
+import { resolveIcon } from "../config/iconMap";
 import MobileSidebar from "./MobileSidebar";
 import { NAV_GROUPS } from "../config/navigation";
 
@@ -17,34 +24,39 @@ const BREADCRUMB_PREFIX = [
 const FEATURED_CARDS = {
   "about-department": {
     title: "Meet the Faculty",
-    description: "Our world-class faculty drive innovation and teach the next generation of control engineers.",
-    cta: "Explore Faculty Profiles →",
-    path: "/faculty"
+    description:
+      "Our world-class faculty drive innovation and teach the next generation of control engineers.",
+    cta: "Explore Faculty Profiles",
+    path: "/faculty",
   },
-  "academics": {
+  academics: {
     title: "Curriculum & Syllabi",
-    description: "Browse detailed course structures and syllabus files for both B.Tech and M.Tech programs.",
-    cta: "View Curriculum →",
-    path: "/curriculum"
+    description:
+      "Browse detailed course structures and syllabus files for both B.Tech and M.Tech programs.",
+    cta: "View Curriculum",
+    path: "/curriculum",
   },
   "students-career": {
     title: "Careers & Placements",
-    description: "See our placement ratios, recruitment statistics, average packages, and top corporate partners.",
-    cta: "View Placement Records →",
-    path: "/internships-and-placements"
+    description:
+      "See our placement ratios, recruitment statistics, average packages, and top corporate partners.",
+    cta: "View Placement Records",
+    path: "/internships-and-placements",
   },
   "administration-governance": {
     title: "Board of Studies Minutes",
-    description: "Explore the constitution of our Board of Studies and view official minutes of meetings.",
-    cta: "Access Minutes →",
-    path: "/bos-committee-minutes"
+    description:
+      "Explore the constitution of our Board of Studies and view official minutes of meetings.",
+    cta: "Access Minutes",
+    path: "/bos-committee-minutes",
   },
   "notices-updates": {
     title: "Latest Bulletins",
-    description: "Read official department notices, circulars, and the latest annual progress reports.",
-    cta: "View Circulars & Notices →",
-    path: "/circulars-reports"
-  }
+    description:
+      "Read official department notices, circulars, and the latest annual progress reports.",
+    cta: "View Circulars & Notices",
+    path: "/circulars-reports",
+  },
 };
 
 export default function NavBar() {
@@ -88,11 +100,11 @@ export default function NavBar() {
   const getBreadcrumbs = () => {
     const path = location.pathname;
     const crumbs = [...BREADCRUMB_PREFIX];
-    
+
     // Find active label in menus
     let foundLabel = null;
-    NAV_GROUPS.forEach(group => {
-      const match = group.items.find(item => item.path === path);
+    NAV_GROUPS.forEach((group) => {
+      const match = group.items.find((item) => item.path === path);
       if (match) foundLabel = match.label;
     });
 
@@ -107,10 +119,13 @@ export default function NavBar() {
   };
 
   const isMenuGroupActive = (items) => {
-    return items.some(item => {
+    return items.some((item) => {
       if (item.external) return false;
       const pathBase = item.path.split("#")[0];
-      return location.pathname === pathBase || (pathBase !== "/" && location.pathname.startsWith(pathBase));
+      return (
+        location.pathname === pathBase ||
+        (pathBase !== "/" && location.pathname.startsWith(pathBase))
+      );
     });
   };
 
@@ -120,7 +135,7 @@ export default function NavBar() {
         "sticky top-0 z-50 w-full transition-all duration-300 border-b",
         isScrolled
           ? "bg-white/85 backdrop-blur-md border-[var(--color-border)] shadow-md"
-          : "bg-white border-transparent"
+          : "bg-white border-transparent",
       )}
     >
       {/* Top Banner and Logo Section */}
@@ -136,7 +151,11 @@ export default function NavBar() {
                 src="/college-logo/college_logo.jpg"
                 alt="COEP Technological University logo"
                 className="h-full w-full rounded-sm object-contain"
+                onError={(e) => {
+                  e.target.src = "/faculty_images/image.png";
+                }}
                 loading="eager"
+                decoding="async"
               />
             </div>
             <div className="min-w-0">
@@ -155,7 +174,7 @@ export default function NavBar() {
               to="/contact"
               className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-accent)] px-5 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-teal-600 active:scale-[0.97] ring-1 ring-white/10"
             >
-              <Icons.PhoneCall size={12} />
+              <PhoneCall size={12} />
               Contact Us
             </Link>
           </div>
@@ -166,7 +185,7 @@ export default function NavBar() {
               className="p-2 text-white hover:bg-white/10 rounded-lg transition"
               aria-label="Open navigation menu"
             >
-              <Icons.Menu size={24} />
+              <Menu size={24} />
             </button>
           </div>
         </div>
@@ -186,9 +205,10 @@ export default function NavBar() {
               const isOpen = openGroup === key;
               const featured = FEATURED_CARDS[key] || {
                 title: "Explore More",
-                description: "Find out more about the Department of Instrumentation & Control Engineering.",
-                cta: "Explore Now →",
-                path: "/about"
+                description:
+                  "Find out more about the Department of Instrumentation & Control Engineering.",
+                cta: "Explore Now",
+                path: "/about",
               };
 
               return (
@@ -198,24 +218,28 @@ export default function NavBar() {
                     onClick={() => setOpenGroup(isOpen ? null : key)}
                     className={clsx(
                       "flex items-center gap-1 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] transition duration-150 relative cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] rounded-md px-1",
-                      (isActive || isOpen) && "text-[var(--color-primary)]"
+                      (isActive || isOpen) && "text-[var(--color-primary)]",
                     )}
                   >
                     <span>{group.title}</span>
-                    <Icons.ChevronDown
+                    <ChevronDown
                       size={14}
                       className={clsx(
                         "mt-0.5 transition-transform duration-200 text-[var(--color-text-soft)]",
-                        isOpen && "rotate-180 text-[var(--color-primary)]"
+                        isOpen && "rotate-180 text-[var(--color-primary)]",
                       )}
                     />
-                    
+
                     {/* Sliding underline indicator */}
                     {(isActive || isOpen) && (
                       <Motion.span
                         layoutId="nav-underline"
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-accent)]"
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 350,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </button>
@@ -240,8 +264,9 @@ export default function NavBar() {
                             </h4>
                             <div className="grid grid-cols-1 gap-1">
                               {group.items.map((item) => {
-                                const IconComponent = Icons[item.icon] || Icons.HelpCircle;
-                                const isItemActive = location.pathname === item.path.split("#")[0];
+                                const IconComponent = resolveIcon(item.icon);
+                                const isItemActive =
+                                  location.pathname === item.path.split("#")[0];
 
                                 return (
                                   <Link
@@ -252,7 +277,7 @@ export default function NavBar() {
                                       "flex items-start gap-3 p-2.5 transition-all duration-200 group hover:translate-x-[2px]",
                                       isItemActive
                                         ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-semibold rounded-xl"
-                                        : "hover:bg-[var(--color-surface-soft)] text-[var(--color-text)] hover:rounded-xl"
+                                        : "hover:bg-[var(--color-surface-soft)] text-[var(--color-text)] hover:rounded-xl",
                                     )}
                                   >
                                     <div
@@ -260,7 +285,7 @@ export default function NavBar() {
                                         "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors",
                                         isItemActive
                                           ? "bg-white text-[var(--color-primary)] shadow-sm"
-                                          : "bg-[var(--color-primary-soft)] text-[var(--color-accent)] group-hover:bg-white"
+                                          : "bg-[var(--color-primary-soft)] text-[var(--color-accent)] group-hover:bg-white",
                                       )}
                                     >
                                       <IconComponent size={16} />
@@ -268,7 +293,12 @@ export default function NavBar() {
                                     <div className="space-y-0.5">
                                       <div className="flex items-center gap-1 text-sm font-semibold">
                                         <span>{item.label}</span>
-                                        {item.external && <Icons.ExternalLink size={10} className="opacity-60" />}
+                                        {item.external && (
+                                          <ExternalLink
+                                            size={10}
+                                            className="opacity-60"
+                                          />
+                                        )}
                                       </div>
                                       <p className="text-xs text-[var(--color-text-soft)] line-clamp-1 leading-normal font-normal">
                                         {item.description}
@@ -299,7 +329,7 @@ export default function NavBar() {
                               className="mt-6 inline-flex items-center gap-1 text-xs font-bold text-[var(--color-accent)] hover:text-white transition-colors"
                             >
                               <span>{featured.cta}</span>
-                              <Icons.ChevronRight size={14} />
+                              <ChevronRight size={14} />
                             </Link>
                           </div>
                         </div>
@@ -321,9 +351,12 @@ export default function NavBar() {
               {getBreadcrumbs().map((crumb, index, arr) => {
                 const isLast = index === arr.length - 1;
                 return (
-                  <li key={`${crumb}-${index}`} className="flex items-center gap-2">
+                  <li
+                    key={`${crumb}-${index}`}
+                    className="flex items-center gap-2"
+                  >
                     {index > 0 && (
-                      <Icons.ChevronRight
+                      <ChevronRight
                         size={10}
                         className="text-[var(--color-border-strong)] opacity-50"
                         aria-hidden="true"
@@ -334,7 +367,7 @@ export default function NavBar() {
                         "transition-colors",
                         isLast
                           ? "text-[var(--color-accent)] font-black"
-                          : "hover:text-[var(--color-primary)] cursor-default opacity-60"
+                          : "hover:text-[var(--color-primary)] cursor-default opacity-60",
                       )}
                     >
                       {crumb}
@@ -348,7 +381,10 @@ export default function NavBar() {
       </div>
 
       {/* Mobile Drawer menu */}
-      <MobileSidebar isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
+      <MobileSidebar
+        isOpen={isMobileOpen}
+        onClose={() => setIsMobileOpen(false)}
+      />
     </header>
   );
 }

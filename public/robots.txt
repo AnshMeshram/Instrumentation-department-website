@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://instrumentation-coep.netlify.app/sitemap.xml
