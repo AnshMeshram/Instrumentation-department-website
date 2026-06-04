@@ -2,7 +2,7 @@ import { ClipboardList, ExternalLink, Calendar, Users } from "lucide-react";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
 import PageHeader from "../components/PageHeader";
 import { Card, CardContent } from "../components/ui/card";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const MEMBERS = [
