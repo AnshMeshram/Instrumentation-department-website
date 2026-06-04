@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import PageHeader from "../components/PageHeader";
 import { Card, CardContent } from "../components/ui/card";
 import {
@@ -11,6 +11,7 @@ import {
 import { Badge } from "../components/ui/badge";
 import { Activity, Cpu, GitBranch, Settings, Play, RefreshCw, Info } from "lucide-react";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
+import { useInView } from "framer-motion";
 
 // Discrete PID loop simulation function
 function simulatePID(Kp, Ki, Kd, setpoint, plantType = "motor", injectDisturbance = false) {
@@ -140,6 +141,18 @@ function simulatePID(Kp, Ki, Kd, setpoint, plantType = "motor", injectDisturbanc
 }
 
 export default function VirtualLab() {
+  const labsRef = useRef(null);
+  const labsInView = useInView(labsRef, { once: true, margin: "-60px" });
+
+  const labLinks = [
+    { name: "Control Systems Lab", description: "PID, state-space, and feedback control experiments", icon: Settings, url: "https://coeptech.ac.in" },
+    { name: "Process Instrumentation Lab", description: "Sensors, transmitters, and process loops", icon: Activity, url: "https://coeptech.ac.in" },
+    { name: "Signal Processing Lab", description: "DSP, filter design, and spectral analysis", icon: GitBranch, url: "https://coeptech.ac.in" },
+    { name: "Embedded Systems Lab", description: "Microcontrollers, ARM, FPGA-based systems", icon: Cpu, url: "https://coeptech.ac.in" },
+    { name: "Biomedical Instrumentation Lab", description: "ECG, EEG, physiological measurement systems", icon: Activity, url: "https://coeptech.ac.in" },
+    { name: "VLSI & Sensors Lab", description: "IC design, sensor fabrication, and characterization", icon: Cpu, url: "https://coeptech.ac.in" },
+  ];
+
   const [plantType, setPlantType] = useState("motor");
   const [injectDisturbance, setInjectDisturbance] = useState(false);
   const [Kp, setKp] = useState(3.0);
@@ -284,6 +297,62 @@ export default function VirtualLab() {
         subtitle={plantSubtitles[plantType]}
         badgeText="Lab Simulator"
       />
+
+      {/* Physical Laboratories Section */}
+      <section
+        ref={labsRef}
+        style={{
+          opacity: labsInView ? 1 : 0,
+          transform: labsInView ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.45s ease, transform 0.45s ease"
+        }}
+        className="space-y-6"
+      >
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl font-black tracking-tight text-[var(--color-heading)] font-[var(--font-serif)]">
+            Physical Laboratories
+          </h2>
+          <p className="text-[var(--color-text-soft)] text-sm max-w-2xl font-medium">
+            Explore our state-of-the-art laboratory facilities equipped with industry-standard hardware, control systems, and computational tools.
+          </p>
+        </div>
+
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {labLinks.map((lab) => {
+            const Icon = lab.icon;
+            return (
+              <div
+                key={lab.name}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="space-y-4">
+                  <div className="inline-flex items-center justify-center p-3 rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] transition-colors group-hover:bg-[var(--color-accent)] group-hover:text-white">
+                    <Icon size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base text-[var(--color-heading)]">
+                      {lab.name}
+                    </h3>
+                    <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-soft)] font-medium">
+                      {lab.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <a
+                    href={lab.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-strong)] rounded-full transition-all"
+                  >
+                    Visit Lab <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       <div className="grid gap-8 lg:grid-cols-12">
         {/* Left Column: Control Panel */}

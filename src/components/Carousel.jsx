@@ -61,8 +61,8 @@ export default function Carousel({
       : current?.alt || `Slide ${index + 1}`;
 
   return (
-    <section
-      className={`relative w-full overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_30px_70px_-44px_rgba(7,24,44,0.55)] ${className}`}
+    <div
+      className={`relative w-full h-full overflow-hidden ${className}`}
     >
       <AnimatePresence initial={false}>
         {imageSrc && (
@@ -72,7 +72,7 @@ export default function Carousel({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 w-full h-full"
           >
             <img
               src={imageSrc}
@@ -90,7 +90,7 @@ export default function Carousel({
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5" />
 
       {images.length > 1 && (
-        <div className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md ring-1 ring-white/25 sm:right-6 sm:top-6">
+        <div className="absolute right-4 top-4 z-10 rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-md ring-1 ring-white/25 sm:right-6 sm:top-6">
           {String(index + 1).padStart(2, "0")} /{" "}
           {String(images.length).padStart(2, "0")}
         </div>
@@ -100,7 +100,7 @@ export default function Carousel({
         <>
           <button
             aria-label="Previous image"
-            className="group absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/18 p-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-md ring-1 ring-white/30 transition-all hover:bg-white/90 hover:text-[var(--color-primary)] active:scale-95 sm:left-6"
+            className="group absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/18 p-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-md ring-1 ring-white/30 transition-all hover:bg-white/90 hover:text-[var(--color-primary)] active:scale-95 sm:left-6"
             onClick={prev}
           >
             <ChevronLeft
@@ -111,7 +111,7 @@ export default function Carousel({
 
           <button
             aria-label="Next image"
-            className="group absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/18 p-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-md ring-1 ring-white/30 transition-all hover:bg-white/90 hover:text-[var(--color-primary)] active:scale-95 sm:right-6"
+            className="group absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/18 p-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.35)] backdrop-blur-md ring-1 ring-white/30 transition-all hover:bg-white/90 hover:text-[var(--color-primary)] active:scale-95 sm:right-6"
             onClick={next}
           >
             <ChevronRight
@@ -120,7 +120,7 @@ export default function Carousel({
             />
           </button>
 
-          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/12 px-3 py-2 backdrop-blur-md ring-1 ring-white/25 sm:bottom-6">
+          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/12 px-3 py-2 backdrop-blur-md ring-1 ring-white/25 sm:bottom-6">
             {images.map((_, i) => (
               <button
                 key={i}
@@ -144,6 +144,6 @@ export default function Carousel({
           </div>
         </>
       )}
-    </section>
+    </div>
   );
 }

@@ -59,7 +59,7 @@ export default function FacultyProfile() {
       {/* Main unified profile card */}
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-container)] bg-white shadow-2xl border border-[var(--color-border)]/50 flex flex-col lg:flex-row">
         {/* Left Side - Image */}
-        <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 bg-[var(--color-surface-soft)] flex flex-col justify-end h-80 sm:h-96 lg:h-auto lg:min-h-[400px]">
+        <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 overflow-hidden bg-[var(--color-surface-soft)] flex flex-col justify-end h-80 sm:h-96 lg:h-auto lg:min-h-[400px]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,164,0.1),transparent_50%)]" />
           <img
             src={initialImg}
@@ -70,6 +70,7 @@ export default function FacultyProfile() {
             }}
             loading="lazy"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
         </div>
 
         {/* Right Side - Info */}

@@ -13,145 +13,126 @@ import {
 import {
   getFacultyDocPath,
   getFacultyImage,
-  getFacultyMetrics,
   getTopDegree,
 } from "../lib/facultyDirectory";
 
 export default function FacultyCard({ faculty }) {
   const imgSrc = getFacultyImage(faculty.image);
   const docPath = getFacultyDocPath(faculty.id);
-  const metrics = getFacultyMetrics(faculty);
   const topDegree = getTopDegree(faculty);
 
   return (
-    <Card className="group overflow-hidden border border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-      <CardContent className="p-0">
-        <div className="flex flex-col xl:flex-row items-center p-4 gap-6">
-          <div className="relative w-72 h-72 shrink-0 overflow-hidden bg-[var(--color-surface-soft)] rounded-2xl shadow-inner">
-            <img
-              src={imgSrc}
-              alt={faculty.name}
-              className="absolute inset-0 h-full w-full object-cover rounded-2xl transition-all duration-1000 group-hover:scale-105"
-              onError={(e) => {
-                if (e?.target) e.target.src = "/faculty_images/image.png";
-              }}
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
-            <div className="absolute bottom-0 left-0 w-full p-4">
-              <Badge className="bg-white/10 px-2 py-0.5 text-[9px] text-white backdrop-blur-md border-white/20 uppercase tracking-widest font-bold">
-                Faculty
-              </Badge>
+    <Card className="group overflow-hidden border border-[var(--color-border)] bg-white rounded-[var(--radius-card)] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+      <CardContent className="p-0 flex flex-col h-full flex-1">
+        {/* Image section — fixed aspect ratio */}
+        <div className="relative w-full aspect-[3/2] overflow-hidden bg-[var(--color-surface-soft)] shrink-0">
+          <img
+            src={imgSrc}
+            alt={faculty.name}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              e.target.src = "/faculty_images/image.png";
+            }}
+            loading="lazy"
+          />
+          {/* Dark gradient overlay at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {/* Designation badge over image */}
+          <div className="absolute bottom-3 left-3">
+            <span className="rounded-full bg-[var(--color-primary)] px-3 py-1 text-[11px] font-bold text-white shadow-sm">
+              {faculty.designation}
+            </span>
+          </div>
+        </div>
+
+        {/* Content section */}
+        <div className="flex flex-col flex-1 p-5">
+          {/* Name + research area */}
+          <h3 className="font-serif text-xl font-black text-[var(--color-heading)] leading-tight group-hover:text-[var(--color-accent)] transition-colors">
+            {faculty.name}
+          </h3>
+          {topDegree && (
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+              {topDegree}
+            </p>
+          )}
+          <p className="mt-2 text-xs font-semibold text-[var(--color-text-soft)] uppercase tracking-wider line-clamp-2">
+            {faculty.research}
+          </p>
+
+          {/* Divider */}
+          <div className="my-4 h-px w-full bg-[var(--color-border)]" />
+
+          {/* Stats row — show all metrics from faculty.json */}
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="rounded-xl bg-[var(--color-surface-soft)] py-2 px-1">
+              <p className="text-lg font-black text-[var(--color-heading)]">
+                {faculty.publications?.length || 0}
+              </p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+                Papers
+              </p>
+            </div>
+            <div className="rounded-xl bg-[var(--color-surface-soft)] py-2 px-1">
+              <p className="text-lg font-black text-[var(--color-heading)]">
+                {faculty.patents?.length || 0}
+              </p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+                Patents
+              </p>
+            </div>
+            <div className="rounded-xl bg-[var(--color-surface-soft)] py-2 px-1">
+              <p className="text-lg font-black text-[var(--color-heading)]">
+                {faculty.achievements?.length || 0}
+              </p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">
+                Awards
+              </p>
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col p-7 md:p-10">
-            <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-3">
-                <Badge className="bg-[var(--color-primary)] px-3 py-1 text-white border-none">
-                  {faculty.designation}
-                </Badge>
-                <Badge className="border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-text)] px-3 py-1">
-                  {metrics.publicationCount} publications
-                </Badge>
-                <Badge className="border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-text)] px-3 py-1">
-                  {metrics.patentCount} patents
-                </Badge>
-              </div>
-
-              <h3 className="mt-5 font-[var(--font-serif)] text-3xl font-black leading-tight text-[var(--color-heading)] transition-colors duration-300 group-hover:text-[var(--color-accent)] md:text-4xl">
-                {faculty.name}
-              </h3>
-
-              <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
-                {topDegree}
-              </p>
-
-              <p className="mt-4 border-l-4 border-[var(--color-accent)] pl-4 text-base leading-relaxed text-[var(--color-text-soft)]">
-                {faculty.research}
-              </p>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <a
-                  href={`mailto:${faculty.email}`}
-                  className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all hover:bg-white hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 group-hover:bg-white"
-                >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg transition-transform hover:scale-105">
-                    <Mail size={18} />
-                  </div>
-                  <span className="truncate">{faculty.email}</span>
-                </a>
-                <a
-                  href={`tel:${faculty.phone.replace(/\s+/g, "")}`}
-                  className="flex items-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-4 text-sm font-bold text-[var(--color-text)] transition-all hover:bg-white hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 group-hover:bg-white"
-                >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)] text-white shadow-lg transition-transform hover:scale-105">
-                    <Phone size={18} />
-                  </div>
-                  <span>{faculty.phone}</span>
-                </a>
-              </div>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-                  <div className="flex items-center gap-2 text-[var(--color-text-soft)]">
-                    <GraduationCap size={15} />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">
-                      Education
-                    </span>
-                  </div>
-                  <p className="mt-2 text-2xl font-black text-[var(--color-heading)]">
-                    {metrics.educationCount}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-                  <div className="flex items-center gap-2 text-[var(--color-text-soft)]">
-                    <Briefcase size={15} />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">
-                      Experience
-                    </span>
-                  </div>
-                  <p className="mt-2 text-2xl font-black text-[var(--color-heading)]">
-                    {metrics.experienceCount}
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4">
-                  <div className="flex items-center gap-2 text-[var(--color-text-soft)]">
-                    <ScrollText size={15} />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">
-                      Achievements
-                    </span>
-                  </div>
-                  <p className="mt-2 text-2xl font-black text-[var(--color-heading)]">
-                    {metrics.achievementCount}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-7">
-              <Link
-                to={`/faculty/${faculty.id}`}
-                className="inline-flex items-center gap-3 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[var(--color-primary-strong)]"
-              >
-                View Full Profile
-                <ArrowRight size={16} />
-              </Link>
-              <div className="flex items-center gap-3">
-                {docPath ? (
-                  <a
-                    href={docPath}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[var(--color-heading)] transition-colors hover:border-[var(--color-border-strong)]"
-                  >
-                    <FileText size={14} />
-                    Profile Document
-                  </a>
-                ) : null}
-              </div>
-            </div>
+          {/* Contact row */}
+          <div className="mt-4 flex flex-col gap-2">
+            <a
+              href={"mailto:" + faculty.email}
+              className="flex items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-3 py-2 text-xs font-semibold text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              <Mail size={13} className="shrink-0" />
+              <span className="truncate">{faculty.email}</span>
+            </a>
+            <a
+              href={"tel:" + faculty.phone.replace(/\s+/g, "")}
+              className="flex items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-3 py-2 text-xs font-semibold text-[var(--color-text)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+            >
+              <Phone size={13} className="shrink-0" />
+              <span>{faculty.phone}</span>
+            </a>
           </div>
+
+          {/* Spacer pushes button to bottom */}
+          <div className="flex-1" />
+
+          {/* Show docPath above View Profile if it exists */}
+          {docPath && (
+            <a
+              href={docPath}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-[var(--color-border)] py-2 text-xs font-bold text-[var(--color-text)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] cursor-pointer"
+            >
+              <FileText size={13} />
+              Profile Document
+            </a>
+          )}
+
+          {/* View Profile CTA — full width, bottom of card */}
+          <Link
+            to={"/faculty/" + faculty.id}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-primary)] py-2.5 text-xs font-bold text-white transition-all hover:bg-[var(--color-accent)]"
+          >
+            View Profile
+            <ArrowRight size={13} />
+          </Link>
         </div>
       </CardContent>
     </Card>

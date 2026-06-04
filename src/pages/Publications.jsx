@@ -1,5 +1,6 @@
-import { useDeferredValue, useMemo, useState } from "react";
-import { ArrowUpRight, FileSearch, LibraryBig, Microscope } from "lucide-react";
+import { useDeferredValue, useMemo, useState, useRef } from "react";
+import { ArrowUpRight, FileSearch, LibraryBig, Microscope, BookOpen, Users } from "lucide-react";
+import { useInView } from "framer-motion";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
 import PublicationFilters from "../components/PublicationFilters";
 import PublicationTable from "../components/PublicationTable";
@@ -175,6 +176,9 @@ export default function Publications() {
     title: "Research Publications",
     description: "Browse indexing and publication records from our faculty members, including journals, conferences, and books in control and instrumentation systems.",
   });
+
+  const statsRevealRef = useRef(null);
+  const statsInView = useInView(statsRevealRef, { once: true, margin: "-60px" });
 
   const catalog = useMemo(() => buildPublicationCatalog(publicationsData), []);
   const options = useMemo(() => getPublicationOptions(catalog), [catalog]);
@@ -490,6 +494,44 @@ export default function Publications() {
             </div>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Stats Bar */}
+      <section
+        ref={statsRevealRef}
+        style={{
+          opacity: statsInView ? 1 : 0,
+          transform: statsInView ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.45s ease, transform 0.45s ease"
+        }}
+        className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5"
+      >
+        {[
+          { label: "Total Publications", value: summary.total, icon: LibraryBig },
+          { label: "Journal Papers", value: summary.journals, icon: Microscope },
+          { label: "Conference Papers", value: summary.conferences, icon: FileSearch },
+          { label: "Book Chapters", value: summary.books, icon: BookOpen },
+          { label: "Faculty Contributors", value: summary.facultyCount, icon: Users },
+        ].map((item) => {
+          const Icon = item.icon;
+          return (
+            <Card key={item.label} className="border-none bg-white shadow-sm hover:-translate-y-1 hover:shadow-md transition duration-300">
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+                    {item.label}
+                  </p>
+                  <div className="rounded-xl bg-[var(--color-primary-soft)] p-2.5 text-[var(--color-primary)]">
+                    <Icon size={16} />
+                  </div>
+                </div>
+                <p className="mt-4 font-[var(--font-serif)] text-4xl font-black text-[var(--color-heading)]">
+                  {item.value}
+                </p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </section>
 
       <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 p-2">

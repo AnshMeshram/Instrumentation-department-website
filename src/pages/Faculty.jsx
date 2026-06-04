@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import FacultyCard from "../components/FacultyCard";
 import facultyData from "../data/faculty.json";
 import PageHeader from "../components/PageHeader";
 import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { GraduationCap, ScrollText, Trophy, FolderOpenDot } from "lucide-react";
-import { motion as Motion, useReducedMotion } from "framer-motion";
+import { motion as Motion, useReducedMotion, useInView } from "framer-motion";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 const designationOrder = {
@@ -31,6 +31,8 @@ export default function Faculty() {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
+  const gridRevealRef = useRef(null);
+  const gridInView = useInView(gridRevealRef, { once: true, margin: "-60px" });
 
   const filteredFaculty = sortedFaculty.filter((faculty) => {
     const query = searchQuery.trim().toLowerCase();
@@ -199,39 +201,48 @@ export default function Faculty() {
           <p className="mt-2 text-sm text-[var(--color-text-soft)]">Try adjusting your search query.</p>
         </div>
       ) : (
-        <Motion.div
-          initial={reduceMotion ? false : "hidden"}
-          animate={reduceMotion ? false : "visible"}
-          variants={
-            reduceMotion
-              ? undefined
-              : {
-                  hidden: {},
-                  visible: { transition: { staggerChildren: 0.12 } },
-                }
-          }
-          className="grid grid-cols-1 gap-10"
+        <section
+          ref={gridRevealRef}
+          style={{
+            opacity: gridInView ? 1 : 0,
+            transform: gridInView ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.45s ease, transform 0.45s ease"
+          }}
         >
-          {filteredFaculty.map((faculty) => (
-            <Motion.div
-              key={faculty.id}
-              variants={
-                reduceMotion
-                  ? undefined
-                  : {
-                      hidden: { opacity: 0, y: 30 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { type: "spring", stiffness: 300, damping: 24 },
-                      },
-                    }
-              }
-            >
-              <FacultyCard faculty={faculty} />
-            </Motion.div>
-          ))}
-        </Motion.div>
+          <Motion.div
+            initial={reduceMotion ? false : "hidden"}
+            animate={reduceMotion ? false : "visible"}
+            variants={
+              reduceMotion
+                ? undefined
+                : {
+                    hidden: {},
+                    visible: { transition: { staggerChildren: 0.12 } },
+                  }
+            }
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {filteredFaculty.map((faculty) => (
+              <Motion.div
+                key={faculty.id}
+                variants={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        hidden: { opacity: 0, y: 30 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          transition: { type: "spring", stiffness: 300, damping: 24 },
+                        },
+                      }
+                }
+              >
+                <FacultyCard faculty={faculty} />
+              </Motion.div>
+            ))}
+          </Motion.div>
+        </section>
       )}
     </div>
   );

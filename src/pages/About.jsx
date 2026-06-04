@@ -189,7 +189,7 @@ export default function About() {
             </Motion.div>
           </Motion.div>
 
-          <div className="lg:col-span-5 w-full h-[300px] sm:h-[380px] lg:h-[460px]">
+          <div className="lg:col-span-5 w-full h-[300px] sm:h-[380px] lg:h-[460px] overflow-hidden">
             <div className="w-full h-full rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-md">
               <Carousel
                 images={carouselImages}

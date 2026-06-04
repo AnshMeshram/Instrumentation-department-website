@@ -1,12 +1,13 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import dayjs from "dayjs";
-import { BadgeCheck, FileStack } from "lucide-react";
+import { BadgeCheck, FileStack, CheckCircle, FileText, Clock } from "lucide-react";
 import PatentCard from "../components/PatentCard";
 import PatentFilters from "../components/PatentFilters";
 import PatentTable from "../components/PatentTable";
 import { Badge } from "../components/ui/badge";
+import { Card, CardContent } from "../components/ui/card";
 import patentsData from "../data/patents.json";
-import { motion as Motion, useReducedMotion } from "framer-motion";
+import { motion as Motion, useReducedMotion, useInView } from "framer-motion";
 import useDocumentMetadata from "../hooks/useDocumentMetadata";
 
 function getDateValue(patent) {
@@ -28,6 +29,8 @@ export default function Patents() {
     title: "Patents & Intellectual Property",
     description: "Explore the patents, innovations, and intellectual property filed and granted to the faculty and researchers of the department.",
   });
+  const statsRevealRef = useRef(null);
+  const statsInView = useInView(statsRevealRef, { once: true, margin: "-60px" });
   const reduceMotion = useReducedMotion();
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("All");
@@ -176,6 +179,43 @@ export default function Patents() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section
+        ref={statsRevealRef}
+        style={{
+          opacity: statsInView ? 1 : 0,
+          transform: statsInView ? "translateY(0)" : "translateY(24px)",
+          transition: "opacity 0.45s ease, transform 0.45s ease"
+        }}
+        className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+      >
+        {[
+          { label: "Total Patents", value: summary.total, icon: BadgeCheck },
+          { label: "Granted", value: summary.granted, icon: CheckCircle },
+          { label: "Published", value: summary.published, icon: FileText },
+          { label: "Applied", value: summary.applied, icon: Clock },
+        ].map((item) => {
+          const Icon = item.icon;
+          return (
+            <Card key={item.label} className="border-none bg-white shadow-sm hover:-translate-y-1 hover:shadow-md transition duration-300">
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+                    {item.label}
+                  </p>
+                  <div className="rounded-xl bg-[var(--color-primary-soft)] p-2.5 text-[var(--color-primary)]">
+                    <Icon size={16} />
+                  </div>
+                </div>
+                <p className="mt-4 font-[var(--font-serif)] text-4xl font-black text-[var(--color-heading)]">
+                  {item.value}
+                </p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </section>
 
       <PatentFilters
