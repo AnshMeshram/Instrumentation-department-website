@@ -60,11 +60,10 @@ export default function FacultyProfile() {
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-container)] bg-white shadow-2xl border border-[var(--color-border)]/50 flex flex-col lg:flex-row">
         {/* Left Side - Image */}
         <div className="relative w-full lg:w-[400px] xl:w-[450px] shrink-0 overflow-hidden bg-[var(--color-surface-soft)] flex flex-col justify-end h-80 sm:h-96 lg:h-auto lg:min-h-[400px]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,164,0.1),transparent_50%)]" />
           <img
             src={initialImg}
             alt={faculty.name}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-top"
             onError={(e) => {
               if (e?.target) e.target.src = "/faculty_images/image.png";
             }}
@@ -181,18 +180,18 @@ export default function FacultyProfile() {
             </div>
           )}
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <div className="flex items-center gap-2 rounded-xl bg-[var(--color-surface-soft)] px-5 py-3 text-xs font-bold text-[var(--color-heading)]">
-              <FileText className="text-[var(--color-accent)]" size={16} strokeWidth={2.5} />
-              {metrics.publicationCount} Publications
+          <div className="mt-8 grid grid-cols-3 divide-x divide-[var(--color-border)] rounded-2xl border border-[var(--color-border)] overflow-hidden">
+            <div className="flex flex-col items-center py-4 px-2">
+              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.publicationCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Publications</p>
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-[var(--color-surface-soft)] px-5 py-3 text-xs font-bold text-[var(--color-heading)]">
-              <Award className="text-[var(--color-accent)]" size={16} strokeWidth={2.5} />
-              {metrics.patentCount} Patents
+            <div className="flex flex-col items-center py-4 px-2">
+              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.patentCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Patents</p>
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-[var(--color-surface-soft)] px-5 py-3 text-xs font-bold text-[var(--color-heading)]">
-              <Briefcase className="text-[var(--color-accent)]" size={16} strokeWidth={2.5} />
-              {metrics.experienceCount} Experience
+            <div className="flex flex-col items-center py-4 px-2">
+              <p className="text-2xl font-black font-[var(--font-serif)] text-[var(--color-heading)]">{metrics.experienceCount}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-[var(--color-text-soft)]">Positions</p>
             </div>
           </div>
 
@@ -237,7 +236,7 @@ export default function FacultyProfile() {
       </div>
 
       <section className="mx-auto w-full max-w-6xl pt-4">
-        <div className="rounded-[var(--radius-container)] bg-white p-4 shadow-sm border border-[var(--color-border)]/50">
+        <div className="rounded-[var(--radius-container)] bg-white p-6 md:p-8 shadow-sm border border-[var(--color-border)]/50">
           <ProfileTabs faculty={faculty} />
         </div>
       </section>

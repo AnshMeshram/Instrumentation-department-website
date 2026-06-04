@@ -4,21 +4,12 @@ import {
   Award,
   BookOpen,
   Briefcase,
-  ChevronLeft,
-  ChevronRight,
   FileText,
   GraduationCap,
   Sparkles,
 } from "lucide-react";
 import { getFacultyDocPath } from "../lib/facultyDirectory";
 import { getSectionResources } from "../lib/facultySectionResources";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 
 const sectionIcons = {
   education: GraduationCap,
@@ -85,21 +76,6 @@ export default function ProfileTabs({ faculty }) {
       ...records,
     ];
   }, [activeTab, profileDocPath]);
-
-  const activeTabMeta = tabs.find((tab) => tab.key === activeTab) || tabs[0];
-  const activeIndex = tabs.findIndex((tab) => tab.key === activeTab);
-
-  const handleTabChange = (tabKey) => {
-    setActiveTab(tabKey);
-  };
-
-  const moveSection = (offset) => {
-    const nextIndex = activeIndex + offset;
-    if (nextIndex < 0 || nextIndex >= tabs.length) {
-      return;
-    }
-    setActiveTab(tabs[nextIndex].key);
-  };
 
   const renderSectionContent = (tabKey) => {
     if (tabKey === "education") {
@@ -206,105 +182,66 @@ export default function ProfileTabs({ faculty }) {
     );
   };
 
-  const ActiveIcon = sectionIcons[activeTabMeta.key];
-
   return (
-    <section className="mt-10 space-y-5">
-      <div className="rounded-2xl bg-[linear-gradient(180deg,#fafafa_0%,#ffffff_100%)] p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.25)]">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--color-accent)]">
-              Section Order
-            </p>
-            <div className="mt-2 flex items-center gap-3">
-              <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[var(--color-accent)] shadow-sm">
-                {ActiveIcon ? <ActiveIcon size={16} /> : <Sparkles size={16} />}
-              </div>
-              <div>
-                <p className="text-base font-black text-[var(--color-heading)]">
-                  {activeTabMeta.label}
-                </p>
-                <p className="text-sm text-[var(--color-text-soft)]">
-                  {activeTabMeta.description}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full md:w-80">
-            <Select value={activeTab} onValueChange={handleTabChange}>
-              <SelectTrigger className="h-12 rounded-xl border-none bg-white shadow-[0_14px_34px_-20px_rgba(0,0,0,0.35)] focus:ring-2 focus:ring-accent/20">
-                <SelectValue placeholder="Select profile section" />
-              </SelectTrigger>
-              <SelectContent className="rounded-xl border-none shadow-[0_24px_56px_-24px_rgba(0,0,0,0.35)]">
-                {tabs.map((tab, index) => (
-                  <SelectItem
-                    key={tab.key}
-                    value={tab.key}
-                    className="rounded-lg data-[highlighted]:bg-[var(--color-surface-soft)] data-[highlighted]:text-[var(--color-heading)]"
-                  >
-                    {String(index + 1).padStart(2, "0")} - {tab.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-border)]/70 pt-4">
-          <div className="inline-flex rounded-full bg-[var(--color-surface-soft)] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
-            Section {activeIndex + 1} of {tabs.length}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => moveSection(-1)}
-              disabled={activeIndex <= 0}
-              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <ChevronLeft size={14} />
-              Previous
-            </button>
-            <button
-              type="button"
-              onClick={() => moveSection(1)}
-              disabled={activeIndex >= tabs.length - 1}
-              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Next
-              <ChevronRight size={14} />
-            </button>
-          </div>
-        </div>
-
-        {sectionResources.length ? (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {sectionResources.map((resource) => (
-              <a
-                key={`${resource.href}-${resource.label}`}
-                href={resource.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-heading)] shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5"
+    <section className="space-y-0">
+      {/* Horizontal scrollable tab bar */}
+      <div className="border-b border-[var(--color-border)]">
+        <div className="flex overflow-x-auto scrollbar-none gap-0">
+          {tabs.map((tab) => {
+            const Icon = sectionIcons[tab.key];
+            const isActive = activeTab === tab.key;
+            return (
+              <button
+                key={tab.key}
+                type="button"
+                onClick={() => setActiveTab(tab.key)}
+                className={[
+                  "flex shrink-0 items-center gap-2 border-b-2 px-5 py-4 text-[12px] font-bold uppercase tracking-[0.12em] transition-colors whitespace-nowrap",
+                  isActive
+                    ? "border-[var(--color-accent)] text-[var(--color-heading)]"
+                    : "border-transparent text-[var(--color-text-soft)] hover:text-[var(--color-heading)]"
+                ].join(" ")}
               >
-                <FileText size={12} />
-                {resource.label}
-                <span className="rounded-full bg-[var(--color-surface-soft)] px-2 py-0.5 text-[9px] text-[var(--color-text-soft)]">
-                  {resource.type}
-                </span>
-              </a>
-            ))}
-          </div>
-        ) : null}
+                {Icon && <Icon size={13} />}
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="min-h-[28rem] rounded-2xl bg-white p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.25)]">
+      {/* Tab content */}
+      <div className="min-h-[20rem] p-6">
         <AnimatePresence mode="wait" initial={false}>
           <Motion.div
-            transition={{ duration: 0.24, ease: "easeOut" }}
+            key={activeTab}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
             {renderSectionContent(activeTab)}
+
+            {/* Section resources */}
+            {sectionResources.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-[var(--color-border)] pt-6">
+                {sectionResources.map((resource) => (
+                  <a
+                    key={`${resource.href}-${resource.label}`}
+                    href={resource.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-heading)] transition hover:-translate-y-0.5 hover:shadow-sm"
+                  >
+                    <FileText size={12} />
+                    {resource.label}
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[9px] text-[var(--color-text-soft)]">
+                      {resource.type}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            )}
           </Motion.div>
         </AnimatePresence>
       </div>

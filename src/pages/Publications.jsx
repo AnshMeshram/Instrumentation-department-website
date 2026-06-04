@@ -339,7 +339,7 @@ export default function Publications() {
               </Badge>
             </div>
 
-            <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+            <h1 className="mt-8 font-[var(--font-serif)] text-4xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-5xl">
               Academic Publications
             </h1>
 

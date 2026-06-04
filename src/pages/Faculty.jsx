@@ -86,7 +86,6 @@ export default function Faculty() {
       />
 
       <section className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-6 py-8 shadow-sm md:px-8">
-        <div className="absolute right-0 top-0 h-64 w-64 -translate-y-24 translate-x-16 rounded-full bg-[var(--color-accent)]/10 blur-3xl" />
         <div className="relative">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] pb-6">
             <div>
@@ -144,7 +143,7 @@ export default function Faculty() {
                           <Icon size={16} />
                         </div>
                       </div>
-                      <p className="mt-4 font-[var(--font-serif)] text-4xl font-black text-[var(--color-heading)]">
+                      <p className="mt-4 font-[var(--font-serif)] text-5xl font-black text-[var(--color-heading)]">
                         {item.value}
                       </p>
                     </CardContent>

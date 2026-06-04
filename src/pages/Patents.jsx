@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef } from "react";
 import dayjs from "dayjs";
-import { BadgeCheck, FileStack, CheckCircle, FileText, Clock } from "lucide-react";
+import { BadgeCheck, FileStack, CheckCircle2, FileText, Clock } from "lucide-react";
 import PatentCard from "../components/PatentCard";
 import PatentFilters from "../components/PatentFilters";
 import PatentTable from "../components/PatentTable";
@@ -125,7 +125,7 @@ export default function Patents() {
                 </Badge>
               </div>
 
-              <h1 className="mt-8 font-[var(--font-serif)] text-5xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-6xl">
+              <h1 className="mt-8 font-[var(--font-serif)] text-4xl font-black leading-[1.1] tracking-tight text-[var(--color-heading)] md:text-5xl">
                 Patents and Innovation
               </h1>
 
@@ -146,6 +146,7 @@ export default function Patents() {
 
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-[var(--color-border)] pt-8">
             <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-soft)]/50 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <BadgeCheck size={16} className="mb-2 text-[var(--color-text-soft)]" />
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-text-soft)]">
                 Total
               </p>
@@ -154,6 +155,7 @@ export default function Patents() {
               </p>
             </div>
             <div className="rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <CheckCircle2 size={16} className="mb-2 text-[var(--color-accent)]" />
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                 Granted
               </p>
@@ -162,6 +164,7 @@ export default function Patents() {
               </p>
             </div>
             <div className="rounded-2xl border border-[var(--color-highlight)]/20 bg-[var(--color-highlight)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <FileStack size={16} className="mb-2 text-[var(--color-highlight)]" />
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-highlight)]">
                 Published
               </p>
@@ -170,6 +173,7 @@ export default function Patents() {
               </p>
             </div>
             <div className="rounded-2xl border border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 px-5 py-5 transition-all hover:bg-white hover:shadow-sm">
+              <Clock size={16} className="mb-2 text-[var(--color-text-soft)]" />
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)]">
                 Applied
               </p>
@@ -193,7 +197,7 @@ export default function Patents() {
       >
         {[
           { label: "Total Patents", value: summary.total, icon: BadgeCheck },
-          { label: "Granted", value: summary.granted, icon: CheckCircle },
+          { label: "Granted", value: summary.granted, icon: CheckCircle2 },
           { label: "Published", value: summary.published, icon: FileText },
           { label: "Applied", value: summary.applied, icon: Clock },
         ].map((item) => {
